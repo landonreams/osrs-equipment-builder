@@ -1,4 +1,9 @@
 package com.osrs.items;
+/**
+ * Stores the data for an equippable item
+ * @author Landon Reams
+ *
+ */
 public class Equippable {
 	private String name;
 	private SlotType   slot;

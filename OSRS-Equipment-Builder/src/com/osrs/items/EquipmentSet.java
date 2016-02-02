@@ -18,7 +18,9 @@ public class EquipmentSet {
 	 */
 	
 	private static final Equippable empty = new Equippable();
-	
+	/**
+	 * Creates a new empty Equipment Set
+	 */
 	public EquipmentSet(){
 		db = new ItemDatabase();
 		gear = new Equippable[11];
@@ -28,7 +30,10 @@ public class EquipmentSet {
 		}
 	
 	}
-	
+	/**
+	 * Creates an equipment set of the given items
+	 * @param items
+	 */
 	public EquipmentSet(String[] items){
 		db = new ItemDatabase();
 		gear = new Equippable[11];
@@ -39,9 +44,11 @@ public class EquipmentSet {
 		
 		this.equipArray(items);
 	}
-
-	/*
-	 * @Throws IllegalArgumentException
+	
+	/**
+	 * Equips a given item by getting said item from the database
+	 * @param itemName
+	 * @throws IllegalArgumentException
 	 */
 	public void equip(String itemName){
 		Equippable item = db.getItem(itemName);
