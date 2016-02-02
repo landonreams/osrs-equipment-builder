@@ -1,10 +1,6 @@
 package com.osrs.items;
 public class EquipmentSet {
 	private ItemDatabase db;
-	
-	private Equippable mainhand, offhand, helmet, body, legs,
-					  gloves, boots, ring, neck, cape, ammo;
-	
 	private Equippable[] gear;
 	
 	/*
@@ -76,40 +72,24 @@ public class EquipmentSet {
 		}
 	}
 	
-	public int[] getOffensives(){
-		int[] offensives = new int[5];
+	public int[] getStats(){
+		int[] stats = new int[14];
 		
 		for(Equippable e : gear){
-			int[] gearOffensives = e.getOffensives();
+			int[] gearStats = e.getStats();
 			for(int i = 0; i < 5; i++){
-				offensives[i] += gearOffensives[i];
+				stats[i] += gearStats[i];
 			}
 		}
-		return offensives;
+		return stats;
 	}
 	
-	public int[] getDefensives(){
-		int[] defensives = new int[5];
-		
+	public int getStat(StatType statType){
+		int stat = 0;
 		for(Equippable e : gear){
-			int[] gearDefensives = e.getDefensives();
-			for(int i = 0; i < 5; i++){
-				defensives[i] += gearDefensives[i];
-			}
+			stat += e.getStat(statType);
 		}
-		return defensives;
-	}
-	
-	public int[] getMisc(){
-		int[] misc = new int[4];
-		
-		for(Equippable e : gear){
-			int[] gearMisc = e.getMisc();
-			for(int i = 0; i < 4; i++){
-				misc[i] += gearMisc[i];
-			}
-		}
-		return misc;
+		return stat;
 	}
 
 }

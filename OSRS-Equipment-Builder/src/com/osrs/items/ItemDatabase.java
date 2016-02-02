@@ -54,24 +54,22 @@ public class ItemDatabase {
 				
 				SlotType slot = stringToSlot(slotString);	
 				
-				int[] offensiveStats = { rs.getInt("StabAccuracy"),
-										 rs.getInt("SlashAccuracy"),
-										 rs.getInt("CrushAccuracy"),
-										 rs.getInt("MageAccuracy"),
-										 rs.getInt("RangeAccuracy") };
+				int[] stats = { rs.getInt("StabAccuracy"),
+								rs.getInt("SlashAccuracy"),
+								rs.getInt("CrushAccuracy"),
+			    				rs.getInt("MageAccuracy"),
+								rs.getInt("RangeAccuracy"),
+								rs.getInt("StabDefence"),
+								rs.getInt("SlashDefence"),
+								rs.getInt("CrushDefence"),
+							    rs.getInt("MageDefence"),
+							    rs.getInt("RangeDefence"),
+							    rs.getInt("MeleeStrength"),
+								rs.getInt("RangeStrength"),
+								rs.getInt("MageDamage"),
+								rs.getInt("Prayer") };
 				
-				int[] defensiveStats = { rs.getInt("StabDefence"),
-										 rs.getInt("SlashDefence"),
-										 rs.getInt("CrushDefence"),
-										 rs.getInt("MageDefence"),
-										 rs.getInt("RangeDefence") };
-				
-				int[] miscStats = { rs.getInt("MeleeStrength"),
-									rs.getInt("RangeStrength"),
-									rs.getInt("MageDamage"),
-									rs.getInt("Prayer") };
-				
-				result = new Equippable(name, slot, offensiveStats, defensiveStats, miscStats, isTwoHanded);
+				result = new Equippable(name, slot, stats, isTwoHanded);
 			}
 			
 			conn.close();
