@@ -1,5 +1,5 @@
 package com.osrs.items;
-public class Equipable {
+public class Equippable {
 	private String name;
 	private SlotType   slot;
 	private int[]  offensiveStats;
@@ -28,7 +28,15 @@ public class Equipable {
 	 * Better stored as a 2D 5x3 array? Accuracy, Defence, Misc.?
 	 */
 	
-	public Equipable(String name, SlotType slot, int[] offensiveStats, int[] defensiveStats, int[] miscStats){
+	public Equippable(){
+		name = "Empty";
+		slot = null;
+		offensiveStats = new int[]{ 0, 0, 0, 0, 0 };
+		defensiveStats = new int[]{ 0, 0, 0, 0, 0 };
+		miscStats      = new int[]{ 0, 0, 0, 0 };
+	}
+	
+	public Equippable(String name, SlotType slot, int[] offensiveStats, int[] defensiveStats, int[] miscStats){
 		this.name = name;
 		this.slot = slot;
 		this.offensiveStats = offensiveStats;
