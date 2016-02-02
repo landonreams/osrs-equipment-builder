@@ -78,11 +78,4 @@ public class ItemDatabase {
 		
 		return result;
 	}
-	
-	public static void main(String[] args){
-		EquipmentSet zulrah = new EquipmentSet();
-		
-		
-	
-	}
 }
