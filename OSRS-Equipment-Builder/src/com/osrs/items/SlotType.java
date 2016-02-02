@@ -1,16 +1,14 @@
 package com.osrs.items;
 public enum SlotType {
-	MAINHAND("Mainhand"), OFFHAND("Offhand"), TWOHAND("Two-hand"), 
-	HEAD("Helmet"), BODY("Body"), LEGS("Legs"), CAPE("Cape"),
-	GLOVES("Gloves"), BOOTS("Boots"), NECK("Neck"), RING("Ring"), AMMO("Ammo");
+	MAINHAND(0), OFFHAND(1), 
+	HEAD(2), BODY(3), LEGS(4), CAPE(5),
+	GLOVES(6), BOOTS(7), NECK(8), RING(9), AMMO(10);
 	
-	private String name;
+	public final int index;
 	
-	private SlotType(String name){
-		this.name = name;
+	private SlotType(int index){
+		this.index = index;
 	}
 	
-	public String toString(){
-		return name;
-	}
+	
 }

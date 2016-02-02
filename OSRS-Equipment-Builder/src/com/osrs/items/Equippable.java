@@ -2,6 +2,7 @@ package com.osrs.items;
 public class Equippable {
 	private String name;
 	private SlotType   slot;
+	private boolean twoHanded;
 	private int[]  offensiveStats;
 	private int[]  defensiveStats;
 	private int[]  miscStats;
@@ -34,14 +35,16 @@ public class Equippable {
 		offensiveStats = new int[]{ 0, 0, 0, 0, 0 };
 		defensiveStats = new int[]{ 0, 0, 0, 0, 0 };
 		miscStats      = new int[]{ 0, 0, 0, 0 };
+		twoHanded = false;
 	}
 	
-	public Equippable(String name, SlotType slot, int[] offensiveStats, int[] defensiveStats, int[] miscStats){
+	public Equippable(String name, SlotType slot, int[] offensiveStats, int[] defensiveStats, int[] miscStats, boolean twoHanded){
 		this.name = name;
 		this.slot = slot;
 		this.offensiveStats = offensiveStats;
 		this.defensiveStats = defensiveStats;
 		this.miscStats = miscStats;
+		this.twoHanded = twoHanded;
 	}
 	
 	public String getName(){
@@ -62,6 +65,10 @@ public class Equippable {
 	
 	public int[] getMisc(){
 		return miscStats;
+	}
+	
+	public boolean isTwoHanded(){
+		return twoHanded;
 	}
 	
 }

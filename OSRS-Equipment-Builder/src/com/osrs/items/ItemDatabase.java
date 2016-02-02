@@ -20,7 +20,7 @@ public class ItemDatabase {
 		case "Shield": result = SlotType.OFFHAND; break;
 		case "Legs":   result = SlotType.LEGS; break;
 		case "Gloves": result = SlotType.GLOVES; break;
-		case "2h":     result = SlotType.TWOHAND; break;
+		case "2h":     result = SlotType.MAINHAND; break;
 		case "Ring":   result = SlotType.RING; break;
 		case "Boots":  result = SlotType.BOOTS; break;
 		default: throw new IllegalArgumentException("Invalid slot type: "+slot);
@@ -49,7 +49,10 @@ public class ItemDatabase {
 			
 				String name = rs.getString("Item");
 				
-				SlotType slot = stringToSlot(rs.getString("Slot"));	
+				String slotString = rs.getString("Slot");
+				boolean isTwoHanded = slotString.equals("2h");
+				
+				SlotType slot = stringToSlot(slotString);	
 				
 				int[] offensiveStats = { rs.getInt("StabAccuracy"),
 										 rs.getInt("SlashAccuracy"),
@@ -68,7 +71,7 @@ public class ItemDatabase {
 									rs.getInt("MageDamage"),
 									rs.getInt("Prayer") };
 				
-				result = new Equippable(name, slot, offensiveStats, defensiveStats, miscStats);
+				result = new Equippable(name, slot, offensiveStats, defensiveStats, miscStats, isTwoHanded);
 			}
 			
 			conn.close();
