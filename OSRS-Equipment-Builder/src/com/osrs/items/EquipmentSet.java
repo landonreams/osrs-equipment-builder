@@ -1,4 +1,10 @@
+
 package com.osrs.items;
+/**
+ * An Equipment set consisting of all item slots
+ * @author Landon Reams
+ *
+ */
 public class EquipmentSet {
 	private ItemDatabase db;
 	
@@ -22,7 +28,9 @@ public class EquipmentSet {
 	 */
 	
 	private static final Equippable empty = new Equippable();
-	
+	/**
+	 * Creates a new empty Equipment Set
+	 */
 	public EquipmentSet(){
 		db = new ItemDatabase();
 		gear = new Equippable[11];
@@ -32,7 +40,10 @@ public class EquipmentSet {
 		}
 	
 	}
-	
+	/**
+	 * Creates an equipment set of the given items
+	 * @param items
+	 */
 	public EquipmentSet(String[] items){
 		db = new ItemDatabase();
 		gear = new Equippable[11];
@@ -47,6 +58,10 @@ public class EquipmentSet {
 	/*
 	 * @Throws IllegalArgumentException
 	 */
+	/**
+	 * Equips a given item by getting said item from the database
+	 * @param itemName
+	 */
 	public void equip(String itemName){
 		Equippable item = db.getItem(itemName);
 		if(item == null){
@@ -59,23 +74,34 @@ public class EquipmentSet {
 			gear[SlotType.OFFHAND.index] = empty;
 		
 	}
-	
+	/**
+	 * Equips an array of items
+	 * @param items
+	 */
 	public void equipArray(String[] items){
 		for(String item : items){
 			this.equip(item);
 		}
 	}
-	
+	/**
+	 * Clears a slot of it's item
+	 * @param slot
+	 */
 	public void clearSlot(SlotType slot){
 		gear[slot.index] = empty;
 	}
-	
+	/**
+	 * Clears all item slots
+	 */
 	public void clearAll(){
 		for(int i = 0; i < gear.length; i++){
 			gear[i] = empty;
 		}
 	}
-	
+	/**
+	 * Get array of offensives
+	 * @return array of offensives
+	 */
 	public int[] getOffensives(){
 		int[] offensives = new int[5];
 		
@@ -87,7 +113,10 @@ public class EquipmentSet {
 		}
 		return offensives;
 	}
-	
+	/**
+	 * Get array of defensives
+	 * @return array of defensives
+	 */
 	public int[] getDefensives(){
 		int[] defensives = new int[5];
 		
@@ -99,7 +128,10 @@ public class EquipmentSet {
 		}
 		return defensives;
 	}
-	
+	/**
+	 * Get array of Miscs
+	 * @return array of Miscs
+	 */
 	public int[] getMisc(){
 		int[] misc = new int[4];
 		

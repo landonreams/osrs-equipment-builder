@@ -1,4 +1,9 @@
 package com.osrs.items;
+/**
+ * Stores the data for an equippable item
+ * @author Landon Reams
+ *
+ */
 public class Equippable {
 	private String name;
 	private SlotType   slot;
@@ -28,7 +33,9 @@ public class Equippable {
 	 * 
 	 * Better stored as a 2D 5x3 array? Accuracy, Defence, Misc.?
 	 */
-	
+	/**
+	 * Creates an empty Eqippable item with all stats set to zero
+	 */
 	public Equippable(){
 		name = "Empty";
 		slot = null;
@@ -37,7 +44,15 @@ public class Equippable {
 		miscStats      = new int[]{ 0, 0, 0, 0 };
 		twoHanded = false;
 	}
-	
+	/**
+	 * Creates an Equippable item based on parameters
+	 * @param name
+	 * @param slot
+	 * @param offensiveStats
+	 * @param defensiveStats
+	 * @param miscStats
+	 * @param twoHanded
+	 */
 	public Equippable(String name, SlotType slot, int[] offensiveStats, int[] defensiveStats, int[] miscStats, boolean twoHanded){
 		this.name = name;
 		this.slot = slot;
@@ -46,23 +61,38 @@ public class Equippable {
 		this.miscStats = miscStats;
 		this.twoHanded = twoHanded;
 	}
-	
+	/**
+	 * Gets the name of the item
+	 * @return The name of the item
+	 */
 	public String getName(){
 		return name;
 	}
-	
+	/**
+	 * Gets the slot of the item
+	 * @return The slot of the item
+	 */
 	public SlotType getSlot(){
 		return slot;
 	}
-	
+	/**
+	 * Gets the array of defensive stats of the item
+	 * @return The defensive stats of the item
+	 */
 	public int[] getOffensives(){
 		return offensiveStats;
 	}
-	
+	/**
+	 * Gets the array of defensive stats of the item
+	 * @return The defensive stats of the item
+	 */
 	public int[] getDefensives(){
 		return defensiveStats;
 	}
-	
+	/**
+	 * Gets the array of the misc stats of the item
+	 * @return The misc stats of the item
+	 */
 	public int[] getMisc(){
 		return miscStats;
 	}

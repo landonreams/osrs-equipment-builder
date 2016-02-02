@@ -1,12 +1,19 @@
 package com.osrs.items;
 
 import java.sql.*;
-
+/**
+ * Item Database object for retrieving items from the database
+ * @author Landon Reams
+ */
 public class ItemDatabase {
 	private Connection conn;
 	private PreparedStatement stmt;
 	private ResultSet rs;
-	
+	/**
+	 * Gets the slot type enumeration for the slot type found in the database.
+	 * @param slot
+	 * @return
+	 */
 	private static SlotType stringToSlot(String slot){
 		SlotType result = null;
 		
@@ -28,13 +35,17 @@ public class ItemDatabase {
 		
 		return result;
 	}
-	
+
 	public ItemDatabase(){
 		conn = null;
 		stmt = null;
 		rs   = null;
 	}
-	
+	/**
+	 * Gets item from database based on item name
+	 * @param item
+	 * @return Requested Item As Equippable
+	 */
 	public Equippable getItem(String item){
 		Equippable result = null;
 		
