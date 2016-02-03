@@ -16,19 +16,22 @@ public class Player extends NPC {
 	public Player(){
 		gear   = new EquipmentSet();
 		levels = new int[7];
+		style  = CombatStyle.CONTROLLED;
 	}
 	
 	/*
 	 * Player constructor allowing for equipment and level initialization.
 	 * @param equipment
 	 * @param levels
+	 * @param style
 	 * @throws IllegalArgumentException
 	 */
-	public Player(String[] equipment, int[] levels){
+	public Player(String[] equipment, int[] levels, CombatStyle style){
 		if(levels.length != 7)
 			throw new IllegalArgumentException("Incorrect size of levels array! Levels array must contain 7 indices.");
 		this.gear   = new EquipmentSet(equipment);
 		this.levels = levels;
+		this.style = style;
 	}
 	
 	/*
@@ -65,5 +68,9 @@ public class Player extends NPC {
 	@Override
 	public int getStat(StatType statType){
 		return gear.getStat(statType);
+	}
+	
+	public void setStyle(CombatStyle style){
+		this.style = style;
 	}
 }

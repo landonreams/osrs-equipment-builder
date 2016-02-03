@@ -9,6 +9,7 @@ import com.osrs.items.StatType;
 public class NPC {
 	protected int[] levels;
 	protected int[] stats;
+	protected CombatStyle style;
 	
 	/*
 	 * Default constructor for NPC class.
@@ -16,6 +17,7 @@ public class NPC {
 	public NPC(){
 		levels = new int[7];
 		stats  = new int[14];
+		style  = CombatStyle.CONTROLLED;
 	}
 	
 	/*
@@ -32,7 +34,7 @@ public class NPC {
 		
 		this.levels = levels;
 		this.stats  = stats;
-		
+		style  = CombatStyle.CONTROLLED;
 	}
 	
 	/*
