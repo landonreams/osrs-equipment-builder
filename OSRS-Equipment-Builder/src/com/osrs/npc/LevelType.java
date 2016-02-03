@@ -1,6 +1,6 @@
 package com.osrs.npc;
 
-/*
+/**
  * Enumeration of skills a NPC or Player can have.
  * @author Landon Reams
  */

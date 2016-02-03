@@ -2,74 +2,53 @@ package com.osrs.npc;
 
 import com.osrs.items.StatType;
 
-/*
- * Defines a NPC for use in combat calculations.
+/**
+ * Class for creating a NPC with finite stats and no equipment selection.
  * @author Landon Reams
  */
-public class NPC {
-	protected int[] levels;
-	protected int[] stats;
-	protected CombatStyle style;
+public class NPC extends Fightable {
+	private int[] stats;
 	
-	/*
-	 * Default constructor for NPC class.
+	
+	/**
+	 *  Default NPC constructor
 	 */
 	public NPC(){
-		levels = new int[7];
-		stats  = new int[14];
-		style  = CombatStyle.CONTROLLED;
+		super();
+		stats = new int[14];
 	}
 	
-	/*
-	 * Constructor allowing for skill and stat assignment.
+	/**
+	 * NPC constructor receiving an int array of levels and of stats 
 	 * @param levels
 	 * @param stats
 	 * @throws IllegalArgumentException
 	 */
 	public NPC(int[] levels, int[] stats){
-		if(levels.length != 7)
-			throw new IllegalArgumentException("Incorrect number of indices in levels array!");
-		if(stats.length != 14)
-			throw new IllegalArgumentException("Incorrect number of indices in stats array!");
-		
-		this.levels = levels;
-		this.stats  = stats;
-		style  = CombatStyle.CONTROLLED;
+		super(levels);
+		this.stats = stats;
 	}
 	
-	/*
-	 * Getter method for levels array.
-	 * @return levels
-	 */
-	public int[] getLevels(){
-		return levels;
-	}
-	
-	/*
-	 * Getter method for stats array.
-	 * @return stats
-	 */
-	public int[] getStats(){
+	@Override
+	public int[] getStats() {
 		return stats;
 	}
-	
-	/*
-	 * Getter method for a single level.
-	 * @param levelType
-	 * @return skill
-	 */
-	public int getLevel(LevelType levelType){
-		return levels[levelType.index];
+
+	@Override
+	public int[] getLevels() {
+		return levels;
+	}
+
+	@Override
+	public int getStat(StatType stat) {
+		return stats[stat.index];
+	}
+
+	@Override
+	public int getLevel(LevelType level) {
+		return levels[level.index];
 	}
 	
-	/*
-	 * Getter method for a single stat.
-	 * @param statType
-	 * @return stat
-	 */
-	public int getStat(StatType statType){
-		return stats[statType.index];
-	}
 		
 	
 }

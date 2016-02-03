@@ -3,74 +3,70 @@ package com.osrs.npc;
 import com.osrs.items.EquipmentSet;
 import com.osrs.items.StatType;
 
-/*
+/**
  * Class to simulate Player in combat. Players use Equipment sets rather than stat array.
  * @author Landon Reams
  */
-public class Player extends NPC {
+public class Player extends Fightable {
 	private EquipmentSet gear;
 	
-	/*
-	 * Default constructor for a Player object.
+	/**
+	 * Default constructor taking no parameters.
 	 */
 	public Player(){
-		gear   = new EquipmentSet();
-		levels = new int[7];
-		style  = CombatStyle.CONTROLLED;
+		super();
+		gear = new EquipmentSet();
 	}
 	
-	/*
-	 * Player constructor allowing for equipment and level initialization.
+	/**
+	 * Constructor taking a string array of desired equipment.
 	 * @param equipment
+	 */
+	public Player(String[] equipment){
+		super();
+		gear = new EquipmentSet(equipment);
+	}
+	
+	/**
+	 * Constructor taking an int array of levels.
 	 * @param levels
-	 * @param style
-	 * @throws IllegalArgumentException
 	 */
-	public Player(String[] equipment, int[] levels, CombatStyle style){
-		if(levels.length != 7)
-			throw new IllegalArgumentException("Incorrect size of levels array! Levels array must contain 7 indices.");
-		this.gear   = new EquipmentSet(equipment);
-		this.levels = levels;
-		this.style = style;
+	public Player(int[] levels){
+		super(levels);
+		gear = new EquipmentSet();
 	}
 	
-	/*
-	 * Equips a single item.
-	 * @param item
-	 */
-	public void equip(String item){
-		gear.equip(item);
-	}
-
-	/*
-	 * Equips a string array of equipment.
+	/**
+	 * Constructor taking both an int array of levels and string array of equipment.
+	 * @param levels
 	 * @param equipment
 	 */
-	public void equipArray(String[] equipment){
-		gear.equipArray(equipment);
+	public Player(int[] levels, String[] equipment){
+		super(levels);
+		gear = new EquipmentSet(equipment);
 	}
 	
-	
-	/*
-	 * Getter method for stats array.
-	 * @return stats
-	 */
 	@Override
-	public int[] getStats(){
+	public int[] getStats() {
 		return gear.getStats();
 	}
-	
-	/*
-	 * Getter method for a single stat.
-	 * @param statType
-	 * @return stat
-	 */
+
 	@Override
-	public int getStat(StatType statType){
-		return gear.getStat(statType);
+	public int[] getLevels() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getStat(StatType stat) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getLevel(LevelType level) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
-	public void setStyle(CombatStyle style){
-		this.style = style;
-	}
 }
