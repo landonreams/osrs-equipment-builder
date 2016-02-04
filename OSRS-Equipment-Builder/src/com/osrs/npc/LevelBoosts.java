@@ -14,15 +14,8 @@ public class LevelBoosts {
 	 */
 	public static int applyPotion(Potions pot, int level){
 		double boostedLevel = level;
-		switch(pot){
-		case REGULAR: boostedLevel = 3 + 1.10 * level; break;
-		case SUPER:   boostedLevel = 5 + 1.15 * level; break;
-		case RANGED:  boostedLevel = 4 + 1.10 * level; break;
-		case MAGIC:   boostedLevel = 4 +        level; break;
-		case ZBREW_A: boostedLevel = 2 + 1.12 * level; break; 
-		case ZBREW_S: boostedLevel = 2 + 1.20 * level; break;
-		case SBREW:   boostedLevel = 2 + 1.20 * level; break;
-		}
+		
+		boostedLevel = pot.constant + level * pot.percentage;
 		
 		return (int) Math.floor(boostedLevel);
 	}
@@ -59,6 +52,7 @@ public class LevelBoosts {
 			case ATTACK:   newLevel *= 1.15; break;
 			case STRENGTH: newLevel *= 1.18; break;
 			case DEFENCE:  newLevel *= 1.20; break;
+			default: break;
 			}
 			break;
 		case PIETY:
@@ -66,8 +60,10 @@ public class LevelBoosts {
 			case ATTACK:   newLevel *= 1.20; break;
 			case STRENGTH: newLevel *= 1.23; break;
 			case DEFENCE:  newLevel *= 1.25; break;
+			default: break;
 			}
 			break;
+		default: break;
 		}
 		return newLevel;
 	}

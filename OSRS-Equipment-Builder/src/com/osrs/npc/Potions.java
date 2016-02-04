@@ -7,9 +7,17 @@ package com.osrs.npc;
  * @author Severus Snape
  */
 public enum Potions {
-	REGULAR, SUPER, 
-	RANGED, MAGIC,
-	ZBREW_A, ZBREW_S, SBREW;
+	REGULAR(3, 1.10), SUPER(5, 1.15), 
+	RANGED(4, 1.10), MAGIC(4, 1.00),
+	ZBREW_A(2, 1.12), ZBREW_S(2, 1.20), SBREW(2, 1.20);
+	
+	public final int constant;
+	public final double percentage;
+	
+	private Potions(int constant, double percentage){
+		this.constant = constant;
+		this.percentage = percentage;
+	}
 	/*
 	 * Potions are...
 	 * Regular potion: 3 + 10% * Only for Attack, Strength, and Defence
