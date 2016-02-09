@@ -18,22 +18,15 @@ public abstract class Fightable {
 	protected ArrayList<Misc>    misc;
 	protected CombatTriangle     attackType;
 	protected BasicStat			 primaryBonus;
+	
 	/**
 	 * Default constructor for a Fightable.
 	 */
 	public Fightable(){
-		levels = new int[7];
+		levels = new int[] {1, 1, 1, 1, 1, 1, 1};
 		prayers = new ArrayList<Prayers>();
 		potions = new ArrayList<Potions>();
 		misc = new ArrayList<Misc>();
-	}
-	
-	public void setPrimaryBonus(BasicStat bs){
-		this.primaryBonus = bs;
-	}
-	
-	public BasicStat getPrimaryBonus(){
-		return primaryBonus;
 	}
 	
 	/**
@@ -49,6 +42,16 @@ public abstract class Fightable {
 		potions = new ArrayList<Potions>();
 		misc = new ArrayList<Misc>();
 	}
+	
+	public void setPrimaryBonus(BasicStat bs){
+		this.primaryBonus = bs;
+	}
+	
+	public BasicStat getPrimaryBonus(){
+		return primaryBonus;
+	}
+	
+	
 	
 	/**
 	 * Sets combat style. Does not change between NPC and Player.
@@ -110,9 +113,13 @@ public abstract class Fightable {
 		return newList;
 	}
 	public abstract int[] getStats();
-	public abstract int[] getLevels();
+	public int[] getLevels(){
+		return levels;
+	}
 	public abstract int   getStat(StatType stat);
-	public abstract int   getLevel(LevelType level);
+	public int   getLevel(LevelType level){
+		return levels[level.index];
+	}
 	public abstract ArmorBoostType getArmorBoost();
 	
 }

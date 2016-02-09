@@ -58,19 +58,7 @@ public class Player extends Fightable {
 	}
 
 	@Override
-	public int[] getLevels() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int getStat(StatType stat) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getLevel(LevelType level) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

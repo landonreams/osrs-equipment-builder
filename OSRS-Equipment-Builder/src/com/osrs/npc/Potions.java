@@ -22,9 +22,9 @@ public enum Potions {
 	SUP_RNG(5, 1.15, new LevelType[]{LevelType.RANGED}),
 	SUP_MAG(5, 1.15, new LevelType[]{LevelType.MAGIC}),
 	OTH_OVL(5, 1.15, new LevelType[]{LevelType.ATTACK, LevelType.STRENGTH, LevelType.DEFENCE, LevelType.RANGED, LevelType.MAGIC}),
-	OTH_ZBREW_A(2, 1.12, new LevelType[]{LevelType.ATTACK}), 
-	OTH_ZBREW_S(2, 1.20, new LevelType[]{LevelType.STRENGTH}), 
-	OTH_SBREW(2, 1.20, new LevelType[]{LevelType.DEFENCE});
+	OTH_ZBA(2, 1.12, new LevelType[]{LevelType.ATTACK}), 
+	OTH_ZBS(2, 1.20, new LevelType[]{LevelType.STRENGTH}), 
+	OTH_SBR(2, 1.20, new LevelType[]{LevelType.DEFENCE});
 	
 	public final int constant;
 	public final double percentage;
@@ -44,6 +44,28 @@ public enum Potions {
 			if(this.appliesToLevel(l)) return true;
 		}
 		return false;
+	}
+	
+	public String toString(){
+		switch(this){
+		case OTH_OVL: return "Overload";
+		case OTH_SBR: return "Saradomin brew";
+		case OTH_ZBA: return "Z-brew (Attack)";
+		case OTH_ZBS: return "Z-brew (Strength)";
+		case REG_ATT: return "Attack";
+		case REG_CMB: return "Combat";
+		case REG_DEF: return "Defence";
+		case REG_MAG: return "Magic";
+		case REG_RNG: return "Ranging";
+		case REG_STR: return "Strength";
+		case SUP_ATT: return "Super attack";
+		case SUP_CMB: return "Super combat";
+		case SUP_DEF: return "Super defence";
+		case SUP_MAG: return "Super magic";
+		case SUP_RNG: return "Super ranging";
+		case SUP_STR: return "Super strength";
+		default: return "";
+		}
 	}
 	/*
 	 * Potions are...

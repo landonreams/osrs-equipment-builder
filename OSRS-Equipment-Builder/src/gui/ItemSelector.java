@@ -11,7 +11,6 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -29,7 +28,7 @@ import com.osrs.items.ItemFilter;
 import com.osrs.items.SlotType;
 import com.osrs.items.StatType;
 
-public class ChangeEquipPopup extends JDialog {
+public class ItemSelector extends JDialog {
 
 	/**
 	 * 
@@ -39,7 +38,6 @@ public class ChangeEquipPopup extends JDialog {
 	private ItemDatabase db;
 	private JXTable itemTable;
 	private String mostRecent;
-	private JTextField textField;
 	private JXSearchField searchField;
 
 	/**
@@ -49,7 +47,7 @@ public class ChangeEquipPopup extends JDialog {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ChangeEquipPopup frame = new ChangeEquipPopup(SlotType.MAINHAND, ItemFilter.BIS);
+					ItemSelector frame = new ItemSelector(SlotType.MAINHAND, ItemFilter.BIS);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -62,7 +60,7 @@ public class ChangeEquipPopup extends JDialog {
 	 * Create the frame.
 	 */
 	@SuppressWarnings("serial")
-	public ChangeEquipPopup(SlotType slot, ItemFilter filter) {
+	public ItemSelector(SlotType slot, ItemFilter filter) {
 		db = new ItemDatabase();
 		mostRecent = "Abyssal whip";
 		
