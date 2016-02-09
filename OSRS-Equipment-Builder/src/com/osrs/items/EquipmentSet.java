@@ -1,7 +1,12 @@
 package com.osrs.items;
+
+import java.util.EnumMap;
+
+import com.osrs.npc.ArmorBoostType;
+
 public class EquipmentSet {
 	private ItemDatabase db;
-	private Equippable[] gear;
+	private EnumMap<SlotType, Equippable> gear;
 	
 	/*
 	 * Mainhand = 0
@@ -23,10 +28,9 @@ public class EquipmentSet {
 	 */
 	public EquipmentSet(){
 		db = new ItemDatabase();
-		gear = new Equippable[11];
-		
-		for(int i = 0; i < 11; i++){
-			gear[i] = empty;
+		gear = new EnumMap<SlotType, Equippable>(SlotType.class);
+		for(SlotType s : SlotType.values()){
+			gear.put(s, empty);
 		}
 	
 	}
@@ -36,12 +40,11 @@ public class EquipmentSet {
 	 */
 	public EquipmentSet(String[] items){
 		db = new ItemDatabase();
-		gear = new Equippable[11];
+		gear = new EnumMap<SlotType, Equippable>(SlotType.class);
 		
-		for(int i = 0; i < 11; i++){
-			gear[i] = empty;
+		for(SlotType s : SlotType.values()){
+			gear.put(s,  empty);
 		}
-		
 		this.equipArray(items);
 	}
 	
@@ -56,10 +59,10 @@ public class EquipmentSet {
 			throw new IllegalArgumentException("Item "+itemName+" does not exist! Check your spelling. If you are receiving this by mistake, contact the author!");
 		}
 		
-		gear[item.getSlot().index] = item;
+		gear.put(item.getSlot(), item);
 		
 		if(item.isTwoHanded())
-			gear[SlotType.OFFHAND.index] = empty;
+			gear.put(SlotType.OFFHAND, empty);
 		
 	}
 	
@@ -70,33 +73,79 @@ public class EquipmentSet {
 	}
 	
 	public void clearSlot(SlotType slot){
-		gear[slot.index] = empty;
+		gear.put(slot, empty);
 	}
 	
 	public void clearAll(){
-		for(int i = 0; i < gear.length; i++){
-			gear[i] = empty;
+		for(SlotType s : SlotType.values()){
+			gear.put(s, empty);
 		}
 	}
 	
 	public int[] getStats(){
-		int[] stats = new int[14];
 		
-		for(Equippable e : gear){
-			int[] gearStats = e.getStats();
-			for(int i = 0; i < 5; i++){
-				stats[i] += gearStats[i];
+		int[] stats = new int[14];
+
+		for(Equippable e : gear.values()){
+			int[] gStats = e.getStats();
+			for(int i = 0; i < 14; i++){
+				stats[i] += gStats[i];
 			}
 		}
+		
+		//In case mainhand weapon has a built in Ranged Strength bonus
+		//a la Crystal bow and Toxic blowpipe
+		if(gear.get(SlotType.MAINHAND).getStat(StatType.MSC_RANGE) != 0){
+			stats[StatType.MSC_RANGE.index] = gear.get(SlotType.MAINHAND).getStat(StatType.MSC_RANGE);
+		}
+		
+		
 		return stats;
 	}
 	
 	public int getStat(StatType statType){
 		int stat = 0;
-		for(Equippable e : gear){
+		for(Equippable e : gear.values()){
 			stat += e.getStat(statType);
 		}
+		
+		if(statType.equals(StatType.MSC_RANGE)){
+			if(gear.get(SlotType.MAINHAND).getStat(StatType.MSC_RANGE) != 0){
+				stat = gear.get(SlotType.MAINHAND).getStat(StatType.MSC_RANGE);
+			}
+		}
 		return stat;
+	}
+	
+	/**
+	 * Class to get active armor boost from equipment set.
+	 * @return ArmorBoostType
+	 */
+	public ArmorBoostType armorBoost(){
+		if(gear.get(SlotType.BODY).getName().contains("oid") &&
+		   gear.get(SlotType.LEGS).getName().contains("oid") &&
+		   gear.get(SlotType.GLOVES).getName().contains("oid")){
+			String head = gear.get(SlotType.HEAD).getName();
+			if(head.equals("Void melee helm"))
+				return ArmorBoostType.VOID_MELEE;
+			if(head.equals("Void ranger helm"))
+				return ArmorBoostType.VOID_RANGED;
+			if(head.equals("Void mage helm"))
+				return ArmorBoostType.VOID_MAGIC;
+		}
+
+		String head = gear.get(SlotType.HEAD).getName();
+		if(head.contains("Black mask") || head.contains("Slayer helmet")){
+			return ArmorBoostType.SLAYER_HELM;
+		}
+		
+		String neck = gear.get(SlotType.NECK).getName();
+		if(neck.contains("Salve amulet")){
+			if(neck.contains("(e"))
+				return ArmorBoostType.SALVE_E;
+			return ArmorBoostType.SALVE;
+		}
+		return ArmorBoostType.NONE;
 	}
 
 }

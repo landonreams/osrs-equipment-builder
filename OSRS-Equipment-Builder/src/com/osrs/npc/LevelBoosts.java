@@ -41,7 +41,7 @@ public class LevelBoosts {
 	 * @param levelType
 	 * @return
 	 */
-	public static int boostByPrayer(Prayers prayer, int level, LevelType levelType){
+	public static int applyPrayer(Prayers prayer, int level, LevelType levelType){
 		int newLevel = level;
 		switch(prayer){
 		case TIER_ONE:    newLevel *= 1.05; break;
@@ -66,5 +66,10 @@ public class LevelBoosts {
 		default: break;
 		}
 		return newLevel;
+	}
+	
+	public static int boostByMisc(Misc misc, int level, LevelType levelType){
+		
+		return level;
 	}
 }

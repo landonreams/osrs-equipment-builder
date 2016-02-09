@@ -16,6 +16,7 @@ public class NPC extends Fightable {
 	public NPC(){
 		super();
 		stats = new int[14];
+		style = CombatStyle.M_CONTROLLED;
 	}
 	
 	/**
@@ -27,6 +28,7 @@ public class NPC extends Fightable {
 	public NPC(int[] levels, int[] stats){
 		super(levels);
 		this.stats = stats;
+		style = CombatStyle.M_CONTROLLED;
 	}
 	
 	@Override
@@ -49,6 +51,13 @@ public class NPC extends Fightable {
 		return levels[level.index];
 	}
 	
-		
+	/**
+	 * Returns false, as NPCs cannot use armor boosts.
+	 * @return usingVoid
+	 */
+	@Override
+	public ArmorBoostType getArmorBoost(){
+		return ArmorBoostType.NONE;
+	}
 	
 }

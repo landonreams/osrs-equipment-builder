@@ -1,5 +1,6 @@
 package com.osrs.npc;
 
+import com.osrs.items.BasicStat;
 import com.osrs.items.EquipmentSet;
 import com.osrs.items.StatType;
 
@@ -16,6 +17,7 @@ public class Player extends Fightable {
 	public Player(){
 		super();
 		gear = new EquipmentSet();
+		primaryBonus = BasicStat.CRUSH;
 	}
 	
 	/**
@@ -25,6 +27,7 @@ public class Player extends Fightable {
 	public Player(String[] equipment){
 		super();
 		gear = new EquipmentSet(equipment);
+		primaryBonus = BasicStat.CRUSH;
 	}
 	
 	/**
@@ -45,6 +48,8 @@ public class Player extends Fightable {
 		super(levels);
 		gear = new EquipmentSet(equipment);
 	}
+	
+	
 	
 	@Override
 	public int[] getStats() {
@@ -67,6 +72,61 @@ public class Player extends Fightable {
 	public int getLevel(LevelType level) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	/**
+	 * Applies a new potion, deactivating all conflicting ones.
+	 * @param p
+	 */
+	public void addPotion(Potions potion){
+		if(!potions.contains(potion)){
+			for(Potions active : potions){
+				if(potion.conflicts(active)){
+					potions.remove(active);
+				}
+			}
+			potions.add(potion);
+		}
+	}
+	
+	/**
+	 * Removes an active potion effect to the player in question.
+	 * @param potion
+	 */
+	public void removePotion(Potions potion){
+		if(potions.contains(potion)){
+			potions.remove(potion);
+		}
+	}
+	
+	/**
+	 * Adds a new Prayer, deactivating all conflicting ones.
+	 * @param prayer
+	 */
+	public void addPrayer(Prayers prayer){
+		if(!prayers.contains(prayer)){
+			for(Prayers active : prayers){
+				if(prayer.conflicts(active)){
+					prayers.remove(active);
+				}
+			}
+			prayers.add(prayer);
+		}
+	}
+	
+	/**
+	 * Deactivates the active prayer effect.
+	 * @param prayer
+	 */ 
+	public void removePrayer(Prayers prayer){
+		if(prayers.contains(prayer))
+			prayers.remove(prayer);
+	}
+	
+	@Override
+	public ArmorBoostType getArmorBoost(){
+		ArmorBoostType abt = gear.armorBoost();
+		return abt;
 	}
 	
 }

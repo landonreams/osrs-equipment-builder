@@ -24,4 +24,26 @@ public enum Prayers {
 	private Prayers(double drainInterval){
 		this.drainInterval = drainInterval;
 	}
+	
+	public boolean conflicts(Prayers other){
+		switch(this){
+		case TIER_ONE: 
+		case TIER_TWO:
+		case TIER_THREE:
+		case CHIVALRY:
+		case PIETY: return other.equals(TIER_ONE) || 
+					  other.equals(TIER_TWO) ||
+					  other.equals(TIER_THREE) ||
+					  other.equals(CHIVALRY) ||
+					  other.equals(PIETY);
+		case PROTECT:
+		case RETRIBUTION:
+		case SMITE:
+		case REDEMPTION: return other.equals(PROTECT) ||
+						   other.equals(RETRIBUTION) ||
+						   other.equals(REDEMPTION) ||
+						   other.equals(SMITE);
+		}
+		return false;
+	}
 }

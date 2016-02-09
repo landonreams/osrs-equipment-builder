@@ -411,3 +411,362 @@ SELECT * FROM EQUIPMENT WHERE ITEM = (SELECT ITEM FROM EQUIPMENT GROUP BY ITEM H
 	at org.h2.server.web.WebThread.process(WebThread.java:164)
 	at org.h2.server.web.WebThread.run(WebThread.java:89)
 	at java.lang.Thread.run(Unknown Source)
+2016-02-07 06:20:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO EQUIPMENT VALUES ('Void mage helm' 'Helmet'[*], 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 0, 0)"; expected "[, ::, *, /, %, +, -, ||, ~, !~, NOT, LIKE, REGEXP, IS, IN, BETWEEN, AND, OR, ,, )"; SQL statement:
+INSERT INTO EQUIPMENT VALUES ('Void mage helm' 'Helmet', 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 0, 0) [42001-191]
+2016-02-07 06:20:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO EQUIPMENT VALUES ('Void melee helm' 'Helmet'[*], 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 0, 0)"; expected "[, ::, *, /, %, +, -, ||, ~, !~, NOT, LIKE, REGEXP, IS, IN, BETWEEN, AND, OR, ,, )"; SQL statement:
+INSERT INTO EQUIPMENT VALUES ('Void melee helm' 'Helmet', 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 0, 0) [42001-191]
+2016-02-07 08:47:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Duplicate column name "STAT"; SQL statement:
+CREATE TABLE WEAPONS
+(
+ITEM TEXT,
+STYLE1 TEXT,
+STAT TEXT,
+STYLE2 TEXT,
+STAT TEXT,
+STYLE3 TEXT,
+STAT TEXT,
+STYLE4 TEXT,
+STAT TEXT
+) [42121-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.table.Table.setColumns(Table.java:429)
+	at org.h2.table.TableBase.<init>(TableBase.java:45)
+	at org.h2.mvstore.db.MVTable.<init>(MVTable.java:103)
+	at org.h2.mvstore.db.MVTableEngine.createTable(MVTableEngine.java:108)
+	at org.h2.mvstore.db.MVTableEngine.createTable(MVTableEngine.java:41)
+	at org.h2.schema.Schema.createTable(Schema.java:589)
+	at org.h2.command.ddl.CreateTable.update(CreateTable.java:137)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:98)
+	at org.h2.command.Command.executeUpdate(Command.java:258)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:184)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1388)
+	at org.h2.server.web.WebApp.query(WebApp.java:1061)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1023)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1010)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2016-02-07 08:47:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column count does not match; SQL statement:
+insert into weapons (select * from equipment where slot = 'weapon' or slot = '2h') [21002-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:282)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1388)
+	at org.h2.server.web.WebApp.query(WebApp.java:1061)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1023)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1010)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2016-02-07 08:47:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column count does not match; SQL statement:
+insert into weapons (select item from equipment where slot = 'weapon' or slot = '2h') [21002-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:282)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1388)
+	at org.h2.server.web.WebApp.query(WebApp.java:1061)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1023)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1010)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2016-02-07 08:51:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "DELETE *[*] FROM WEAPONS WHERE ITEM = 'Sapphire bracelet' "; expected "identifier"; SQL statement:
+delete * from weapons where item = 'Sapphire bracelet' [42001-191]
+2016-02-07 08:53:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "(SELECT * FROM EQUIPMENT WHERE ITEM LIKE '%%oxic blowpipe%%') +[*] (SELECT * FROM EQUIPMENT WHERE ITEM = 'Bronze dart') "; SQL statement:
+(select * from equipment where item like '%%oxic blowpipe%%') + (select * from equipment where item = 'Bronze dart') [42000-191]
+2016-02-07 08:53:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "(SELECT * FROM EQUIPMENT WHERE ITEM LIKE '%%oxic blowpipe%%') +[*] "; SQL statement:
+(select * from equipment where item like '%%oxic blowpipe%%') + [42000-191]
+2016-02-07 08:55:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Feature not supported: "ARRAY +"; SQL statement:
+select rangeaccuracy, rangestrength from equipment where item = 'Toxic blowpipe' + select rangeaccuracy, rangestrength from equipment where item = 'Bronze dart' [50100-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.getUnsupportedException(DbException.java:216)
+	at org.h2.value.Value.throwUnsupportedExceptionForType(Value.java:1139)
+	at org.h2.value.Value.add(Value.java:466)
+	at org.h2.expression.Operation.getValue(Operation.java:145)
+	at org.h2.expression.Comparison.getValue(Comparison.java:248)
+	at org.h2.expression.Expression.getBooleanValue(Expression.java:178)
+	at org.h2.command.dml.Select.queryFlat(Select.java:543)
+	at org.h2.command.dml.Select.queryWithoutCache(Select.java:654)
+	at org.h2.command.dml.Query.query(Query.java:341)
+	at org.h2.command.dml.Query.query(Query.java:309)
+	at org.h2.command.dml.Query.query(Query.java:36)
+	at org.h2.command.CommandContainer.query(CommandContainer.java:110)
+	at org.h2.command.Command.executeQuery(Command.java:201)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:179)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1388)
+	at org.h2.server.web.WebApp.query(WebApp.java:1061)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1023)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1010)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2016-02-07 08:56:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "Toxic blowpipe"; SQL statement:
+select rangeaccuracy from equipment where item = 'Toxic blowpipe' + select rangeaccuracy from equipment where item = 'Bronze dart' [22018-191]
+2016-02-07 08:56:18 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "Toxic blowpipe"; SQL statement:
+select rangeaccuracy from equipment where item = 'Toxic blowpipe' + select rangeaccuracy from equipment where item = 'Bronze dart' [22018-191]
+2016-02-07 09:03:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO EQUIPMENT VALUES ('Toxic blowpipe (bronze)', '2h', '0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 0, 41, 0, 0);
+insert into equipment values ('TOXIC[*] BLOWPIPE (IRON)', '2H', '0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 43, 0, 0) "; expected "[, ::, *, /, %, +, -, ||, ~, !~, NOT, LIKE, REGEXP, IS, IN, BETWEEN, AND, OR, ,, )"; SQL statement:
+insert into equipment values ('Toxic blowpipe (bronze)', '2h', '0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 0, 41, 0, 0);
+insert into equipment values ('Toxic blowpipe (iron)', '2h', '0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 43, 0, 0) [42001-191]
+2016-02-07 09:03:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO EQUIPMENT VALUES ('Toxic blowpipe (steel)', '2h', '0, 0, 0, 0, 65, 0, 0, 0, 0, 0, 0, 0, 44, 0, 0);
+insert into equipment values ('TOXIC[*] BLOWPIPE (BLACK)', '2H', '0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 46, 0, 0) "; expected "[, ::, *, /, %, +, -, ||, ~, !~, NOT, LIKE, REGEXP, IS, IN, BETWEEN, AND, OR, ,, )"; SQL statement:
+insert into equipment values ('Toxic blowpipe (steel)', '2h', '0, 0, 0, 0, 65, 0, 0, 0, 0, 0, 0, 0, 44, 0, 0);
+insert into equipment values ('Toxic blowpipe (black)', '2h', '0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 46, 0, 0) [42001-191]
+2016-02-07 09:03:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO EQUIPMENT VALUES ('Toxic blowpipe (mithril)', '2h', '0, 0, 0, 0, 68, 0, 0, 0, 0, 0, 0, 0, 47, 0, 0);
+insert into equipment values ('TOXIC[*] BLOWPIPE (ADAMANT)', '2H', '0, 0, 0, 0, 71, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0) "; expected "[, ::, *, /, %, +, -, ||, ~, !~, NOT, LIKE, REGEXP, IS, IN, BETWEEN, AND, OR, ,, )"; SQL statement:
+insert into equipment values ('Toxic blowpipe (mithril)', '2h', '0, 0, 0, 0, 68, 0, 0, 0, 0, 0, 0, 0, 47, 0, 0);
+insert into equipment values ('Toxic blowpipe (adamant)', '2h', '0, 0, 0, 0, 71, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0) [42001-191]
+2016-02-07 09:03:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO EQUIPMENT VALUES ('Toxic blowpipe (rune)', '2h', '0, 0, 0, 0, 75, 0, 0, 0, 0, 0, 0, 0, 54, 0, 0);
+insert into equipment values ('TOXIC[*] BLOWPIPE (DRAGON)', '2H', '0, 0, 0, 0, 78, 0, 0, 0, 0, 0, 0, 0, 60, 0, 0) "; expected "[, ::, *, /, %, +, -, ||, ~, !~, NOT, LIKE, REGEXP, IS, IN, BETWEEN, AND, OR, ,, )"; SQL statement:
+insert into equipment values ('Toxic blowpipe (rune)', '2h', '0, 0, 0, 0, 75, 0, 0, 0, 0, 0, 0, 0, 54, 0, 0);
+insert into equipment values ('Toxic blowpipe (dragon)', '2h', '0, 0, 0, 0, 78, 0, 0, 0, 0, 0, 0, 0, 60, 0, 0) [42001-191]
+2016-02-07 09:03:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column count does not match; SQL statement:
+insert into equipment values ('Toxic blowpipe (bronze)', '2h', 0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 0, 41, 0, 0) [21002-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:265)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1388)
+	at org.h2.server.web.WebApp.query(WebApp.java:1061)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1023)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1010)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2016-02-07 09:03:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column count does not match; SQL statement:
+insert into equipment values ('Toxic blowpipe (iron)', '2h', 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 43, 0, 0) [21002-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:265)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1388)
+	at org.h2.server.web.WebApp.query(WebApp.java:1061)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1023)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1010)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2016-02-07 09:03:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column count does not match; SQL statement:
+insert into equipment values ('Toxic blowpipe (steel)', '2h', 0, 0, 0, 0, 65, 0, 0, 0, 0, 0, 0, 0, 44, 0, 0) [21002-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:265)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1388)
+	at org.h2.server.web.WebApp.query(WebApp.java:1061)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1023)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1010)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2016-02-07 09:03:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column count does not match; SQL statement:
+insert into equipment values ('Toxic blowpipe (black)', '2h', 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 46, 0, 0) [21002-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:265)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1388)
+	at org.h2.server.web.WebApp.query(WebApp.java:1061)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1023)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1010)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2016-02-07 09:03:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column count does not match; SQL statement:
+insert into equipment values ('Toxic blowpipe (mithril)', '2h', 0, 0, 0, 0, 68, 0, 0, 0, 0, 0, 0, 0, 47, 0, 0) [21002-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:265)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1388)
+	at org.h2.server.web.WebApp.query(WebApp.java:1061)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1023)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1010)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2016-02-07 09:03:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column count does not match; SQL statement:
+insert into equipment values ('Toxic blowpipe (adamant)', '2h', 0, 0, 0, 0, 71, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0) [21002-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:265)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1388)
+	at org.h2.server.web.WebApp.query(WebApp.java:1061)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1023)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1010)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2016-02-07 09:03:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column count does not match; SQL statement:
+insert into equipment values ('Toxic blowpipe (rune)', '2h', 0, 0, 0, 0, 75, 0, 0, 0, 0, 0, 0, 0, 54, 0, 0) [21002-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:265)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1388)
+	at org.h2.server.web.WebApp.query(WebApp.java:1061)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1023)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1010)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2016-02-07 09:03:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column count does not match; SQL statement:
+insert into equipment values ('Toxic blowpipe (dragon)', '2h', 0, 0, 0, 0, 78, 0, 0, 0, 0, 0, 0, 0, 60, 0, 0) [21002-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:265)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1388)
+	at org.h2.server.web.WebApp.query(WebApp.java:1061)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1023)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1010)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2016-02-07 09:06:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT ITEM[*] INTO WEAPONS WHERE (SELECT ITEM FROM EQUIPMENT WHERE SLOT = 'Weapon' OR SLOT = '2h') "; expected "INTO"; SQL statement:
+insert item into weapons where (select item from equipment where slot = 'Weapon' or slot = '2h') [42001-191]
+2016-02-07 09:06:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO WEAPONS (ITEM) WHERE[*] (SELECT ITEM FROM EQUIPMENT WHERE SLOT = 'Weapon' OR SLOT = '2h') "; expected "DIRECT, SORTED, DEFAULT, VALUES, SET, (, SELECT, FROM"; SQL statement:
+insert into weapons (item) where (select item from equipment where slot = 'Weapon' or slot = '2h') [42001-191]
+2016-02-07 09:10:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "RANGED" not found; SQL statement:
+update weapons set class=Ranged, speed=6, style1='Accurate', type1='Accurate', style2='Ranged', type2='Ranged', style3='Longrange', type3='Ranged' where item like '%%bow' and item not like '%%longbow' and item not = 'Dark bow' [42122-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.command.dml.Update.prepare(Update.java:192)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1388)
+	at org.h2.server.web.WebApp.query(WebApp.java:1061)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1023)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1010)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2016-02-07 09:22:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "update weapons set speed=6, class='Magic, style1='Accurate', type1='Magic', style2='Defensive', type2='Magic' where item like 'Trident%%[*]';
+select * from weapons"; SQL statement:
+update weapons set speed=6, class='Magic, style1='Accurate', type1='Magic', style2='Defensive', type2='Magic' where item like 'Trident%%';
+select * from weapons [42000-191]
+2016-02-07 09:23:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "update weapons set speed=6, class='Magic, style1='Accurate', type1='Magic', style2='Defensive', type2='Magic', style3=null, type3=null, style4=null, type4=null where item like 'Trident%%[*]';
+select * from weapons"; SQL statement:
+update weapons set speed=6, class='Magic, style1='Accurate', type1='Magic', style2='Defensive', type2='Magic', style3=null, type3=null, style4=null, type4=null where item like 'Trident%%';
+select * from weapons [42000-191]
+2016-02-07 09:23:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "update weapons set speed=6, class='Magic, style1='Accurate', type1='Magic', style2='Defensive', type2='Magic', style3=null, type3=null, style4=null, type4=null where item like 'Trident%%[*]';"; SQL statement:
+update weapons set speed=6, class='Magic, style1='Accurate', type1='Magic', style2='Defensive', type2='Magic', style3=null, type3=null, style4=null, type4=null where item like 'Trident%%'; [42000-191]
+2016-02-07 09:25:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "UPDATE WEAPONS SET CLASS='Ranged', SPEED=7, STYLE1='Accurate', TYPE1='Ranged', STYLE2='Rapid', TYPE2='Ranged', STYLE3='Longrange', TYPE3='Ranged' WHERE ITEM LIKE '%%blowpipe%%' OR ITEM LIKE '%%dart%%'
+SELECT[*] * FROM WEAPONS "; SQL statement:
+update weapons set class='Ranged', speed=7, style1='Accurate', type1='Ranged', style2='Rapid', type2='Ranged', style3='Longrange', type3='Ranged' where item like '%%blowpipe%%' or item like '%%dart%%'
+select * from weapons [42000-191]
