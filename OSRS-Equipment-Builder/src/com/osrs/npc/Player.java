@@ -2,6 +2,7 @@ package com.osrs.npc;
 
 import com.osrs.items.BasicStat;
 import com.osrs.items.EquipmentSet;
+import com.osrs.items.SlotType;
 import com.osrs.items.StatType;
 
 /**
@@ -123,10 +124,26 @@ public class Player extends Fightable {
 			prayers.remove(prayer);
 	}
 	
+	public void clearSlot(SlotType slot){
+		gear.clearSlot(slot);
+	}
+	
+	public void equip(String item){
+		gear.equip(item);
+	}
+	
+	public void equip(String[] items){
+		gear.equipArray(items);
+	}
+	
 	@Override
 	public ArmorBoostType getArmorBoost(){
 		ArmorBoostType abt = gear.armorBoost();
 		return abt;
+	}
+	
+	public String getItemName(SlotType slot){
+		return gear.getItem(slot);
 	}
 	
 }

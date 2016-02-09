@@ -7,21 +7,7 @@ import com.osrs.npc.ArmorBoostType;
 public class EquipmentSet {
 	private ItemDatabase db;
 	private EnumMap<SlotType, Equippable> gear;
-	
-	/*
-	 * Mainhand = 0
-	 * Offhand = 1
-	 * Head = 2
-	 * Body = 3
-	 * Legs = 4
-	 * Gloves = 5
-	 * Boots = 6
-	 * Neck = 7
-	 * Ring = 8
-	 * Cape = 9
-	 * Ammo = 10
-	 */
-	
+
 	private static final Equippable empty = new Equippable();
 	/**
 	 * Creates a new empty Equipment Set
@@ -63,6 +49,10 @@ public class EquipmentSet {
 		
 		if(item.isTwoHanded())
 			gear.put(SlotType.OFFHAND, empty);
+		if(item.getSlot().equals(SlotType.OFFHAND)){
+			if(gear.get(SlotType.MAINHAND).isTwoHanded())
+				gear.put(SlotType.MAINHAND, empty);
+		}
 		
 	}
 	
@@ -146,6 +136,10 @@ public class EquipmentSet {
 			return ArmorBoostType.SALVE;
 		}
 		return ArmorBoostType.NONE;
+	}
+	
+	public String getItem(SlotType slot){
+		return gear.get(slot).getName();
 	}
 
 }

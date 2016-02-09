@@ -44,4 +44,12 @@ public class Equippable {
 		return twoHanded;
 	}
 	
+	public boolean isCosmetic(){
+		for(int s : stats){
+			if(s != 0)
+				return false;
+		}
+		return true;
+	}
+	
 }
