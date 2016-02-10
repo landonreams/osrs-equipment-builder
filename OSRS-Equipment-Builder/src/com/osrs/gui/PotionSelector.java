@@ -1,4 +1,4 @@
-package gui;
+package com.osrs.gui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+@SuppressWarnings("serial")
 public class PotionSelector extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
@@ -245,6 +246,24 @@ public class PotionSelector extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				for(JCheckBox chk : attackBoosters){
 					if(chk != chckbxSuperAttack)
+						chk.setSelected(false);
+				}
+			}
+		});
+		
+		chckbxStrengthPotion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for(JCheckBox chk : strengthBoosters){
+					if(chk != chckbxStrengthPotion)
+						chk.setSelected(false);
+				}
+			}
+		});
+		
+		chckbxStrengthPotion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for(JCheckBox chk : strengthBoosters){
+					if(chk != chckbxStrengthPotion)
 						chk.setSelected(false);
 				}
 			}

@@ -1,25 +1,20 @@
-package gui;
+package com.osrs.gui;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.DefaultListSelectionModel;
+import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.text.NumberFormatter;
 
 import com.osrs.npc.LevelType;
 import com.osrs.npc.Player;
-import com.osrs.npc.Potions;
-import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class PlayerPanel extends JPanel {
 
 	private NumberFormatter levelFormat;

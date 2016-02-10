@@ -24,7 +24,8 @@ public enum Potions {
 	OTH_OVL(5, 1.15, new LevelType[]{LevelType.ATTACK, LevelType.STRENGTH, LevelType.DEFENCE, LevelType.RANGED, LevelType.MAGIC}),
 	OTH_ZBA(2, 1.12, new LevelType[]{LevelType.ATTACK}), 
 	OTH_ZBS(2, 1.20, new LevelType[]{LevelType.STRENGTH}), 
-	OTH_SBR(2, 1.20, new LevelType[]{LevelType.DEFENCE});
+	OTH_SBR(2, 1.20, new LevelType[]{LevelType.DEFENCE}),
+	OTH_DBX(-1, -1, new LevelType[]{LevelType.STRENGTH});
 	
 	public final int constant;
 	public final double percentage;
@@ -48,6 +49,7 @@ public enum Potions {
 	
 	public String toString(){
 		switch(this){
+		case OTH_DBX: return "Dragon battleaxe";
 		case OTH_OVL: return "Overload";
 		case OTH_SBR: return "Saradomin brew";
 		case OTH_ZBA: return "Z-brew (Attack)";

@@ -1,4 +1,4 @@
-package gui;
+package com.osrs.gui;
 
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
