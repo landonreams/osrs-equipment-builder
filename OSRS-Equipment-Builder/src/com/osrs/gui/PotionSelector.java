@@ -204,71 +204,171 @@ public class PotionSelector extends JDialog {
 		final ArrayList<JCheckBox> defenceBoosters = new ArrayList<JCheckBox>();
 		final ArrayList<JCheckBox> magicBoosters = new ArrayList<JCheckBox>();
 		final ArrayList<JCheckBox> rangedBoosters = new ArrayList<JCheckBox>();
-		
+
 		attackBoosters.add(chckbxAttackPotion);
 		attackBoosters.add(chckbxSuperAttack);
 		attackBoosters.add(chckbxCombatPotion);
 		attackBoosters.add(chckbxSuperCombat);
 		attackBoosters.add(chckbxOverload);
 		attackBoosters.add(chckbxZamorakBrew);
-		
+
 		strengthBoosters.add(chckbxStrengthPotion);
 		strengthBoosters.add(chckbxSuperStrength);
 		strengthBoosters.add(chckbxCombatPotion);
 		strengthBoosters.add(chckbxSuperCombat);
 		strengthBoosters.add(chckbxOverload);
 		strengthBoosters.add(chckbxZamorakBrew);
-		
+
 		defenceBoosters.add(chckbxDefencePotion);
 		defenceBoosters.add(chckbxSuperDefence);
 		defenceBoosters.add(chckbxSuperCombat);
 		defenceBoosters.add(chckbxOverload);
 		defenceBoosters.add(chckbxSaradominBrew);
-		
+
 		rangedBoosters.add(chckbxRangingPotion);
 		rangedBoosters.add(chckbxSuperRanging);
 		rangedBoosters.add(chckbxOverload);
-		
+
 		magicBoosters.add(chckbxMagicPotion);
 		magicBoosters.add(chckbxSuperMagic);
 		magicBoosters.add(chckbxOverload);
-		
-		chckbxAttackPotion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				for(JCheckBox chk : attackBoosters){
-					if(chk != chckbxAttackPotion)
-						chk.setSelected(false);
-				}
+
+		chckbxAttackPotion.addActionListener(e -> {
+			for (JCheckBox chk : attackBoosters) {
+				if (!chk.equals(chckbxAttackPotion))
+					chk.setSelected(false);
+			}
+		});
+
+		chckbxSuperAttack.addActionListener(e -> {
+			for (JCheckBox chk : attackBoosters) {
+				if (!chk.equals(chckbxSuperAttack))
+					chk.setSelected(false);
+			}
+		});
+
+		chckbxStrengthPotion.addActionListener(e -> {
+			for (JCheckBox chk : strengthBoosters) {
+				if (!chk.equals(chckbxStrengthPotion))
+					chk.setSelected(false);
+			}
+		});
+
+		chckbxSuperStrength.addActionListener(e -> {
+			for (JCheckBox chk : strengthBoosters) {
+				if (!chk.equals(chckbxSuperStrength))
+					chk.setSelected(false);
+			}
+		});
+
+		chckbxDefencePotion.addActionListener(e -> {
+			for (JCheckBox chk : defenceBoosters) {
+				if (!chk.equals(chckbxDefencePotion))
+					chk.setSelected(false);
+			}
+		});
+
+		chckbxSuperDefence.addActionListener(e -> {
+			for (JCheckBox chk : defenceBoosters) {
+				if (!chk.equals(chckbxSuperDefence))
+					chk.setSelected(false);
 			}
 		});
 		
-		chckbxSuperAttack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				for(JCheckBox chk : attackBoosters){
-					if(chk != chckbxSuperAttack)
-						chk.setSelected(false);
-				}
+		chckbxCombatPotion.addActionListener(e -> {
+			for (JCheckBox chk : attackBoosters){
+				if (!chk.equals(chckbxCombatPotion))
+					chk.setSelected(false);
+			}
+			for (JCheckBox chk : strengthBoosters){
+				if(!chk.equals(chckbxCombatPotion))
+					chk.setSelected(false);
 			}
 		});
 		
-		chckbxStrengthPotion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				for(JCheckBox chk : strengthBoosters){
-					if(chk != chckbxStrengthPotion)
-						chk.setSelected(false);
-				}
+		chckbxSuperCombat.addActionListener(e -> {
+			for (JCheckBox chk : attackBoosters){
+				if (!chk.equals(chckbxSuperCombat))
+					chk.setSelected(false);
+			}
+			for (JCheckBox chk : strengthBoosters){
+				if(!chk.equals(chckbxSuperCombat))
+					chk.setSelected(false);
+			}
+			for (JCheckBox chk : defenceBoosters){
+				if(!chk.equals(chckbxSuperCombat))
+					chk.setSelected(false);
 			}
 		});
 		
-		chckbxStrengthPotion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				for(JCheckBox chk : strengthBoosters){
-					if(chk != chckbxStrengthPotion)
-						chk.setSelected(false);
-				}
+		chckbxMagicPotion.addActionListener(e -> {
+			for(JCheckBox chk : magicBoosters){
+				if(!chk.equals(chckbxMagicPotion))
+					chk.setSelected(false);
 			}
 		});
-	
+		
+		chckbxSuperMagic.addActionListener(e -> {
+			for(JCheckBox chk : magicBoosters){
+				if(!chk.equals(chckbxSuperMagic))
+					chk.setSelected(false);
+			}
+		});
+		
+		chckbxRangingPotion.addActionListener(e -> {
+			for(JCheckBox chk : rangedBoosters){
+				if(!chk.equals(chckbxRangingPotion))
+					chk.setSelected(false);
+			}
+		});
+
+		chckbxSuperRanging.addActionListener(e -> {
+			for(JCheckBox chk : rangedBoosters){
+				if(!chk.equals(chckbxSuperRanging))
+					chk.setSelected(false);
+			}
+		});
+		
+		chckbxOverload.addActionListener(e -> {
+			for(JCheckBox chk : attackBoosters){
+				if(!chk.equals(chckbxOverload))
+					chk.setSelected(false);
+			}
+			for(JCheckBox chk : strengthBoosters){
+				if(!chk.equals(chckbxOverload))
+					chk.setSelected(false);
+			}
+			for(JCheckBox chk : defenceBoosters){
+				if(!chk.equals(chckbxOverload))
+					chk.setSelected(false);
+			}
+			for(JCheckBox chk : magicBoosters){
+				if(!chk.equals(chckbxOverload))
+					chk.setSelected(false);
+			}
+			for(JCheckBox chk : rangedBoosters){
+				if(!chk.equals(chckbxOverload))
+					chk.setSelected(false);
+			}
+		});
+		
+		chckbxZamorakBrew.addActionListener(e -> {
+			for(JCheckBox chk : attackBoosters){
+				if(!chk.equals(chckbxZamorakBrew))
+					chk.setSelected(false);
+			}
+			for(JCheckBox chk : strengthBoosters){
+				if(!chk.equals(chckbxZamorakBrew))
+					chk.setSelected(false);
+			}
+		});
+		
+		chckbxSaradominBrew.addActionListener(e -> {
+			for(JCheckBox chk : defenceBoosters){
+				if(!chk.equals(chckbxSaradominBrew))
+					chk.setSelected(false);
+			}
+		});
 		
 		setResizable(false);
 	}
