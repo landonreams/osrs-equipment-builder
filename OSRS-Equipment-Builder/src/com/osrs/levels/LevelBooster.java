@@ -52,30 +52,25 @@ public class LevelBooster {
 	 * @param levelType
 	 * @return
 	 */
-	public static int applyPrayer(Prayers prayer, int level, LevelType levelType){
-		int newLevel = level;
+	public static int[] applyPrayer(Prayers prayer, int[] levels){
+		int[] boosts = new int[LevelType.NUM_LEVELS];
 		switch(prayer){
-		case TIER_ONE:    newLevel *= 1.05; break;
-		case TIER_TWO:    newLevel *= 1.10; break;
-		case TIER_THREE:  newLevel *= 1.15; break;
-		case CHIVALRY:
-			switch(levelType){
-			case ATTACK:   newLevel *= 1.15; break;
-			case STRENGTH: newLevel *= 1.18; break;
-			case DEFENCE:  newLevel *= 1.20; break;
-			default: break;
+		case OTH_CHIVALRY:
+			boosts[LevelType.ATTACK.index]   = (int) Math.floor(0.15 * levels[LevelType.ATTACK.index]);
+			boosts[LevelType.STRENGTH.index] = (int) Math.floor(0.18 * levels[LevelType.STRENGTH.index]);
+			boosts[LevelType.DEFENCE.index]  = (int) Math.floor(0.20 * levels[LevelType.DEFENCE.index]);
+			break;
+		case OTH_PIETY:
+			boosts[LevelType.ATTACK.index]   = (int) Math.floor(0.20 * levels[LevelType.ATTACK.index]);
+			boosts[LevelType.STRENGTH.index] = (int) Math.floor(0.23 * levels[LevelType.STRENGTH.index]);
+			boosts[LevelType.DEFENCE.index]  = (int) Math.floor(0.25 * levels[LevelType.DEFENCE.index]);
+			break;
+		default:
+			if(prayer.applicable != null){
+				boosts[prayer.applicable.index] = (int) Math.floor(prayer.boostPercent * levels[prayer.applicable.index]);
 			}
 			break;
-		case PIETY:
-			switch(levelType){
-			case ATTACK:   newLevel *= 1.20; break;
-			case STRENGTH: newLevel *= 1.23; break;
-			case DEFENCE:  newLevel *= 1.25; break;
-			default: break;
-			}
-			break;
-		default: break;
 		}
-		return newLevel;
+		return boosts;
 	}
 }

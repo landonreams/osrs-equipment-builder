@@ -1,6 +1,5 @@
 package com.osrs.npc;
 
-import com.osrs.items.BasicStat;
 import com.osrs.items.EquipmentSet;
 import com.osrs.items.SlotType;
 import com.osrs.items.StatType;
@@ -19,9 +18,9 @@ public class Player extends Fightable {
 	 * Default constructor taking no parameters.
 	 */
 	public Player(){
-		super();
+		super(new int[] {1, 1, 1, 1, 1, 1, 10});
 		gear = new EquipmentSet();
-		primaryBonus = BasicStat.CRUSH;
+		damageType = DamageType.CRUSH;
 	}
 	
 	/**
@@ -29,9 +28,9 @@ public class Player extends Fightable {
 	 * @param equipment
 	 */
 	public Player(String[] equipment){
-		super();
+		super(new int[] {1, 1, 1, 1, 1, 1, 10});
 		gear = new EquipmentSet(equipment);
-		primaryBonus = BasicStat.CRUSH;
+		damageType = DamageType.CRUSH;
 	}
 	
 	/**
@@ -62,8 +61,7 @@ public class Player extends Fightable {
 
 	@Override
 	public int getStat(StatType stat) {
-		// TODO Auto-generated method stub
-		return 0;
+		return gear.getStat(stat);
 	}
 	
 	/**
@@ -71,14 +69,7 @@ public class Player extends Fightable {
 	 * @param p
 	 */
 	public void addPotion(Potions potion){
-		if(!potions.contains(potion)){
-			for(Potions active : potions){
-				if(potion.conflicts(active)){
-					potions.remove(active);
-				}
-			}
-			potions.add(potion);
-		}
+		potions.add(potion);
 	}
 	
 	/**
@@ -86,9 +77,7 @@ public class Player extends Fightable {
 	 * @param potion
 	 */
 	public void removePotion(Potions potion){
-		if(potions.contains(potion)){
-			potions.remove(potion);
-		}
+		potions.remove(potion);
 	}
 	
 	/**
@@ -96,14 +85,7 @@ public class Player extends Fightable {
 	 * @param prayer
 	 */
 	public void addPrayer(Prayers prayer){
-		if(!prayers.contains(prayer)){
-			for(Prayers active : prayers){
-				if(prayer.conflicts(active)){
-					prayers.remove(active);
-				}
-			}
-			prayers.add(prayer);
-		}
+		prayers.add(prayer);
 	}
 	
 	/**
@@ -111,8 +93,7 @@ public class Player extends Fightable {
 	 * @param prayer
 	 */ 
 	public void removePrayer(Prayers prayer){
-		if(prayers.contains(prayer))
-			prayers.remove(prayer);
+		prayers.remove(prayer);
 	}
 	
 	public void clearSlot(SlotType slot){
@@ -135,6 +116,14 @@ public class Player extends Fightable {
 	
 	public String getItemName(SlotType slot){
 		return gear.getItem(slot);
+	}
+	
+	public void setPrayers(boolean[] values) {
+		if(values != null) prayers.setValues(values);
+	}
+
+	public void setPotions(boolean[] values) {
+		if(values != null) potions.setValues(values);
 	}
 	
 }

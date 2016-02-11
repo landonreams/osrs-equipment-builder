@@ -13,11 +13,10 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
 
 import com.osrs.levels.Potions;
 import com.osrs.levels.PotionsList;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.EtchedBorder;
 
 @SuppressWarnings("serial")
 public class PotionSelector extends JDialog {
@@ -25,7 +24,7 @@ public class PotionSelector extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private final ArrayList<JCheckBox> allCheckBoxes = new ArrayList<JCheckBox>();
 	private final PotionsList pl = new PotionsList();
-	private boolean[] selected;
+	private boolean[] selected, selectedOnInit;
 	private JCheckBox chckbxSuperRanging;
 	private JCheckBox chckbxDefencePotion;
 	private JCheckBox chckbxAttackPotion;
@@ -57,7 +56,13 @@ public class PotionSelector extends JDialog {
 		}
 	}
 	public boolean[] display(){
-		selected = null;
+		selectedOnInit = null;
+		setVisible(true);
+		return selected;
+	}
+	
+	public boolean[] display(boolean[] selectedOnInit){
+		this.selectedOnInit = selectedOnInit;
 		setVisible(true);
 		return selected;
 	}
@@ -66,7 +71,6 @@ public class PotionSelector extends JDialog {
 		if(valuesChanged){
 			selected = pl.getAll();
 		}
-		
 		setVisible(false);
 	}
 	/**
@@ -74,18 +78,18 @@ public class PotionSelector extends JDialog {
 	 */
 	public PotionSelector() {
 		setTitle("Select your Potions");
-		setBounds(100, 100, 366, 272);
+		setBounds(100, 100, 375, 250);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setToolTipText("");
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[] { 0, 0, 0, 0, 0 };
-		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_contentPanel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
+		gbl_contentPanel.columnWidths = new int[] { 0, 0, 0, 0 };
+		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_contentPanel.columnWeights = new double[] { 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
 		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+				0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 
 		chckbxAttackPotion = new JCheckBox("Attack potion");
@@ -93,7 +97,7 @@ public class PotionSelector extends JDialog {
 		GridBagConstraints gbc_chckbxAttackPotion = new GridBagConstraints();
 		gbc_chckbxAttackPotion.anchor = GridBagConstraints.WEST;
 		gbc_chckbxAttackPotion.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxAttackPotion.gridx = 1;
+		gbc_chckbxAttackPotion.gridx = 0;
 		gbc_chckbxAttackPotion.gridy = 1;
 		contentPanel.add(chckbxAttackPotion, gbc_chckbxAttackPotion);
 
@@ -102,7 +106,7 @@ public class PotionSelector extends JDialog {
 		GridBagConstraints gbc_chckbxSuperAttack = new GridBagConstraints();
 		gbc_chckbxSuperAttack.anchor = GridBagConstraints.WEST;
 		gbc_chckbxSuperAttack.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxSuperAttack.gridx = 2;
+		gbc_chckbxSuperAttack.gridx = 1;
 		gbc_chckbxSuperAttack.gridy = 1;
 		contentPanel.add(chckbxSuperAttack, gbc_chckbxSuperAttack);
 
@@ -112,7 +116,7 @@ public class PotionSelector extends JDialog {
 		GridBagConstraints gbc_chckbxOverload = new GridBagConstraints();
 		gbc_chckbxOverload.anchor = GridBagConstraints.WEST;
 		gbc_chckbxOverload.insets = new Insets(0, 0, 5, 0);
-		gbc_chckbxOverload.gridx = 3;
+		gbc_chckbxOverload.gridx = 2;
 		gbc_chckbxOverload.gridy = 1;
 		contentPanel.add(chckbxOverload, gbc_chckbxOverload);
 
@@ -121,7 +125,7 @@ public class PotionSelector extends JDialog {
 		GridBagConstraints gbc_chckbxStrengthPotion = new GridBagConstraints();
 		gbc_chckbxStrengthPotion.anchor = GridBagConstraints.WEST;
 		gbc_chckbxStrengthPotion.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxStrengthPotion.gridx = 1;
+		gbc_chckbxStrengthPotion.gridx = 0;
 		gbc_chckbxStrengthPotion.gridy = 2;
 		contentPanel.add(chckbxStrengthPotion, gbc_chckbxStrengthPotion);
 
@@ -130,7 +134,7 @@ public class PotionSelector extends JDialog {
 		GridBagConstraints gbc_chckbxSuperStrength = new GridBagConstraints();
 		gbc_chckbxSuperStrength.anchor = GridBagConstraints.WEST;
 		gbc_chckbxSuperStrength.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxSuperStrength.gridx = 2;
+		gbc_chckbxSuperStrength.gridx = 1;
 		gbc_chckbxSuperStrength.gridy = 2;
 		contentPanel.add(chckbxSuperStrength, gbc_chckbxSuperStrength);
 
@@ -139,7 +143,7 @@ public class PotionSelector extends JDialog {
 		GridBagConstraints gbc_chckbxSaradominBrew = new GridBagConstraints();
 		gbc_chckbxSaradominBrew.anchor = GridBagConstraints.WEST;
 		gbc_chckbxSaradominBrew.insets = new Insets(0, 0, 5, 0);
-		gbc_chckbxSaradominBrew.gridx = 3;
+		gbc_chckbxSaradominBrew.gridx = 2;
 		gbc_chckbxSaradominBrew.gridy = 2;
 		contentPanel.add(chckbxSaradominBrew, gbc_chckbxSaradominBrew);
 
@@ -148,7 +152,7 @@ public class PotionSelector extends JDialog {
 		GridBagConstraints gbc_chckbxDefencePotion = new GridBagConstraints();
 		gbc_chckbxDefencePotion.anchor = GridBagConstraints.WEST;
 		gbc_chckbxDefencePotion.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxDefencePotion.gridx = 1;
+		gbc_chckbxDefencePotion.gridx = 0;
 		gbc_chckbxDefencePotion.gridy = 3;
 		contentPanel.add(chckbxDefencePotion, gbc_chckbxDefencePotion);
 
@@ -157,7 +161,7 @@ public class PotionSelector extends JDialog {
 		GridBagConstraints gbc_chckbxSuperDefence = new GridBagConstraints();
 		gbc_chckbxSuperDefence.anchor = GridBagConstraints.WEST;
 		gbc_chckbxSuperDefence.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxSuperDefence.gridx = 2;
+		gbc_chckbxSuperDefence.gridx = 1;
 		gbc_chckbxSuperDefence.gridy = 3;
 		contentPanel.add(chckbxSuperDefence, gbc_chckbxSuperDefence);
 
@@ -166,7 +170,7 @@ public class PotionSelector extends JDialog {
 		GridBagConstraints gbc_chckbxZamorakBrew = new GridBagConstraints();
 		gbc_chckbxZamorakBrew.anchor = GridBagConstraints.WEST;
 		gbc_chckbxZamorakBrew.insets = new Insets(0, 0, 5, 0);
-		gbc_chckbxZamorakBrew.gridx = 3;
+		gbc_chckbxZamorakBrew.gridx = 2;
 		gbc_chckbxZamorakBrew.gridy = 3;
 		contentPanel.add(chckbxZamorakBrew, gbc_chckbxZamorakBrew);
 
@@ -175,7 +179,7 @@ public class PotionSelector extends JDialog {
 		GridBagConstraints gbc_chckbxCombatPotion = new GridBagConstraints();
 		gbc_chckbxCombatPotion.anchor = GridBagConstraints.WEST;
 		gbc_chckbxCombatPotion.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxCombatPotion.gridx = 1;
+		gbc_chckbxCombatPotion.gridx = 0;
 		gbc_chckbxCombatPotion.gridy = 4;
 		contentPanel.add(chckbxCombatPotion, gbc_chckbxCombatPotion);
 
@@ -184,7 +188,7 @@ public class PotionSelector extends JDialog {
 		GridBagConstraints gbc_chckbxSuperCombat = new GridBagConstraints();
 		gbc_chckbxSuperCombat.anchor = GridBagConstraints.WEST;
 		gbc_chckbxSuperCombat.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxSuperCombat.gridx = 2;
+		gbc_chckbxSuperCombat.gridx = 1;
 		gbc_chckbxSuperCombat.gridy = 4;
 		contentPanel.add(chckbxSuperCombat, gbc_chckbxSuperCombat);
 		
@@ -192,7 +196,7 @@ public class PotionSelector extends JDialog {
 		GridBagConstraints gbc_chckbxDragonBaxe = new GridBagConstraints();
 		gbc_chckbxDragonBaxe.anchor = GridBagConstraints.WEST;
 		gbc_chckbxDragonBaxe.insets = new Insets(0, 0, 5, 0);
-		gbc_chckbxDragonBaxe.gridx = 3;
+		gbc_chckbxDragonBaxe.gridx = 2;
 		gbc_chckbxDragonBaxe.gridy = 4;
 		contentPanel.add(chckbxDragonBaxe, gbc_chckbxDragonBaxe);
 
@@ -200,7 +204,7 @@ public class PotionSelector extends JDialog {
 		GridBagConstraints gbc_chckbxRangingPotion = new GridBagConstraints();
 		gbc_chckbxRangingPotion.anchor = GridBagConstraints.WEST;
 		gbc_chckbxRangingPotion.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxRangingPotion.gridx = 1;
+		gbc_chckbxRangingPotion.gridx = 0;
 		gbc_chckbxRangingPotion.gridy = 5;
 		contentPanel.add(chckbxRangingPotion, gbc_chckbxRangingPotion);
 
@@ -209,7 +213,7 @@ public class PotionSelector extends JDialog {
 		GridBagConstraints gbc_chckbxSuperRanging = new GridBagConstraints();
 		gbc_chckbxSuperRanging.anchor = GridBagConstraints.WEST;
 		gbc_chckbxSuperRanging.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxSuperRanging.gridx = 2;
+		gbc_chckbxSuperRanging.gridx = 1;
 		gbc_chckbxSuperRanging.gridy = 5;
 		contentPanel.add(chckbxSuperRanging, gbc_chckbxSuperRanging);
 		
@@ -217,7 +221,7 @@ public class PotionSelector extends JDialog {
 		GridBagConstraints gbc_chckbxExcalibur = new GridBagConstraints();
 		gbc_chckbxExcalibur.anchor = GridBagConstraints.WEST;
 		gbc_chckbxExcalibur.insets = new Insets(0, 0, 5, 0);
-		gbc_chckbxExcalibur.gridx = 3;
+		gbc_chckbxExcalibur.gridx = 2;
 		gbc_chckbxExcalibur.gridy = 5;
 		contentPanel.add(chckbxExcalibur, gbc_chckbxExcalibur);
 
@@ -225,7 +229,7 @@ public class PotionSelector extends JDialog {
 		GridBagConstraints gbc_chckbxMagicPotion = new GridBagConstraints();
 		gbc_chckbxMagicPotion.anchor = GridBagConstraints.WEST;
 		gbc_chckbxMagicPotion.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxMagicPotion.gridx = 1;
+		gbc_chckbxMagicPotion.gridx = 0;
 		gbc_chckbxMagicPotion.gridy = 6;
 		contentPanel.add(chckbxMagicPotion, gbc_chckbxMagicPotion);
 
@@ -234,7 +238,7 @@ public class PotionSelector extends JDialog {
 		GridBagConstraints gbc_chckbxSuperMagic = new GridBagConstraints();
 		gbc_chckbxSuperMagic.anchor = GridBagConstraints.WEST;
 		gbc_chckbxSuperMagic.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxSuperMagic.gridx = 2;
+		gbc_chckbxSuperMagic.gridx = 1;
 		gbc_chckbxSuperMagic.gridy = 6;
 		contentPanel.add(chckbxSuperMagic, gbc_chckbxSuperMagic);
 
@@ -279,7 +283,7 @@ public class PotionSelector extends JDialog {
 		allCheckBoxes.add(chckbxSaradominBrew);
 		allCheckBoxes.add(chckbxDragonBaxe);
 		allCheckBoxes.add(chckbxExcalibur);
-
+		
 		chckbxAttackPotion.addActionListener(e -> {
 			pl.add(Potions.REG_ATT);
 			updateCheckboxes();
@@ -364,6 +368,9 @@ public class PotionSelector extends JDialog {
 			updateCheckboxes();
 		});
 		
+		if(selected != null)
+			setSelected(selectedOnInit);
+		
 		setResizable(false);
 	}
 	
@@ -372,9 +379,7 @@ public class PotionSelector extends JDialog {
 		updateCheckboxes();
 	}
 	
-	public void updateCheckboxes(){
-		boolean[] isSelected = pl.getAll();
-
+	public void setSelected(boolean[] isSelected){
 		chckbxSuperRanging.setSelected(isSelected[Potions.SUP_RNG.index]);
 		chckbxDefencePotion.setSelected(isSelected[Potions.REG_DEF.index]);
 		chckbxAttackPotion.setSelected(isSelected[Potions.REG_ATT.index]);
@@ -392,5 +397,11 @@ public class PotionSelector extends JDialog {
 		chckbxSuperStrength.setSelected(isSelected[Potions.SUP_STR.index]);
 		chckbxMagicPotion.setSelected(isSelected[Potions.REG_MAG.index]);
 		chckbxSuperCombat.setSelected(isSelected[Potions.SUP_CMB.index]);
+	}
+	
+	public void updateCheckboxes(){
+		boolean[] isSelected = pl.getAll();
+
+		setSelected(isSelected);
 	}
 }

@@ -42,8 +42,9 @@ public enum Spell {
 	BARRAGE_SHADOW("Shadow barrage", 28, 88),
 	BARRAGE_BLOOD("Blood barrage", 29, 92),
 	BARRAGE_ICE("Ice barrage", 30, 94),
-	TRIDENT_SEAS("(Trident of the seas)", -1, 75),
-	TRIDENT_SWAMP("(Trident of the swamp)", -1, 75);
+	TRIDENT_SEAS("Trident of the seas", -1, 75),
+	TRIDENT_SWAMP("Trident of the swamp", -1, 75),
+	NPC("NPC Spell - Max Hit Varies", -1, -1);
 	
 	private final int maxHit;
 	public final int level;
@@ -62,6 +63,11 @@ public enum Spell {
 		case TRIDENT_SWAMP: return magicLevel / 3 - 2;
 		default: return maxHit;
 		}
+	}
+	
+	@Override
+	public String toString(){
+		return name;
 	}
 }
 

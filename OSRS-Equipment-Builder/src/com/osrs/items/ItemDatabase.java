@@ -227,8 +227,8 @@ public class ItemDatabase {
 			conn = DriverManager.getConnection("jdbc:h2:file:./db/items;IFEXISTS=TRUE");
 			if(filter.equals(ItemFilter.NO_COSMETIC))
 				stmt = conn.prepareStatement("SELECT ITEM FROM EQUIPMENT WHERE SLOT LIKE ? AND COSMETIC IS FALSE");
-			else if(filter.equals(ItemFilter.BIS))
-				stmt = conn.prepareStatement("SELECT ITEM FROM EQUIPMENT WHERE SLOT LIKE ? AND BIS_P2P IS TRUE");
+//			else if(filter.equals(ItemFilter.BIS))
+//				stmt = conn.prepareStatement("SELECT ITEM FROM EQUIPMENT WHERE SLOT LIKE ? AND BIS_P2P IS TRUE");
 			else
 				stmt = conn.prepareStatement("SELECT ITEM FROM EQUIPMENT WHERE SLOT LIKE ?");
 			stmt.setString(1, slotToString(slot));

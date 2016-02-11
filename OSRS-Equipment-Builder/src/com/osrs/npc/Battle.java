@@ -1,6 +1,5 @@
 package com.osrs.npc;
 
-import com.osrs.items.BasicStat;
 
 /**
  * Object to simulate a battle between two NPCs
@@ -19,7 +18,7 @@ public class Battle {
 		defender = d;
 	}
 	
-	public double getHitChance(BasicStat stat){
+	public double getHitChance(DamageType stat){
 		double attRoll = Damage.getMaxRoll(attacker, stat);
 		double defRoll = Damage.getMaxDefenceRoll(defender, stat);
 		

@@ -72,6 +72,14 @@ public enum Potions {
 		default: return "";
 		}
 	}
+	
+	public static Potions fromIndex(int i){
+		for(Potions p : Potions.values()){
+			if(p.index == i)
+				return p;
+		}
+		return null;
+	}
 	/*
 	 * Potions are...
 	 * Regular potion: 3 + 10% * Only for Attack, Strength, and Defence

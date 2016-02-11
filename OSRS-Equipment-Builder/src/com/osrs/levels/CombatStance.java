@@ -1,6 +1,6 @@
 package com.osrs.levels;
 
-public enum CombatStyle {
+public enum CombatStance {
 	M_ACCURATE(new int[]{3, 0, 0, 0, 0, 0, 0}), 
 	M_AGGRESSIVE(new int[]{0, 3, 0, 0, 0, 0, 0}),
 	M_DEFENSIVE(new int[]{0, 0, 3, 0, 0, 0, 0}),
@@ -15,7 +15,7 @@ public enum CombatStyle {
 	 * Array dictates the levels boosted by using a specific style, in the order
 	 * ASDRMPH
 	 */
-	private CombatStyle(int[] array){
+	private CombatStance(int[] array){
 		levelBoost = array;
 	}
 }

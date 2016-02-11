@@ -2,7 +2,7 @@ package com.osrs.npc;
 
 import com.osrs.items.StatType;
 import com.osrs.levels.ArmorBoostType;
-import com.osrs.levels.CombatStyle;
+import com.osrs.levels.CombatStance;
 import com.osrs.levels.LevelType;
 
 /**
@@ -19,7 +19,7 @@ public class NPC extends Fightable {
 	public NPC(){
 		super();
 		stats = new int[14];
-		style = CombatStyle.M_CONTROLLED;
+		stance = CombatStance.M_CONTROLLED;
 	}
 	
 	/**
@@ -31,7 +31,7 @@ public class NPC extends Fightable {
 	public NPC(int[] levels, int[] stats){
 		super(levels);
 		this.stats = stats;
-		style = CombatStyle.M_CONTROLLED;
+		stance = CombatStance.M_CONTROLLED;
 	}
 	
 	@Override
@@ -61,6 +61,10 @@ public class NPC extends Fightable {
 	@Override
 	public ArmorBoostType getArmorBoost(){
 		return ArmorBoostType.NONE;
+	}
+	
+	public void setPrayers(boolean[] prayersActive) {
+		System.out.println("[Warning] NPCs cannot have prayers active!");
 	}
 	
 }

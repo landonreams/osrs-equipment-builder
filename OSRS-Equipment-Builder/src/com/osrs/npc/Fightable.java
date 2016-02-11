@@ -1,15 +1,13 @@
 package com.osrs.npc;
 
-import java.util.ArrayList;
-
-import com.osrs.items.BasicStat;
 import com.osrs.items.StatType;
 import com.osrs.levels.ArmorBoostType;
-import com.osrs.levels.CombatStyle;
+import com.osrs.levels.CombatStance;
 import com.osrs.levels.CombatTriangle;
 import com.osrs.levels.LevelType;
-import com.osrs.levels.Potions;
-import com.osrs.levels.Prayers;
+import com.osrs.levels.PotionsList;
+import com.osrs.levels.PrayersList;
+import com.osrs.levels.Spell;
 
 
 /**
@@ -17,20 +15,23 @@ import com.osrs.levels.Prayers;
  * @author Landon Reams
  */
 public abstract class Fightable {
-	protected int[] levels;
-	protected CombatStyle style;
-	protected ArrayList<Prayers> prayers;
-	protected ArrayList<Potions> potions;
-	protected CombatTriangle     attackType;
-	protected BasicStat			 primaryBonus;
+	protected int[]          levels;
+	protected CombatStance   stance;
+	protected PrayersList    prayers;
+	protected PotionsList	 potions;
+	protected CombatTriangle attackType;
+	protected DamageType     damageType;
+	protected Spell          spell;
 	
 	/**
 	 * Default constructor for a Fightable.
 	 */
 	public Fightable(){
 		levels = new int[] {1, 1, 1, 1, 1, 1, 1};
-		prayers = new ArrayList<Prayers>();
-		potions = new ArrayList<Potions>();
+		prayers = new PrayersList();
+		potions = new PotionsList();
+		stance  = CombatStance.M_CONTROLLED;
+		spell   = Spell.STRIKE_WIND;
 	}
 	
 	/**
@@ -42,41 +43,33 @@ public abstract class Fightable {
 		if(levels.length != 7)
 			throw new IllegalArgumentException("Levels array length must be equal to 7! Current length is: "+levels.length);
 		this.levels = levels;
-		prayers = new ArrayList<Prayers>();
-		potions = new ArrayList<Potions>();
+		prayers = new PrayersList();
+		potions = new PotionsList();
+		stance  = CombatStance.M_CONTROLLED;
+		spell   = Spell.STRIKE_WIND;
 	}
 	
-	public void setPrimaryBonus(BasicStat bs){
-		this.primaryBonus = bs;
+	public void setStance(CombatStance cs){
+		this.stance = cs;
 	}
 	
-	public BasicStat getPrimaryBonus(){
-		return primaryBonus;
+	public CombatStance getStance(){
+		return stance;
 	}
-	
-	
 	
 	/**
 	 * Sets combat style. Does not change between NPC and Player.
 	 * @param style
 	 */
-	public void setStyle(CombatStyle style){
-		this.style = style;
-	}
-	
-	/**
-	 * Returns current combat style.
-	 * @return style
-	 */	
-	public CombatStyle getStyle(){
-		return style;
+	public void setAttackType(CombatTriangle style){
+		this.attackType = style;
 	}
 	
 	/**
 	 * Returns the attack type of the Fightable.
 	 * @return attackType
 	 */
-	public CombatTriangle usingAttackType(){
+	public CombatTriangle getAttackType(){
 		return attackType;
 	}
 	
@@ -84,34 +77,52 @@ public abstract class Fightable {
 	 * Get the Fightable's active prayers.
 	 * @return prayers
 	 */
-	public ArrayList<Prayers> getPrayers(){
-		ArrayList<Prayers> newList = new ArrayList<Prayers>();
-		for(Prayers p : prayers){
-			newList.add(p);
-		}
-		return newList;
+	public PrayersList getPrayersList(){
+		return prayers;
 	}
 	
-	/**
-	 * Get the Fightable's active potions.
-	 * @return prayers
-	 */
-	public ArrayList<Potions> getPotions(){
-		ArrayList<Potions> newList = new ArrayList<Potions>();
-		for(Potions p : potions){
-			newList.add(p);
-		}
-		return newList;
+	public PotionsList getPotionsList(){
+		return potions;
 	}
-	
-	public abstract int[] getStats();
 	public int[] getLevels(){
 		return levels;
 	}
-	public abstract int   getStat(StatType stat);
-	public int   getLevel(LevelType level){
+	
+	public int getLevel(LevelType level){
 		return levels[level.index];
 	}
-	public abstract ArmorBoostType getArmorBoost();
 	
+	public void setLevel(int level, LevelType levelType){
+		this.levels[levelType.index] = level;
+	}
+	
+	public void setLevels(int[] levels){
+		if(levels.length != 7)
+			throw new IllegalArgumentException("Incorrect array length of levels array!");
+		this.levels = levels;
+	}
+	
+	public Spell getSpell(){
+		return spell;
+	}
+	
+	public void setSpell(Spell spell){
+		this.spell = spell;
+	}
+	
+	public abstract ArmorBoostType getArmorBoost();
+	public abstract int   getStat(StatType stat);
+	public abstract int[] getStats();
+	
+	public int getCombatLevel(){
+		double base = 0.25 * ( this.getLevel(LevelType.DEFENCE) + this.getLevel(LevelType.HITPOINTS) + Math.floor(this.getLevel(LevelType.PRAYER) / 2) );
+		double melee = 0.325 * ( this.getLevel(LevelType.ATTACK) + this.getLevel(LevelType.STRENGTH) );
+		double range = 0.325 * ( Math.floor(this.getLevel(LevelType.RANGED) / 2) + this.getLevel(LevelType.MAGIC));
+		double magic = 0.325 * ( Math.floor(this.getLevel(LevelType.MAGIC)/ 2) + this.getLevel(LevelType.MAGIC));
+		double add = Math.max(melee, Math.max(range, magic));
+		
+		return (int) Math.floor(base + add);
+	}
+	
+	public abstract void setPrayers(boolean[] prayersActive);
 }
