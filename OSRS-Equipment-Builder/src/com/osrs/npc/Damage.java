@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 import com.osrs.items.BasicStat;
 import com.osrs.items.StatType;
+import com.osrs.levels.ArmorBoostType;
+import com.osrs.levels.LevelBooster;
+import com.osrs.levels.LevelType;
+import com.osrs.levels.Potions;
+import com.osrs.levels.Prayers;
 
 /**
  * Calculates several damage-dealing factors for an NPC
@@ -87,18 +92,18 @@ public class Damage {
 		 * 4. Add attack style bonus from anNPC.CombatStyle, if any.
 		 * 5. Multiply by Void Set bonus (only if NPC is Player wearing full Void equipment)
 		 */
-		ArrayList<Potions> potions = anNPC.getPotions();
+		//ArrayList<Potions> potions = anNPC.getPotions();
 		ArrayList<Prayers> prayers = anNPC.getPrayers();
 		
 		int newLevel = anNPC.getLevel(level);
 		
-		for(Potions p : potions){
-			if(p.appliesToLevel(level))
-				newLevel = LevelBoosts.applyPotion(p, newLevel);
-		}
+//		for(Potions p : potions){
+//			if(p.appliesToLevel(level))
+//				//newLevel = LevelBooster.applyPotion(p, anNPC.getLevels());
+//		}
 		
 		for(Prayers p : prayers){
-			newLevel = LevelBoosts.applyPrayer(p, newLevel, level);
+			newLevel = LevelBooster.applyPrayer(p, newLevel, level);
 		}
 		
 		newLevel += 8;

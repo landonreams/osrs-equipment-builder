@@ -2,7 +2,7 @@ package com.osrs.items;
 
 import java.util.EnumMap;
 
-import com.osrs.npc.ArmorBoostType;
+import com.osrs.levels.ArmorBoostType;
 
 public class EquipmentSet {
 	private ItemDatabase db;

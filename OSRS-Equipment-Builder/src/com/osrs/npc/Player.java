@@ -4,6 +4,9 @@ import com.osrs.items.BasicStat;
 import com.osrs.items.EquipmentSet;
 import com.osrs.items.SlotType;
 import com.osrs.items.StatType;
+import com.osrs.levels.ArmorBoostType;
+import com.osrs.levels.Potions;
+import com.osrs.levels.Prayers;
 
 /**
  * Class to simulate Player in combat. Players use Equipment sets rather than stat array.

@@ -1,4 +1,4 @@
-package com.osrs.npc;
+package com.osrs.levels;
 
 public enum CombatStyle {
 	M_ACCURATE(new int[]{3, 0, 0, 0, 0, 0, 0}), 

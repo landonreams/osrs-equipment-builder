@@ -1,4 +1,4 @@
-package com.osrs.npc;
+package com.osrs.levels;
 
 public enum ArmorBoostType {
 	NONE(-1, 1.0, 1.0), VOID_MELEE(0, 1.1, 1.1), VOID_RANGED(1, 1.1, 1.2), VOID_MAGIC(2, 1.3, 1.0), 

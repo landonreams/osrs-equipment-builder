@@ -4,6 +4,12 @@ import java.util.ArrayList;
 
 import com.osrs.items.BasicStat;
 import com.osrs.items.StatType;
+import com.osrs.levels.ArmorBoostType;
+import com.osrs.levels.CombatStyle;
+import com.osrs.levels.CombatTriangle;
+import com.osrs.levels.LevelType;
+import com.osrs.levels.Potions;
+import com.osrs.levels.Prayers;
 
 
 /**
@@ -15,7 +21,6 @@ public abstract class Fightable {
 	protected CombatStyle style;
 	protected ArrayList<Prayers> prayers;
 	protected ArrayList<Potions> potions;
-	protected ArrayList<Misc>    misc;
 	protected CombatTriangle     attackType;
 	protected BasicStat			 primaryBonus;
 	
@@ -26,7 +31,6 @@ public abstract class Fightable {
 		levels = new int[] {1, 1, 1, 1, 1, 1, 1};
 		prayers = new ArrayList<Prayers>();
 		potions = new ArrayList<Potions>();
-		misc = new ArrayList<Misc>();
 	}
 	
 	/**
@@ -40,7 +44,6 @@ public abstract class Fightable {
 		this.levels = levels;
 		prayers = new ArrayList<Prayers>();
 		potions = new ArrayList<Potions>();
-		misc = new ArrayList<Misc>();
 	}
 	
 	public void setPrimaryBonus(BasicStat bs){
@@ -101,17 +104,6 @@ public abstract class Fightable {
 		return newList;
 	}
 	
-	/**
-	 * Get the Fightable's active Misc.
-	 * @return prayers
-	 */
-	public ArrayList<Misc> getMisc(){
-		ArrayList<Misc> newList = new ArrayList<Misc>();
-		for(Misc m : misc){
-			newList.add(m);
-		}
-		return newList;
-	}
 	public abstract int[] getStats();
 	public int[] getLevels(){
 		return levels;

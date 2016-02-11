@@ -1,4 +1,4 @@
-package com.osrs.npc;
+package com.osrs.levels;
 
 /**
  * Short enum for use declaring a Fightable's combat style.

@@ -1,4 +1,4 @@
-package com.osrs.npc;
+package com.osrs.levels;
 
 import java.util.Arrays;
 
@@ -9,28 +9,31 @@ import java.util.Arrays;
  * @author Severus Snape
  */
 public enum Potions {
-	REG_ATT(3, 1.10, new LevelType[]{LevelType.ATTACK}), 
-	REG_STR(3, 1.10, new LevelType[]{LevelType.STRENGTH}), 
-	REG_DEF(3, 1.10, new LevelType[]{LevelType.DEFENCE}),
-	REG_CMB(3, 1.10, new LevelType[]{LevelType.ATTACK, LevelType.STRENGTH, LevelType.DEFENCE}),
-	REG_RNG(4, 1.10, new LevelType[]{LevelType.RANGED}),
-	REG_MAG(4, 1.00, new LevelType[]{LevelType.MAGIC}),
-	SUP_ATT(5, 1.15, new LevelType[]{LevelType.ATTACK}), 
-	SUP_STR(5, 1.15, new LevelType[]{LevelType.STRENGTH}),
-	SUP_DEF(5, 1.15, new LevelType[]{LevelType.DEFENCE}),
-	SUP_CMB(5, 1.15, new LevelType[]{LevelType.ATTACK, LevelType.STRENGTH, LevelType.DEFENCE}),
-	SUP_RNG(5, 1.15, new LevelType[]{LevelType.RANGED}),
-	SUP_MAG(5, 1.15, new LevelType[]{LevelType.MAGIC}),
-	OTH_OVL(5, 1.15, new LevelType[]{LevelType.ATTACK, LevelType.STRENGTH, LevelType.DEFENCE, LevelType.RANGED, LevelType.MAGIC}),
-	OTH_ZBA(2, 1.12, new LevelType[]{LevelType.ATTACK}), 
-	OTH_ZBS(2, 1.20, new LevelType[]{LevelType.STRENGTH}), 
-	OTH_SBR(2, 1.20, new LevelType[]{LevelType.DEFENCE}),
-	OTH_DBX(-1, -1, new LevelType[]{LevelType.STRENGTH});
+	REG_ATT(0,  3, 0.10, new LevelType[]{LevelType.ATTACK}), 
+	REG_STR(1,  3, 0.10, new LevelType[]{LevelType.STRENGTH}), 
+	REG_DEF(2,  3, 0.10, new LevelType[]{LevelType.DEFENCE}),
+	REG_CMB(3,  3, 0.10, new LevelType[]{LevelType.ATTACK, LevelType.STRENGTH, LevelType.DEFENCE}),
+	REG_RNG(4,  4, 0.10, new LevelType[]{LevelType.RANGED}),
+	REG_MAG(5,  4, 0.00, new LevelType[]{LevelType.MAGIC}),
+	SUP_ATT(6,  5, 0.15, new LevelType[]{LevelType.ATTACK}), 
+	SUP_STR(7,  5, 0.15, new LevelType[]{LevelType.STRENGTH}),
+	SUP_DEF(8,  5, 0.15, new LevelType[]{LevelType.DEFENCE}),
+	SUP_CMB(9,  5, 0.15, new LevelType[]{LevelType.ATTACK, LevelType.STRENGTH, LevelType.DEFENCE}),
+	SUP_RNG(10, 5, 0.15, new LevelType[]{LevelType.RANGED}),
+	SUP_MAG(11, 5, 0.15, new LevelType[]{LevelType.MAGIC}),
+	OTH_OVL(12, 5, 0.15, new LevelType[]{LevelType.ATTACK, LevelType.STRENGTH, LevelType.DEFENCE, LevelType.RANGED, LevelType.MAGIC}),
+	OTH_ZBR(13, -1, -1, new LevelType[]{LevelType.ATTACK, LevelType.STRENGTH}), 
+	OTH_SBR(14, 2, 0.20, new LevelType[]{LevelType.DEFENCE}),
+	OTH_DBX(15, -1, -1, new LevelType[]{LevelType.STRENGTH}),
+	OTH_EXC(16, 8, 0.00, new LevelType[]{LevelType.DEFENCE});
 	
+	public final int index;
 	public final int constant;
 	public final double percentage;
 	public final LevelType[] applicables;
-	private Potions(int constant, double percentage, LevelType[] applicables){
+	public final static int NUM_POTIONS = 17;
+	private Potions(int index, int constant, double percentage, LevelType[] applicables){
+		this.index = index;
 		this.constant = constant;
 		this.percentage = percentage;
 		this.applicables = applicables;
@@ -52,8 +55,8 @@ public enum Potions {
 		case OTH_DBX: return "Dragon battleaxe";
 		case OTH_OVL: return "Overload";
 		case OTH_SBR: return "Saradomin brew";
-		case OTH_ZBA: return "Z-brew (Attack)";
-		case OTH_ZBS: return "Z-brew (Strength)";
+		case OTH_ZBR: return "Zamorak brew";
+		case OTH_EXC: return "Excalibur";
 		case REG_ATT: return "Attack";
 		case REG_CMB: return "Combat";
 		case REG_DEF: return "Defence";

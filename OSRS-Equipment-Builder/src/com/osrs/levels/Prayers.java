@@ -1,4 +1,4 @@
-package com.osrs.npc;
+package com.osrs.levels;
 
 
 /**

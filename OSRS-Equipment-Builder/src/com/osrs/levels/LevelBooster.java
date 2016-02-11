@@ -1,23 +1,34 @@
-package com.osrs.npc;
+package com.osrs.levels;
+
 
 
 /**
  * Class for calculating level boosts, at least until I find a better way of doing so.
  * @author Landon Reams
  */
-public class LevelBoosts {
+public class LevelBooster {
 	
 	/** Applies Potions pot to the input.
 	 * @param pot
 	 * @param level
 	 * @return boostedLevel
 	 */
-	public static int applyPotion(Potions pot, int level){
-		double boostedLevel = level;
-		
-		boostedLevel = pot.constant + level * pot.percentage;
-		
-		return (int) Math.floor(boostedLevel);
+	public static int[] applyPotion(Potions pot, int[] levels){
+		int[] boostedLevels = new int[LevelType.NUM_LEVELS];
+		if(pot.equals(Potions.OTH_DBX))
+			boostedLevels[LevelType.STRENGTH.index] = getStrFromDragonBattleaxeSpec(levels);
+		else if(pot.equals(Potions.OTH_ZBR)){
+			boostedLevels[LevelType.ATTACK.index] = (int) Math.floor(2 + levels[LevelType.ATTACK.index] * 0.12);
+			boostedLevels[LevelType.STRENGTH.index] = (int) Math.floor(2 + levels[LevelType.STRENGTH.index] * 0.2);
+		}
+		else {
+			for(LevelType l : pot.applicables){
+				double boost = 0;
+				boost = pot.constant + levels[l.index] * pot.percentage;
+				boostedLevels[l.index] = (int) Math.floor(boost);
+			}
+		}
+		return boostedLevels;
 	}
 	
 	/** Returns Strength level after using Dragon Battleaxe special attack.
@@ -26,7 +37,7 @@ public class LevelBoosts {
 	 * @param levels
 	 * @return boostedStrength
 	 */
-	public static int getStrFromDragonBattleaxeSpec(int[] levels){
+	private static int getStrFromDragonBattleaxeSpec(int[] levels){
 		double boost = 10 + 0.025 * (levels[LevelType.ATTACK.index] + levels[LevelType.DEFENCE.index]
 							+ levels[LevelType.RANGED.index] + levels[LevelType.MAGIC.index]);
 		double boostedStrength = boost + levels[LevelType.STRENGTH.index];
@@ -66,10 +77,5 @@ public class LevelBoosts {
 		default: break;
 		}
 		return newLevel;
-	}
-	
-	public static int boostByMisc(Misc misc, int level, LevelType levelType){
-		
-		return level;
 	}
 }

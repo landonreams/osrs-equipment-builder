@@ -1,4 +1,4 @@
-package com.osrs.npc;
+package com.osrs.levels;
 
 public enum Spell {
 	STRIKE_WIND("Wind strike", 2, 1),
