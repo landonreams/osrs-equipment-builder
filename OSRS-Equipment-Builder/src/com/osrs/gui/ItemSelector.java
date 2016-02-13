@@ -47,7 +47,7 @@ public class ItemSelector extends JDialog {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ItemSelector frame = new ItemSelector(SlotType.MAINHAND, ItemFilter.BIS);
+					ItemSelector frame = new ItemSelector(SlotType.MAINHAND, ItemFilter.COMMON);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

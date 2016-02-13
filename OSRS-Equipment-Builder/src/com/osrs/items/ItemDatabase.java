@@ -11,6 +11,7 @@ import java.util.Collections;
  * @author Landon Reams
  */
 public class ItemDatabase {
+	public static final String URL = "jdbc:h2:file:./db/items;IFEXISTS=TRUE";
 	private Connection conn;
 	private PreparedStatement stmt;
 	private ResultSet rs;
@@ -73,7 +74,7 @@ public class ItemDatabase {
 		
 		try{
 			Class.forName("org.h2.Driver");
-			conn = DriverManager.getConnection("jdbc:h2:file:./db/items;IFEXISTS=TRUE");
+			conn = DriverManager.getConnection(URL);
 			stmt = conn.prepareStatement("SELECT * FROM EQUIPMENT WHERE ITEM = ?");
 			stmt.setString(1, item);
 			rs = stmt.executeQuery();

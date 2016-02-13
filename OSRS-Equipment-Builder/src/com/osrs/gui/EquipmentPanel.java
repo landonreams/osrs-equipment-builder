@@ -6,9 +6,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -67,7 +66,7 @@ public class EquipmentPanel extends JPanel {
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public EquipmentPanel(final Player player) {
-		filter = ItemFilter.BIS;
+		filter = ItemFilter.COMMON;
 
 		GridBagLayout gbl_playerEquipment = new GridBagLayout();
 		gbl_playerEquipment.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0};
@@ -778,22 +777,10 @@ public class EquipmentPanel extends JPanel {
 		gbc_lblFilteringMode.gridy = 21;
 		add(lblFilteringMode, gbc_lblFilteringMode);
 
-		filterMode = new JComboBox(new String[] { "No filtering",
-				"No cosmetics", "Commonly used" });
-		filterMode.addItemListener(new ItemListener() {
-			@Override
-			public void itemStateChanged(ItemEvent event) {
-				if (event.getStateChange() == ItemEvent.SELECTED) {
-					Object item = event.getItem();
-
-					if (item.equals("No filtering"))
-						refilter(ItemFilter.NONE);
-					else if (item.equals("No cosmetics"))
-						refilter(ItemFilter.NO_COSMETIC);
-					else
-						refilter(ItemFilter.BIS);
-				}
-			}
+		filterMode = new JComboBox();
+		filterMode.setModel(new DefaultComboBoxModel(ItemFilter.values()));
+		filterMode.addItemListener(e -> {
+			refilter((ItemFilter)filterMode.getSelectedItem());
 		});
 		filterMode.setSelectedIndex(2);
 		GridBagConstraints gbc_filterMode = new GridBagConstraints();

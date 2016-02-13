@@ -3,6 +3,7 @@ package com.osrs.gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -12,17 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeListener;
 
 import com.osrs.levels.CombatTriangle;
 import com.osrs.levels.Spell;
 import com.osrs.npc.DamageType;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.event.ChangeEvent;
 
 @SuppressWarnings("serial")
 public class StyleSelector extends JTabbedPane {

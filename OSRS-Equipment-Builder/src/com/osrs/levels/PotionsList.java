@@ -20,7 +20,6 @@ public class PotionsList implements Iterable<Potions>{
 				this.remove(p);
 			}
 		}
-		System.out.println("ADDING "+o);
 		potions.put(o, true);
 	}
 	
@@ -29,12 +28,9 @@ public class PotionsList implements Iterable<Potions>{
 	}
 		
 	public boolean[] getAll(){
-		System.out.println("CALLING GETALL");
 		boolean[] pots = new boolean[Potions.NUM_POTIONS];
 		for(Potions p : Potions.values()){
-			System.out.println("-- Adding "+p+" at index "+p.index);
 			pots[p.index] = (boolean) potions.get(p);
-			System.out.println("---- "+pots[p.index]);
 		}
 		return pots;
 	}

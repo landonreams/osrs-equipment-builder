@@ -124,5 +124,15 @@ public abstract class Fightable {
 		return (int) Math.floor(base + add);
 	}
 	
+	public double getCombatLevelExact(){
+		double base = 0.25 * ( this.getLevel(LevelType.DEFENCE) + this.getLevel(LevelType.HITPOINTS) + this.getLevel(LevelType.PRAYER) / 2 );
+		double melee = 0.325 * ( this.getLevel(LevelType.ATTACK) + this.getLevel(LevelType.STRENGTH) );
+		double range = 0.325 * ( this.getLevel(LevelType.RANGED) / 2 + this.getLevel(LevelType.MAGIC));
+		double magic = 0.325 * ( this.getLevel(LevelType.MAGIC)/ 2 + this.getLevel(LevelType.MAGIC));
+		double add = Math.max(melee, Math.max(range, magic));
+		
+		return base + add;
+	}
+	
 	public abstract void setPrayers(boolean[] prayersActive);
 }

@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
+import com.osrs.levels.Potions;
 import com.osrs.levels.Prayers;
 import com.osrs.levels.PrayersList;
 
@@ -33,13 +34,18 @@ public class PrayerSelector extends JDialog {
 		try {
 			PrayerSelector dialog = new PrayerSelector();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
+			boolean[] selectedOnInit = new boolean[Prayers.NUM_PRAYERS];
+			for(int i = 0; i < Prayers.NUM_PRAYERS; i++)
+				selectedOnInit[i] = true;
+			dialog.display(selectedOnInit);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	public boolean[] display(boolean[] selectedOnInit){
 		this.selectedOnInit = selectedOnInit;
+		pl.setValues(selectedOnInit);
+		updateCheckboxes(this.selectedOnInit);
 		setVisible(true);
 		return selected;
 	}
@@ -76,22 +82,27 @@ public class PrayerSelector extends JDialog {
 		contentPanel.setLayout(gbl_contentPanel);
 		
 		GridBagConstraints[] gbc_chckbxPrayers = new GridBagConstraints[Prayers.NUM_PRAYERS];
+		
 		for(int i = 0; i < chckbxPrayers.length; i++){
 			final int j = i;
-			chckbxPrayers[i] = new JCheckBox(Prayers.fromIndex(i).name);
+			Prayers pray = Prayers.fromIndex(i);
+			chckbxPrayers[i] = new JCheckBox(pray.name);
 			gbc_chckbxPrayers[i] = new GridBagConstraints();
 			gbc_chckbxPrayers[i].insets = new Insets(0, 0, 5, 5);
-			gbc_chckbxPrayers[i].gridx = 0 + i%5;
-			gbc_chckbxPrayers[i].gridy = 0 + i/5;
+			gbc_chckbxPrayers[i].gridx = pray.gridx;
+			gbc_chckbxPrayers[i].gridy = pray.gridy;
 			gbc_chckbxPrayers[i].anchor = GridBagConstraints.WEST;
 			contentPanel.add(chckbxPrayers[i], gbc_chckbxPrayers[i]);
 			
 			chckbxPrayers[i].addActionListener(e -> {
-				pl.add(Prayers.fromIndex(j));
+				if(chckbxPrayers[j].isSelected())
+					pl.add(Prayers.fromIndex(j));
+				else
+					pl.remove(Prayers.fromIndex(j));
 				updateCheckboxes();
 			});
 		}
-
+		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

@@ -44,8 +44,6 @@ public class PrayersList implements Iterable<Prayers>{
 	public void setValues(boolean[] values){
 		for(Prayers p : Prayers.values()){
 			prayers.put(p, values[p.index]);
-			if(values[p.index])
-				System.out.println(p.toString() + " is active! DR is: " + 1 / p.drainInterval);
 		}
 	}
 	
@@ -54,7 +52,6 @@ public class PrayersList implements Iterable<Prayers>{
 		
 		for(Prayers p : this){
 			dr += 1.0 / (p.drainInterval * (1.0 + prayerBonus / 30.0));
-			System.out.println("DR: " + dr + "; PR : " + p.drainInterval);
 		}
 		
 		return dr;

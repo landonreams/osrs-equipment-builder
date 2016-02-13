@@ -26,7 +26,7 @@ public class Damage {
 		case MELEE:
 			effStr = effectiveLevels[LevelType.STRENGTH.index];
 			strBonus = attacker.getStat(StatType.MSC_MELEE);
-			System.out.println(strBonus);
+			//System.out.println(strBonus);
 			base = 1.3 + effStr / 10 + strBonus / 80 + effStr * strBonus / 640;
 			return (int) Math.floor(base);
 		case RANGED:
@@ -135,7 +135,7 @@ public class Damage {
 		PrayersList prl = anNPC.getPrayersList();
 		for(Potions pot : ptl){
 			int[] boost = LevelBooster.applyPotion(pot, newLevels);
-			System.out.println(pot);
+			//System.out.println(pot);
 			for(LevelType l : boostableLevels)
 				newLevels[l.index] += boost[l.index];
 		}
