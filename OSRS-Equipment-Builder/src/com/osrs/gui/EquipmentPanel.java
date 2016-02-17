@@ -16,6 +16,8 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.osrs.items.Equippable;
+import com.osrs.items.ItemDatabase;
 import com.osrs.items.ItemFilter;
 import com.osrs.items.SlotType;
 import com.osrs.items.StatType;
@@ -28,6 +30,8 @@ public class EquipmentPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -1607456473402238121L;
 
+	private static final ItemFilter DEFAULT_FILTER = ItemFilter.COMMON;
+	
 	@SuppressWarnings("rawtypes")
 	private JComboBox filterMode;
 
@@ -66,7 +70,7 @@ public class EquipmentPanel extends JPanel {
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public EquipmentPanel(final Player player) {
-		filter = ItemFilter.COMMON;
+		filter = DEFAULT_FILTER;
 
 		GridBagLayout gbl_playerEquipment = new GridBagLayout();
 		gbl_playerEquipment.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0};
@@ -797,8 +801,6 @@ public class EquipmentPanel extends JPanel {
 		gbc_playerPanel.gridy = 0;
 
 		updateStats(player.getStats());
-
-		// pack();
 	}
 
 	private void refilter(ItemFilter f) {
@@ -824,4 +826,27 @@ public class EquipmentPanel extends JPanel {
 		text_msc_pry.setText(stats[StatType.MSC_PRAYER.index] + "");
 	}
 
+	public void update(Player player){
+		int[] eqpid = player.getEquipment();
+		Equippable[] eqp = (new ItemDatabase().getAll(eqpid));
+		
+		for(Equippable e : eqp){
+			switch(e.getSlot()){
+			case MAINHAND: text_mainhand.setText(e.getName()); break;
+			case OFFHAND: text_Offhand.setText(e.getName()); break;
+			case HEAD: text_Head.setText(e.getName()); break;
+			case BODY: text_Body.setText(e.getName()); break;
+			case LEGS: text_Legs.setText(e.getName()); break;
+			case CAPE: text_Cape.setText(e.getName()); break;
+			case GLOVES: text_Gloves.setText(e.getName()); break;
+			case BOOTS: text_Boots.setText(e.getName()); break;
+			case NECK: text_Amulet.setText(e.getName()); break;
+			case RING: text_Ring.setText(e.getName()); break;
+			case AMMO: text_Ammo.setText(e.getName()); break;
+			}
+		}
+		
+		updateStats(player.getStats());
+	}
+	
 }

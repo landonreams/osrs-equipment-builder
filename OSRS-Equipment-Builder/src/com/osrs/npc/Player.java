@@ -59,8 +59,6 @@ public class Player extends Fightable {
 		gear = new EquipmentSet(equipment);
 	}
 	
-	
-	
 	@Override
 	public int[] getStats() {
 		return gear.getStats();
@@ -179,75 +177,11 @@ public class Player extends Fightable {
 		return levels;
 	}
 	
-	public static void playerDebugLookup(String name){
-		try {
-			System.out.println("Name: "+name);
-			URL url = new URL(hiscorePrefix + name);
-			InputStream is = url.openStream();
-			int ptr = 0;
-			StringBuffer sb = new StringBuffer();
-			ArrayList<Integer> readIn = new ArrayList<Integer>();
-			
-			//Order from hiscores: Overall, Attack, Defence, Strength, Hitpoints, Ranged, Prayer, Magic
-			//Rank, Level, Experience
-			
-			while((ptr = is.read()) != -1){
-				sb.append((char)ptr);
-			}
-			
-			System.out.println(sb.toString());
-			
-			
-		} catch (FileNotFoundException e) {
-			System.out.println("Name not found.");
-		} catch (Exception e){
-			e.printStackTrace();
-		}
-		System.out.println();
+	public int[] getEquipment(){
+		return gear.toArray();
 	}
 	
-	public static long[][] playerLookup2D(String name){
-		long[][] result = new long[24][3];
-		
-		try {
-			URL url = new URL(hiscorePrefix + name);
-			InputStream is = url.openStream();
-			int ptr = 0;
-			StringBuffer sb = new StringBuffer();
-			ArrayList<Long> readIn = new ArrayList<Long>();
-			
-			//Order from hiscores: Overall, Attack, Defence, Strength, Hitpoints, Ranged, Prayer, Magic
-			//Rank, Level, Experience
-			
-			while((ptr = is.read()) != -1){
-				if(!Character.isDigit((char) ptr)){
-					if(!sb.toString().equals(""))
-						readIn.add(Long.parseLong(sb.toString()));
-					sb.setLength(0);
-				} else {
-					sb.append((char)ptr);
-				}
-			}
-			
-			//Extract levels from arraylist'
-			int i = 0;
-			for(int r = 0; r < 24; r++){
-				for(int c = 0; c < 3; c++){
-					result[r][c] = readIn.get(i++);
-				}
-			}
-			
-		} catch (FileNotFoundException e) {
-			return null;
-		} catch (Exception e){
-			e.printStackTrace();
-		}
-		
-		return result;
-	}
-	
-	public static void main(String[] args){
-		getLevels("Lynx titan");
-		
+	public void equip(int[] array){
+		gear.equip(array);
 	}
 }

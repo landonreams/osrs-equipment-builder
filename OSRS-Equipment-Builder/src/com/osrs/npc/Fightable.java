@@ -22,6 +22,7 @@ public abstract class Fightable {
 	protected CombatTriangle attackType;
 	protected DamageType     damageType;
 	protected Spell          spell;
+	protected int            speed;
 	
 	/**
 	 * Default constructor for a Fightable.
@@ -32,6 +33,7 @@ public abstract class Fightable {
 		potions = new PotionsList();
 		stance  = CombatStance.M_CONTROLLED;
 		spell   = Spell.STRIKE_WIND;
+		attackType = CombatTriangle.MELEE;
 	}
 	
 	/**
@@ -47,6 +49,8 @@ public abstract class Fightable {
 		potions = new PotionsList();
 		stance  = CombatStance.M_CONTROLLED;
 		spell   = Spell.STRIKE_WIND;
+
+		attackType = CombatTriangle.MELEE;
 	}
 	
 	public void setStance(CombatStance cs){
@@ -85,7 +89,11 @@ public abstract class Fightable {
 		return potions;
 	}
 	public int[] getLevels(){
-		return levels;
+		int[] levelClones = new int[levels.length];
+		for(int i = 0; i < levels.length; i++){
+			levelClones[i] = levels[i];
+		}
+		return levelClones;
 	}
 	
 	public int getLevel(LevelType level){
@@ -99,7 +107,8 @@ public abstract class Fightable {
 	public void setLevels(int[] levels){
 		if(levels.length != 7)
 			throw new IllegalArgumentException("Incorrect array length of levels array!");
-		this.levels = levels;
+		for(int i = 0; i < levels.length; i++)
+			this.levels[i] = levels[i];
 	}
 	
 	public Spell getSpell(){
@@ -108,6 +117,22 @@ public abstract class Fightable {
 	
 	public void setSpell(Spell spell){
 		this.spell = spell;
+	}
+	
+	public DamageType getDamageType(){
+		return damageType;
+	}
+	
+	public void setDamageType(DamageType dt){
+		damageType = dt;
+	}
+	
+	public void setSpeed(int speed){
+		this.speed = speed;
+	}
+	
+	public int getSpeed(){
+		return speed;
 	}
 	
 	public abstract ArmorBoostType getArmorBoost();

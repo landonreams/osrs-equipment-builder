@@ -22,6 +22,9 @@ public class Damage {
 		int[] effectiveLevels = getEffectiveStrengths(attacker);
 		int effStr, strBonus = 0;
 		double base = 0.0;
+		
+		ArmorBoostType abt = attacker.getArmorBoost();
+		System.out.println(abt);
 		switch(attackingType){
 		case MELEE:
 			effStr = effectiveLevels[LevelType.STRENGTH.index];
@@ -212,5 +215,15 @@ public class Damage {
 		magicDef = (int) Math.floor(0.7 * levels[LevelType.MAGIC.index] + 0.3 * levels[LevelType.DEFENCE.index]);
 		
 		return magicDef;
+	}
+	
+	public static double getHitChance(Fightable attacker, Fightable defender){
+		double maxAttRoll = getMaxRoll(attacker, attacker.getDamageType());
+		System.out.println("Max Att: "+maxAttRoll);
+		double maxDefRoll = getMaxDefenceRoll(defender, attacker.getDamageType());
+		System.out.println("Max Def: "+maxDefRoll);
+		
+		double hitRate = maxAttRoll < maxDefRoll ? 0.5 * (maxAttRoll) / (maxDefRoll) : 1 - 0.5 * (maxDefRoll) / (maxAttRoll);
+		return hitRate;
 	}
 }

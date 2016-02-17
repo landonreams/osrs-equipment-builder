@@ -40,7 +40,6 @@ public class StyleSelector extends JTabbedPane {
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public StyleSelector() {
-		setTabPlacement(JTabbedPane.RIGHT);
 		
 		panelMelee = new JPanel();
 		add(panelMelee);
@@ -205,9 +204,9 @@ public class StyleSelector extends JTabbedPane {
 		add(panelMagic);
 		setTitleAt(2, "Magic");
 		GridBagLayout gbl_panelMagic = new GridBagLayout();
-		gbl_panelMagic.columnWidths = new int[]{0, 0, 0};
-		gbl_panelMagic.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panelMagic.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panelMagic.columnWidths = new int[]{10, 0, 0, 0};
+		gbl_panelMagic.rowHeights = new int[]{10, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panelMagic.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panelMagic.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 4.9E-324, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panelMagic.setLayout(gbl_panelMagic);
 		
@@ -217,7 +216,7 @@ public class StyleSelector extends JTabbedPane {
 		gbc_spellSelector.gridwidth = 2;
 		gbc_spellSelector.insets = new Insets(0, 0, 5, 0);
 		gbc_spellSelector.fill = GridBagConstraints.HORIZONTAL;
-		gbc_spellSelector.gridx = 0;
+		gbc_spellSelector.gridx = 1;
 		gbc_spellSelector.gridy = 1;
 		panelMagic.add(spellSelector, gbc_spellSelector);
 		
@@ -249,7 +248,7 @@ public class StyleSelector extends JTabbedPane {
 		return null;
 	}
 	
-	public int getAttackSpeed(){
+	public int getSpeed(){
 		switch(this.getDamageType()){
 		case STAB:
 		case SLASH:

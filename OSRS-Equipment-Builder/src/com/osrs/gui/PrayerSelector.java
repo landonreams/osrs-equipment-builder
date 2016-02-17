@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
-import com.osrs.levels.Potions;
 import com.osrs.levels.Prayers;
 import com.osrs.levels.PrayersList;
 

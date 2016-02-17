@@ -5,12 +5,19 @@ package com.osrs.levels;
  * @author Landon Reams
  */
 public enum LevelType {
-	ATTACK(0), STRENGTH(1), DEFENCE(2), RANGED(3), MAGIC(4), PRAYER(5), HITPOINTS(6);
+	ATTACK(0, "Attack"), STRENGTH(1, "Strength"), DEFENCE(2, "Defence"), RANGED(3, "Ranged"), MAGIC(4, "Magic"), PRAYER(5, "Prayer"), HITPOINTS(6, "Hitpoints");
 	
 	public final int index;
+	public final String name;
 	public static final int NUM_LEVELS = 7;
 	
-	private LevelType(int index){
+	private LevelType(int index, String name){
 		this.index = index;
+		this.name = name;
+	}
+	
+	@Override
+	public String toString(){
+		return name;
 	}
 }

@@ -103,7 +103,9 @@ public class ItemDatabase {
 								rs.getInt("MageDamage"),
 								rs.getInt("Prayer") };
 				
-				result = new Equippable(name, slot, stats, isTwoHanded);
+				int id = rs.getInt("ID");
+				
+				result = new Equippable(name, slot, stats, isTwoHanded, id);
 			}
 			
 			conn.close();
@@ -112,6 +114,107 @@ public class ItemDatabase {
 		}
 		
 		return result;
+	}
+	
+	public Equippable getItem(int id){
+		Equippable result = null;
+		
+		try{
+			Class.forName("org.h2.Driver");
+			conn = DriverManager.getConnection(URL);
+			stmt = conn.prepareStatement("SELECT * FROM EQUIPMENT WHERE ID = ?");
+			stmt.setInt(1, id);
+			rs = stmt.executeQuery();
+			
+			if(rs.next()){
+			
+				String name = rs.getString("Item");
+				
+				String slotString = rs.getString("Slot");
+				boolean isTwoHanded = slotString.equals("2h");
+				
+				SlotType slot = stringToSlot(slotString);	
+				
+				int[] stats = { rs.getInt("StabAccuracy"),
+								rs.getInt("SlashAccuracy"),
+								rs.getInt("CrushAccuracy"),
+			    				rs.getInt("MageAccuracy"),
+								rs.getInt("RangeAccuracy"),
+								rs.getInt("StabDefence"),
+								rs.getInt("SlashDefence"),
+								rs.getInt("CrushDefence"),
+							    rs.getInt("MageDefence"),
+							    rs.getInt("RangeDefence"),
+							    rs.getInt("MeleeStrength"),
+								rs.getInt("RangeStrength"),
+								rs.getInt("MageDamage"),
+								rs.getInt("Prayer") };
+				
+				int idd = rs.getInt("ID");
+				
+				result = new Equippable(name, slot, stats, isTwoHanded, idd);
+			}
+			
+			conn.close();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public Equippable[] getAll(int[] ids){
+		ArrayList<Equippable> alResult = new ArrayList<Equippable>();
+		try{
+			Class.forName("org.h2.Driver");
+			conn = DriverManager.getConnection("jdbc:h2:file:./db/items;IFEXISTS=TRUE");
+			stmt = conn.prepareStatement("SELECT * FROM EQUIPMENT WHERE ID = ?");
+			for(int id : ids){
+				stmt.setInt(1, id);
+				rs = stmt.executeQuery();
+				
+				System.out.println(id);
+				
+				if(rs.next()){
+				
+					String name = rs.getString("Item");
+				
+					String slotString = rs.getString("Slot");
+					
+					boolean isTwoHanded = slotString.equals("2h");
+					
+					SlotType slot = stringToSlot(slotString);	
+					
+					int[] stats = { rs.getInt("StabAccuracy"),
+									rs.getInt("SlashAccuracy"),
+									rs.getInt("CrushAccuracy"),
+				    				rs.getInt("MageAccuracy"),
+									rs.getInt("RangeAccuracy"),
+									rs.getInt("StabDefence"),
+									rs.getInt("SlashDefence"),
+									rs.getInt("CrushDefence"),
+								    rs.getInt("MageDefence"),
+								    rs.getInt("RangeDefence"),
+								    rs.getInt("MeleeStrength"),
+									rs.getInt("RangeStrength"),
+									rs.getInt("MageDamage"),
+									rs.getInt("Prayer") };
+					
+					int idd = rs.getInt("ID");
+					
+					alResult.add(new Equippable(name, slot, stats, isTwoHanded, idd));
+				
+				} 
+			}
+			
+			conn.close();
+		} catch (Exception e){
+			System.out.println("There was an exception.");
+			//e.printStackTrace();
+		}
+		
+		Equippable[] result = new Equippable[alResult.size()];
+		return alResult.toArray(result);
 	}
 	
 	public Equippable[] getAll(String[] items){
@@ -149,7 +252,9 @@ public class ItemDatabase {
 									rs.getInt("MageDamage"),
 									rs.getInt("Prayer") };
 					
-					alResult.add(new Equippable(name, slot, stats, isTwoHanded));
+					int id = rs.getInt("ID");
+					
+					alResult.add(new Equippable(name, slot, stats, isTwoHanded, id));
 				} 
 			}
 			
@@ -221,17 +326,22 @@ public class ItemDatabase {
 	//TODO: Add search filter options.
 	public String[] getAllInSlot(SlotType slot, ItemFilter filter){
 		ArrayList<String> alResult = new ArrayList<String>();
-		if(filter == null) filter = ItemFilter.NO_COSMETIC;
+		if(filter == null) 
+			filter = ItemFilter.COMMON;
 		
 		try{
 			Class.forName("org.h2.Driver");
 			conn = DriverManager.getConnection("jdbc:h2:file:./db/items;IFEXISTS=TRUE");
-			if(filter.equals(ItemFilter.NO_COSMETIC))
-				stmt = conn.prepareStatement("SELECT ITEM FROM EQUIPMENT WHERE SLOT LIKE ? AND COSMETIC IS FALSE");
-//			else if(filter.equals(ItemFilter.BIS))
-//				stmt = conn.prepareStatement("SELECT ITEM FROM EQUIPMENT WHERE SLOT LIKE ? AND BIS_P2P IS TRUE");
-			else
-				stmt = conn.prepareStatement("SELECT ITEM FROM EQUIPMENT WHERE SLOT LIKE ?");
+			
+			String stmtstring = "SELECT ITEM FROM EQUIPMENT WHERE SLOT LIKE ?";
+			switch(filter){
+			case NO_COSMETIC: stmtstring = "SELECT ITEM FROM EQUIPMENT WHERE SLOT LIKE ? AND COSMETIC IS FALSE"; break;
+			case COMMON: stmtstring = "SELECT ITEM FROM EQUIPMENT WHERE SLOT LIKE ? AND COMMON IS TRUE"; break;
+			case CUSTOM: stmtstring = "SELECT ITEM FROM EQUIPMENT WHERE SLOT LIKE ? AND CUSTOM IS TRUE"; break;
+				default: stmtstring = "SELECT ITEM FROM EQUIPMENT WHERE SLOT LIKE ?"; break;
+			}
+			
+			stmt = conn.prepareStatement(stmtstring);
 			stmt.setString(1, slotToString(slot));
 			rs = stmt.executeQuery();
 			
@@ -251,7 +361,7 @@ public class ItemDatabase {
 			
 			conn.close();
 		} catch (Exception e){
-			e.printStackTrace();
+			System.out.println("Wut");
 		}
 		
 		//filterArrayList(alResult, filter);

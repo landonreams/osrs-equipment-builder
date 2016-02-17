@@ -5,46 +5,24 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
 import com.osrs.levels.Potions;
 import com.osrs.levels.PotionsList;
-import com.osrs.levels.Prayers;
 
 @SuppressWarnings("serial")
 public class PotionSelector extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private final ArrayList<JCheckBox> allCheckBoxes = new ArrayList<JCheckBox>();
 	private final PotionsList pl = new PotionsList();
 	private boolean[] selected, selectedOnInit;
 	private final JCheckBox[] chckbxPotions = new JCheckBox[Potions.NUM_POTIONS];
-//	private JCheckBox chckbxSuperRanging;
-//	private JCheckBox chckbxDefencePotion;
-//	private JCheckBox chckbxAttackPotion;
-//	private JCheckBox chckbxCombatPotion;
-//	private JCheckBox chckbxOverload;
-//	private JCheckBox chckbxSuperDefence;
-//	private JCheckBox chckbxSuperMagic;
-//	private JCheckBox chckbxStrengthPotion;
-//	private JCheckBox chckbxSaradominBrew;
-//	private JCheckBox chckbxDragonBaxe;
-//	private JCheckBox chckbxRangingPotion;
-//	private JCheckBox chckbxSuperAttack;
-//	private JCheckBox chckbxZamorakBrew;
-//	private JCheckBox chckbxExcalibur;
-//	private JCheckBox chckbxSuperStrength;
-//	private JCheckBox chckbxMagicPotion;
-//	private JCheckBox chckbxSuperCombat;
-
 	/**
 	 * Launch the application.
 	 */

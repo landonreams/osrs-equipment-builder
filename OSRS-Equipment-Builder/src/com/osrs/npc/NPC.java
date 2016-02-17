@@ -11,6 +11,8 @@ import com.osrs.levels.LevelType;
  */
 public class NPC extends Fightable {
 	private int[] stats;
+	private int combatLevel;
+	private String name;
 	
 	
 	/**
@@ -20,6 +22,8 @@ public class NPC extends Fightable {
 		super();
 		stats = new int[14];
 		stance = CombatStance.M_CONTROLLED;
+		combatLevel = -1;
+		name = "None";
 	}
 	
 	/**
@@ -32,16 +36,24 @@ public class NPC extends Fightable {
 		super(levels);
 		this.stats = stats;
 		stance = CombatStance.M_CONTROLLED;
+		combatLevel = -1;
+		name = "None";
+	}
+	
+	public NPC(int[] levels, int[] stats, String name){
+		super(levels);
+		this.stats = stats;
+		stance = CombatStance.M_CONTROLLED;
+		combatLevel = -1;
 	}
 	
 	@Override
 	public int[] getStats() {
-		return stats;
-	}
-
-	@Override
-	public int[] getLevels() {
-		return levels;
+		int[] newStats = new int[stats.length];
+		for(int i = 0; i < newStats.length; i++){
+			newStats[i] = stats[i];
+		}
+		return newStats;
 	}
 
 	@Override
@@ -52,6 +64,26 @@ public class NPC extends Fightable {
 	@Override
 	public int getLevel(LevelType level) {
 		return levels[level.index];
+	}
+	
+	public void setLevels(int[] levels){
+		if(levels.length != LevelType.NUM_LEVELS)
+			throw new IllegalArgumentException("Improper array length!");
+		this.levels = levels;
+	}
+	
+	public void setLevel(int level, LevelType levelType){
+		this.levels[levelType.index] = level;
+	}
+	
+	public void setStats(int[] stats){
+		if(stats.length != StatType.NUM_STATS)
+			throw new IllegalArgumentException("Improper array length!");
+		this.stats = stats;
+	}
+	
+	public void setStat(int stat, StatType statType){
+		this.stats[statType.index] = stat;
 	}
 	
 	/**
@@ -66,5 +98,34 @@ public class NPC extends Fightable {
 	public void setPrayers(boolean[] prayersActive) {
 		System.out.println("[Warning] NPCs cannot have prayers active!");
 	}
+	
+	@Override
+	public int getCombatLevel(){
+		if(combatLevel == -1)
+			return superCombat();
+		return combatLevel;
+	}
+	
+	public void setCombat(int combatLevel){
+		this.combatLevel = combatLevel;
+	}
+	
+	private int superCombat(){
+		return super.getCombatLevel();
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	@Override
+	public String toString(){
+		return name;
+	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
+
 	
 }

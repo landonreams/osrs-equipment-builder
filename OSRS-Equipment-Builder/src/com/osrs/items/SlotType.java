@@ -5,7 +5,7 @@ public enum SlotType {
     BOOTS(7), NECK(8), RING(9), AMMO(10);
 
 	public final int index;
-
+	public static final int NUM_SLOTS = 11;
 	private SlotType(int index) {
 		this.index = index;
 	}

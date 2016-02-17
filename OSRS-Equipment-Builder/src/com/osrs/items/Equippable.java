@@ -9,6 +9,7 @@ public class Equippable {
 	private SlotType   slot;
 	private boolean twoHanded;
 	private int[] stats;
+	private int id;
 	
 	public Equippable(){
 		name = "Empty";
@@ -17,15 +18,20 @@ public class Equippable {
 		twoHanded = false;
 	}
 	
-	public Equippable(String name, SlotType slot, int[] stats, boolean twoHanded){
+	public Equippable(String name, SlotType slot, int[] stats, boolean twoHanded, int id){
 		this.name = name;
 		this.slot = slot;
 		this.stats = stats;
 		this.twoHanded = twoHanded;
+		this.id = id;
 	}
 	
 	public String getName(){
 		return name;
+	}
+	
+	public int getID(){
+		return id;
 	}
 	
 	public SlotType getSlot(){

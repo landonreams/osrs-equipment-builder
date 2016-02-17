@@ -22,6 +22,7 @@ import com.osrs.levels.Potions;
 import com.osrs.levels.Prayers;
 import com.osrs.levels.PrayersList;
 import com.osrs.npc.Damage;
+import com.osrs.npc.DamageType;
 import com.osrs.npc.Player;
 
 @SuppressWarnings("serial")
@@ -42,6 +43,8 @@ public class PlayerPanel extends JPanel {
 	private JTextField txtMaxHit;
 	private StyleSelector styleSelector;
 	private JTextField nameLookup;
+	
+	private static final String[] LIST_OF_NOOBS = {"ok bud", "AndyAchieves", "Mr Moon Beam", "iBriyaheer", "Cakelord77"};
 	
 	private static final String NAME_VERIFICATION = "[a-zA-Z0-9]([a-zA-Z0-9\\s\\-]){0,10}[a-zA-Z0-9]?";
 	
@@ -397,6 +400,8 @@ public class PlayerPanel extends JPanel {
 				if(levels == null){
 					JOptionPane.showMessageDialog(null, "Username not found!");
 				} else {
+					if(isNoob(name))
+						JOptionPane.showMessageDialog(null, "Warning: The player you have entered is a huge noob. Proceed with caution.", "NOOB ALERT", JOptionPane.WARNING_MESSAGE);
 					player.setLevels(levels);
 					updateSpinners(player);
 				}
@@ -440,8 +445,25 @@ public class PlayerPanel extends JPanel {
 		
 		CombatTriangle styleInUse = styleSelector.getStyle();
 		
+		player.setAttackType(styleInUse);
+		
+		DamageType dt = styleSelector.getDamageType();
+		player.setDamageType(dt);
+		
 		player.setSpell(styleSelector.getSpell());
 		
 		txtMaxHit.setText(Damage.getMaxHit(player, styleInUse) + "");
+	}
+	
+	private static boolean isNoob(String name){
+		for(String s : LIST_OF_NOOBS){
+			if(s.equalsIgnoreCase(name))
+				return true;
+		}
+		return false;
+	}
+	
+	public void update(Player player){
+		updateSpinners(player);
 	}
 }
