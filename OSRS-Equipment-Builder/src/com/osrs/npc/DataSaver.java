@@ -5,8 +5,8 @@ import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
+import com.osrs.data.LevelType;
 import com.osrs.items.SlotType;
-import com.osrs.levels.LevelType;
 
 public class DataSaver {
 	

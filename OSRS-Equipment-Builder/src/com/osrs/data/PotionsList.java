@@ -1,4 +1,4 @@
-package com.osrs.levels;
+package com.osrs.data;
 
 import java.util.ArrayList;
 import java.util.EnumMap;

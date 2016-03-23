@@ -1,14 +1,14 @@
 package com.osrs.npc;
 
+import com.osrs.data.ArmorBoostType;
+import com.osrs.data.CombatTriangle;
+import com.osrs.data.LevelBooster;
+import com.osrs.data.LevelType;
+import com.osrs.data.Potions;
+import com.osrs.data.PotionsList;
+import com.osrs.data.Prayers;
+import com.osrs.data.PrayersList;
 import com.osrs.items.StatType;
-import com.osrs.levels.ArmorBoostType;
-import com.osrs.levels.CombatTriangle;
-import com.osrs.levels.LevelBooster;
-import com.osrs.levels.LevelType;
-import com.osrs.levels.Potions;
-import com.osrs.levels.PotionsList;
-import com.osrs.levels.Prayers;
-import com.osrs.levels.PrayersList;
 
 /**
  * Calculates several damage-dealing factors for an NPC

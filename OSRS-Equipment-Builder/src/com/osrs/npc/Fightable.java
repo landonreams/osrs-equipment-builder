@@ -1,13 +1,13 @@
 package com.osrs.npc;
 
+import com.osrs.data.ArmorBoostType;
+import com.osrs.data.CombatStance;
+import com.osrs.data.CombatTriangle;
+import com.osrs.data.LevelType;
+import com.osrs.data.PotionsList;
+import com.osrs.data.PrayersList;
+import com.osrs.data.Spell;
 import com.osrs.items.StatType;
-import com.osrs.levels.ArmorBoostType;
-import com.osrs.levels.CombatStance;
-import com.osrs.levels.CombatTriangle;
-import com.osrs.levels.LevelType;
-import com.osrs.levels.PotionsList;
-import com.osrs.levels.PrayersList;
-import com.osrs.levels.Spell;
 
 
 /**

@@ -5,13 +5,13 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
+import com.osrs.data.ArmorBoostType;
+import com.osrs.data.LevelType;
+import com.osrs.data.Potions;
+import com.osrs.data.Prayers;
 import com.osrs.items.EquipmentSet;
 import com.osrs.items.SlotType;
 import com.osrs.items.StatType;
-import com.osrs.levels.ArmorBoostType;
-import com.osrs.levels.LevelType;
-import com.osrs.levels.Potions;
-import com.osrs.levels.Prayers;
 
 /**
  * Class to simulate Player in combat. Players use Equipment sets rather than stat array.

@@ -1,9 +1,9 @@
 package com.osrs.npc;
 
+import com.osrs.data.ArmorBoostType;
+import com.osrs.data.CombatStance;
+import com.osrs.data.LevelType;
 import com.osrs.items.StatType;
-import com.osrs.levels.ArmorBoostType;
-import com.osrs.levels.CombatStance;
-import com.osrs.levels.LevelType;
 
 /**
  * Class for creating a NPC with finite stats and no equipment selection.
