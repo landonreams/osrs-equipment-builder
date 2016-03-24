@@ -1,5 +1,12 @@
 package com.osrs.data;
 
+/**
+ * Enum depicting the styles a Player can use with their
+ * weapon. As certain styles are limited to certain weapons,
+ * I may find a way to rewrite this later.
+ * @author Landon
+ *
+ */
 public enum AttackStyle {
 	MLE_ACCURATE(CombatStyle.MELEE, Boost.FLAG_ATTACK),
 	MLE_AGGRESSIVE(CombatStyle.MELEE, Boost.FLAG_STRENGTH),

@@ -1,5 +1,10 @@
 package com.osrs.data;
 
+/**
+ * Enum depicting the seven different levels a NPC or Player can have.
+ * @author Landon
+ *
+ */
 public enum Levels {
 	ATTACK(0, Boost.FLAG_ATTACK),
 	STRENGTH(1, Boost.FLAG_STRENGTH),

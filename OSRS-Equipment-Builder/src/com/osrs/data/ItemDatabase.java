@@ -42,9 +42,11 @@ public class ItemDatabase {
 				result = new Item();
 				String name = rs.getString("name");
 				Slot   slot = Slot.fromString(rs.getString("slot"));
+				boolean is2h = rs.getBoolean("is2h");
 				
 				result.setName(name);
 				result.setSlot(slot);
+				result.set2h(is2h);
 				
 				for(ArmorStats as : ArmorStats.values()){
 					result.set(as, rs.getInt(as.toString()));

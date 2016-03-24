@@ -44,7 +44,8 @@ public enum Spell {
 	BARRAGE_ICE("Ice barrage", 30, 94),
 	TRIDENT_SEAS("Trident of the seas", -1, 75),
 	TRIDENT_SWAMP("Trident of the swamp", -1, 75),
-	NPC("NPC Spell - Max Hit Varies", -1, -1);
+	NPC("NPC Spell - Max Hit Varies", -1, -1),
+	NONE("No spell", -1, -1);
 	
 	private final int maxHit;
 	public final int level;
