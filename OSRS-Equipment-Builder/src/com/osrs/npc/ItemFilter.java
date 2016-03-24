@@ -1,4 +1,4 @@
-package com.osrs.items;
+package com.osrs.npc;
 
 public enum ItemFilter {
 	NONE("No filter"), COMMON("Common items"), NO_COSMETIC("No cosmetics"), CUSTOM("Custom items");

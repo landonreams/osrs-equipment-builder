@@ -5,12 +5,12 @@ import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
-import com.osrs.data.LevelType;
-import com.osrs.items.SlotType;
+import com.osrs.data.Levels;
+import com.osrs.data.Slot;
 
 public class DataSaver {
 	
-	public static final int NUM_ITEMS = LevelType.NUM_LEVELS + SlotType.NUM_SLOTS;
+	public static final int NUM_ITEMS = Levels.COUNT + Slot.COUNT;
 	
 	public static int[] read(String path, int size){
 		DataInputStream in = null;

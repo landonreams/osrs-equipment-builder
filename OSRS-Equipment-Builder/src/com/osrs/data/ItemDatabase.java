@@ -1,9 +1,5 @@
 package com.osrs.data;
 
-import java.sql.*;
-
-import java.util.ArrayList;
-import java.util.Collections;
 /**
  * Item Database object for retrieving items from the database
  * @author Landon Reams
@@ -12,10 +8,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+import com.osrs.npc.Item;
+
 public class ItemDatabase {
-	public static final String DB_PATH = "items.db";
+	public static final String DB_PATH = "./db/items.db";
 	private static final String URL_PREFIX = "jdbc:sqlite:";
 	
 	private Connection conn;
@@ -35,7 +34,7 @@ public class ItemDatabase {
 		try{
 			Class.forName("org.sqlite.JDBC");
 			conn = DriverManager.getConnection(URL_PREFIX + DB_PATH);
-			stmt = conn.prepareStatement("select * from equipment where item = ?");
+			stmt = conn.prepareStatement("select * from equipment where name = ?");
 			stmt.setString(1, item);
 			rs = stmt.executeQuery();
 		
@@ -75,7 +74,7 @@ public class ItemDatabase {
 		try{
 			Class.forName("org.sqlite.JDBC");
 			conn = DriverManager.getConnection(URL_PREFIX + DB_PATH);
-			stmt = conn.prepareStatement("select * from equipment where item = ?");
+			stmt = conn.prepareStatement("select * from equipment where name = ?");
 			
 			for(int i = 0; i < items.length; i++){
 				stmt.setString(1, items[i]);
@@ -112,7 +111,10 @@ public class ItemDatabase {
 	
 	public static void main(String[] args){
 		ItemDatabase db = new ItemDatabase();
-		db.get("Ahrim's staff");
+		
+		Item i = db.get("Dragon halberd");
+		
+		System.out.println(i);
 	}
 	
 	
