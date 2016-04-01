@@ -1,9 +1,9 @@
-package com.osrs.npc;
+package osrs.model.npc;
 
 import java.util.EnumMap;
 
-import com.osrs.data.ArmorStats;
-import com.osrs.data.Slot;
+import osrs.model.data.ArmorStats;
+import osrs.model.data.Slot;
 
 public class Item {
 	private String name;

@@ -1,4 +1,4 @@
-package com.osrs.data;
+package osrs.model.data;
 
 /**
  * Enum depicting the seven different levels a NPC or Player can have.

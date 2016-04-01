@@ -1,11 +1,11 @@
-package com.osrs.npc;
+package osrs.model.npc;
 
 import java.util.EnumMap;
 
-import com.osrs.data.ArmorStats;
-import com.osrs.data.CombatStyle;
-import com.osrs.data.Levels;
-import com.osrs.data.Spell;
+import osrs.model.data.ArmorStats;
+import osrs.model.data.CombatStyle;
+import osrs.model.data.Levels;
+import osrs.model.data.Spell;
 
 public abstract class Fightable {
 	protected EnumMap<Levels, Integer> levels;

@@ -1,15 +1,18 @@
-package com.osrs.data;
+package osrs.test;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.osrs.npc.Item;
+import osrs.model.data.ArmorStats;
+import osrs.model.data.ItemDatabase;
+import osrs.model.data.Slot;
+import osrs.model.npc.Item;
 
 public class ItemDatabaseTest {
 
-	private static final ItemDatabase db = new ItemDatabase();
+	private final ItemDatabase db = new ItemDatabase();
 	private Item DRAGON_HALBERD, RUNE_PLATEBODY, ABYSSAL_WHIP;
 	
 	
@@ -137,7 +140,9 @@ public class ItemDatabaseTest {
 		Item[] actual = db.getAll(items);
 		Item[] expected = new Item[3];
 		
+		expected[0] = null;
 		expected[1] = DRAGON_HALBERD;
+		expected[2] = null;
 		
 		assertNotNull("Actual should not be null!", actual);
 		assertEquals("Arrays are of inequal length!", actual.length, expected.length);
@@ -148,7 +153,7 @@ public class ItemDatabaseTest {
 	}
 	
 	@Test
-	public void getGetAllNoneExist(){
+	public void testGetGetAllNoneExist(){
 		String[] items = {
 				"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				"HELP I'M TRAPPED IN A COMPUTER",
@@ -158,6 +163,10 @@ public class ItemDatabaseTest {
 		Item[] actual = db.getAll(items);
 		Item[] expected = new Item[3];
 		
+		expected[0] = null;
+		expected[1] = null;
+		expected[2] = null;
+		
 		assertNotNull("Actual should not be null!", actual);
 		assertEquals("Arrays are of inequal length!", actual.length, expected.length);
 		
@@ -165,4 +174,28 @@ public class ItemDatabaseTest {
 			assertEquals("Item at index "+i+" is not equal!", actual[i], expected[i]);
 		}
 	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetNone(){
+		db.get(null);
+		
+		fail("Expected an IllegalArgumentException.");
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAllNone(){
+		db.getAll(null);
+		
+		fail("Expected an IllegalArgumentException.");
+	}
+	
+	@Test
+	public void testGetAllEmpty(){
+		Item[] actual = db.getAll(new String[]{ });
+		Item[] expected = new Item[]{ };
+		
+		assertNotNull("Actual should not be null!", actual);
+		assertEquals("Arrays are of inequal length!", actual.length, expected.length);
+	}
+	
 }

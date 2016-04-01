@@ -1,4 +1,4 @@
-package com.osrs.data;
+package osrs.model.data;
 
 /**
  * Item Database object for retrieving items from the database
@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-import com.osrs.npc.Item;
+import osrs.model.npc.Item;
 
 public class ItemDatabase {
 	public static final String DB_PATH = "./db/items.db";

@@ -1,4 +1,4 @@
-package com.osrs.data;
+package osrs.model.data;
 
 /**
  * Enum depicting the styles a Player can use with their

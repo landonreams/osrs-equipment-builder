@@ -1,9 +1,9 @@
-package com.osrs.npc;
+package osrs.model.npc;
 
 import java.util.EnumMap;
 
-import com.osrs.data.ArmorStats;
-import com.osrs.data.Levels;
+import osrs.model.data.ArmorStats;
+import osrs.model.data.Levels;
 
 public class NPC extends Fightable {
 	private EnumMap<ArmorStats, Integer> armorstats;

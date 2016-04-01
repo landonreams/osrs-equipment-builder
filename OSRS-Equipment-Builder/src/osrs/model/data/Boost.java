@@ -1,4 +1,4 @@
-package com.osrs.data;
+package osrs.model.data;
 
 public interface Boost {
 	public static final int   FLAG_ATTACK = 0b000001;

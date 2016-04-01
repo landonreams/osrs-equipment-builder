@@ -1,4 +1,4 @@
-package com.osrs.data;
+package osrs.model.data;
 
 public enum ArmorStats {
 	ASTAB(0), ASLASH(1), ACRUSH(2), AMAGIC(3), ARANGE(4),

@@ -1,4 +1,4 @@
-package com.osrs.data;
+package osrs.model.data;
 
 public enum Spell {
 	STRIKE_WIND("Wind strike", 2, 1),

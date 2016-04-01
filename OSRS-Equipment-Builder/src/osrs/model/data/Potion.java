@@ -1,4 +1,4 @@
-package com.osrs.data;
+package osrs.model.data;
 
 public enum Potion implements Boost {
 	REG_ATT("Attack potion",   3, 1.1,  FLAG_ATTACK),

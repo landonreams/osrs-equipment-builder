@@ -1,8 +1,8 @@
-package com.osrs.npc;
+package osrs.model.npc;
 
-import com.osrs.data.ArmorStats;
-import com.osrs.data.AttackStyle;
-import com.osrs.data.Levels;
+import osrs.model.data.ArmorStats;
+import osrs.model.data.AttackStyle;
+import osrs.model.data.Levels;
 
 /**
  * @author Landon
@@ -12,10 +12,27 @@ public class Player extends Fightable {
 	private Gear gear;
 	private AttackStyle style;
 	
+	public static final double UNARMED_SPEED_IN_SECONDS = 2.4;	
+	
 	public Player(){
 		super();
-
+		gear = new Gear();
 		style = AttackStyle.MLE_CONTROLLED;
+	}
+	
+	public Player(String[] items){
+		super();
+		gear = new Gear();
+		style = AttackStyle.MLE_CONTROLLED;
+		equipArray(items);
+	}
+	
+	public Item equip(String item){
+		return gear.equip(item);
+	}
+	
+	public void equipArray(String[] items){
+		gear.equipArray(items);
 	}
 	
 	public int[] getArmorStats(){ return null; /*gear.getArmorStats();*/ }
@@ -33,6 +50,9 @@ public class Player extends Fightable {
 	public double aspeedInSeconds(){
 		double as = super.aspeedInSeconds();
 		
+		/*if(gear.isUnarmed())
+			as = UNARMED_SPEED_IN_SECONDS;
+		*/
 		boolean isRapid = style.equals(AttackStyle.RNG_RAPID);
 		boolean usingTrident = false;
 		
