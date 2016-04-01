@@ -4,17 +4,21 @@ public enum ArmorStats {
 	ASTAB(0), ASLASH(1), ACRUSH(2), AMAGIC(3), ARANGE(4),
 	DSTAB(5), DSLASH(6), DCRUSH(7), DMAGIC(8), DRANGE(9),
 	STR(10), RSTR(11), MDMG(12), PRAYER(13), ASPEED(14);
-	
-	public final int index;
+
+	private final int index;
 	public static final int COUNT = 15;
-	
+
 	private ArmorStats(int index){
 		this.index = index;
 	}
-	
+
+	public int index() {
+		return index;
+	}
+
 	public ArmorStats fromString(String str){
 		ArmorStats result;
-		
+
 		switch(str.toUpperCase()){
 		case "ASTAB":  result = ASTAB; break;
 		case "ASLASH": result = ASLASH; break;
@@ -34,7 +38,15 @@ public enum ArmorStats {
 		case "PRAYER": result = PRAYER; break;
 		default:       result = null; break;
 		}
-		
+
 		return result;
+	}
+
+	public static ArmorStats fromIndex(int i) {
+		for(ArmorStats as : ArmorStats.values()) {
+			if(i == as.index())
+				return as;
+		}
+		return null;
 	}
 }

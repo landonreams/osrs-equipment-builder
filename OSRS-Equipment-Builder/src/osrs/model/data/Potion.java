@@ -8,7 +8,7 @@ public enum Potion implements Boost {
 	REG_MAG("Magic potion",    4, 1.0,  FLAG_MAGIC),
 	REG_CMB("Combat potion",   3, 1.1,  FLAG_ATTACK | FLAG_STRENGTH),
 	SUP_ATT("Super attack",    5, 1.15, FLAG_ATTACK);
-	
+
 	private int affected, constant;
 	private double percent;
 	private String name;
@@ -18,29 +18,29 @@ public enum Potion implements Boost {
 		this.percent = percent;
 		this.affected = affected;
 	}
-	
+
 	public int[] apply(int[] levels){
 		int[] result = levels.clone();
-		
+
 		return result;
 	}
-	
+
 	public int affected(){ return affected; }
-	
+
 	public int apply(int level, Levels levelType){
-		int flag = (int) Math.pow(2, levelType.index);
+		int flag = (int) Math.pow(2, levelType.index());
 		double result = level;
-		
+
 		System.out.printf("Flag: %s%n", Integer.toBinaryString(flag));
-		
+
 		if( (this.affected & flag) == flag){
 			result *= percent;
 			result += constant;
 		}
-		
+
 		return (int) Math.floor(result);
 	}
-	
+
 	public boolean conflicts(Boost other) {
 		if(other instanceof Potion){
 			return ( ( this.affected & other.affected() ) == 0);
@@ -48,17 +48,17 @@ public enum Potion implements Boost {
 			return false;
 		}
 	}
-	
+
 	@Override
 	public String toString(){
 		return name;
 	}
-	
+
 	public static void main(String[] args){
 		int level = 50;
 		Levels levelType = Levels.STRENGTH;
 		Potion pot = Potion.REG_STR;
-		
+
 		System.out.println(pot.apply(level, levelType));
 	}
 

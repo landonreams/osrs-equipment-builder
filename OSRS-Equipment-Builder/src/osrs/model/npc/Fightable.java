@@ -2,12 +2,16 @@ package osrs.model.npc;
 
 import java.util.EnumMap;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import osrs.model.data.ArmorStats;
 import osrs.model.data.Levels;
+import osrs.util.ArmorStatsEnumMapAdapter;
+import osrs.util.LevelsEnumMapAdapter;
 
 public abstract class Fightable {
 	protected final StringProperty  name;
@@ -80,6 +84,7 @@ public abstract class Fightable {
 	public String getName() { return name.get(); }
 	public void setName(String name) { this.name.set(name); }
 	public StringProperty nameProperty() { return name; }
+
 
 	public Integer getLevel(Levels level) { return levels.get().get(level); }
 	public void setLevel(Levels level, Integer value) { levels.get().put(level, value); }

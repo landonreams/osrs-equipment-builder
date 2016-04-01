@@ -3,6 +3,7 @@ package osrs.view;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -37,6 +38,9 @@ public class PlayerOverviewController {
 
 	private MainApp mainApp;
 
+	private boolean okClicked = false;
+	private Stage dialogStage;
+
 	public PlayerOverviewController() {
 
 	}
@@ -55,6 +59,10 @@ public class PlayerOverviewController {
 		this.mainApp = mainApp;
 
 		playerTable.setItems(mainApp.getPlayerData());
+	}
+
+	public void setDialogStage(Stage dialogStage) {
+		this.dialogStage = dialogStage;
 	}
 
 	private void showPlayerDetails(Player player) {
@@ -127,5 +135,24 @@ public class PlayerOverviewController {
 		if(okClicked){
 			mainApp.getPlayerData().add(tempPlayer);
 		}
+	}
+
+	@FXML
+	private void handleOk() {
+		okClicked = true;
+		dialogStage.close();
+	}
+
+	@FXML
+	private void handleCancel() {
+		okClicked = false;
+		dialogStage.close();
+	}
+
+	public Player getSelected() {
+		if(okClicked)
+			return playerTable.getSelectionModel().getSelectedItem();
+		else
+			return null;
 	}
 }

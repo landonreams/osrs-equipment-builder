@@ -10,13 +10,18 @@ public class ArmorSet {
 
 	private EnumMap<Slot, Item> map;
 	private ItemDatabase db;
+	private String name;
 
 	public static final int UNARMED_SPEED_INTEGER = 6;
 
 	public ArmorSet(){
 		map = new EnumMap<Slot, Item>(Slot.class);
-		db  = new ItemDatabase();
+		db  = ItemDatabase.getInstance();
+		name = "";
 	}
+
+	public void setName(String name) { this.name = name; }
+	public String getName() { return name; }
 
 	public int getArmorStat(ArmorStats as){
 		if(as.equals(ArmorStats.ASPEED)){

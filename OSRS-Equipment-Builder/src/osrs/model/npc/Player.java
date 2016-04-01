@@ -38,6 +38,11 @@ public class Player extends Fightable {
 		return result;
 	}
 
+	public Player() {
+		super(new Player.Builder<>().name("None"));
+		armor = new ArmorSet();
+	}
+
 	protected Player(Builder<? extends Player> builder, String[] items) {
 		super(builder);
 		armor = new ArmorSet();
@@ -61,6 +66,8 @@ public class Player extends Fightable {
 		return old;
 	}
 
+	public ArmorSet getArmor() { return armor; }
+
 	public void equip(String item) {
 		armor.equip(item);
 		updateStats();
@@ -70,4 +77,5 @@ public class Player extends Fightable {
 		armor.equipArray(items);
 		updateStats();
 	}
+
 }

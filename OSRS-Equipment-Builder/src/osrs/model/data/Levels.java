@@ -13,13 +13,27 @@ public enum Levels {
 	RANGED(4, Boost.FLAG_RANGED),
 	MAGIC(5, Boost.FLAG_MAGIC),
 	PRAYER(6, Boost.FLAG_PRAYER);
-	
-	public final int index;
+
+	private final int index;
 	public final int flag;
 	public static final int COUNT = 7;
-	
+
 	private Levels(int index, int flag){
 		this.index = index;
 		this.flag  = flag;
 	}
+
+	public int index(){
+		return index;
+	}
+
+	public static Levels fromIndex(int i) {
+		for(Levels lv : Levels.values()) {
+			if(i == lv.index())
+				return lv;
+		}
+		return null;
+	}
+
+
 }

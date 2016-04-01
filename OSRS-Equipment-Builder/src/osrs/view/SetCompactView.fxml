@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane minHeight="100.0" minWidth="250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.65">
+<AnchorPane minHeight="100.0" minWidth="250.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="osrs.view.SetCompactViewController">
    <children>
       <GridPane layoutX="-16.0" layoutY="5.0" prefHeight="100.0" prefWidth="250.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
         <columnConstraints>
@@ -23,7 +22,7 @@
          <children>
             <Label text="Set:" />
             <Button mnemonicParsing="false" text="Edit" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" text="Delete" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#handleDelete" text="Delete" GridPane.rowIndex="2" />
             <Label text="Max Hit:" GridPane.columnIndex="1" />
             <Label text="Hit Chance:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="DPS:" GridPane.columnIndex="1" GridPane.rowIndex="2" />

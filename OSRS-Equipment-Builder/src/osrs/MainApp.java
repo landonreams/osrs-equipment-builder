@@ -1,6 +1,8 @@
 package osrs;
 
 import javafx.application.Application;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -9,47 +11,31 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import osrs.model.npc.NPC;
 import osrs.model.npc.Player;
+import osrs.view.DPSOverviewController;
 import osrs.view.PlayerEditDialogController;
 import osrs.view.PlayerOverviewController;
+import osrs.view.RootLayoutController;
 
 public class MainApp extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	private NPC target;
 
 	private ObservableList<Player> builds = FXCollections.observableArrayList();
+	private ObservableObjectValue<NPC> targetProperty = new SimpleObjectProperty<>(target);
 
 	public MainApp() {
-		builds.add(new Player.Builder<>()
-				.name("Main")
-				.attack(99)
-				.strength(99)
-				.defence(99)
-				.ranged(99)
-				.hitpoints(99)
-				.prayer(99)
-				.magic(99)
-				.build());
 
-		builds.add(new Player.Builder<>()
-				.name("Noob")
-				.attack(32)
-				.strength(35)
-				.defence(29)
-				.hitpoints(40)
-				.build());
 
-		builds.add(new Player.Builder<>()
-				.name("Zerker")
-				.attack(60)
-				.strength(99)
-				.defence(45)
-				.ranged(99)
-				.magic(94)
-				.prayer(52)
-				.hitpoints(99)
-				.build());
+
+
+	}
+
+	public ObservableObjectValue<NPC> getTargetData() {
+		return targetProperty;
 	}
 
 	public ObservableList<Player> getPlayerData() {
@@ -65,8 +51,6 @@ public class MainApp extends Application {
 		initRootLayout();
 
 		showDPSOverview();
-
-		showPlayerManager();
 	}
 
 	/**
@@ -80,6 +64,10 @@ public class MainApp extends Application {
 
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
+
+			RootLayoutController controller = loader.getController();
+			controller.setMainApp(this);
+
 			primaryStage.show();
 
 
@@ -97,6 +85,9 @@ public class MainApp extends Application {
 			loader.setLocation(MainApp.class.getResource("view/DPSOverview.fxml"));
 			AnchorPane dpsOverview = (AnchorPane) loader.load();
 
+			//DPSOverviewController controller = loader.getController();
+			//controller.setMainApp(this);
+
 			rootLayout.setCenter(dpsOverview);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -108,22 +99,25 @@ public class MainApp extends Application {
 	 * @return
 	 */
 	public Player showPlayerManager() {
-		Stage dialog = new Stage();
-		dialog.setTitle("Build Manager");
-		dialog.initModality(Modality.APPLICATION_MODAL);
-		dialog.initOwner(primaryStage);
-
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/PlayerOverview.fxml"));
 			AnchorPane playerOverview = (AnchorPane) loader.load();
 
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Build Manager");
+			dialogStage.initModality(Modality.APPLICATION_MODAL);
+			dialogStage.initOwner(primaryStage);
+
 			PlayerOverviewController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
 			controller.setMainApp(this);
 
-			dialog.setScene(new Scene(playerOverview));
+			dialogStage.setScene(new Scene(playerOverview));
 
-			dialog.show();
+			dialogStage.showAndWait();
+
+			return controller.getSelected();
 
 		} catch (Exception e) {
 			e.printStackTrace();

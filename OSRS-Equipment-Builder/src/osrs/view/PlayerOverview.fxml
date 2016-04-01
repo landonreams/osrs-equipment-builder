@@ -72,8 +72,8 @@
                       <Button mnemonicParsing="false" onAction="#handleNew" text="Add..." />
                         <Button mnemonicParsing="false" onAction="#handleEdit" text="Edit..." />
                         <Button mnemonicParsing="false" onAction="#handleDelete" text="Delete" />
-                        <Button mnemonicParsing="false" text="OK" />
-                        <Button mnemonicParsing="false" text="Cancel" />
+                        <Button mnemonicParsing="false" onAction="#handleOk" text="OK" />
+                        <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
                     </buttons>
                   </ButtonBar>
                </children>
