@@ -6,18 +6,18 @@ import osrs.model.data.ArmorStats;
 import osrs.model.data.ItemDatabase;
 import osrs.model.data.Slot;
 
-public class Gear {
+public class ArmorSet {
 
 	private EnumMap<Slot, Item> map;
 	private ItemDatabase db;
 
 	public static final int UNARMED_SPEED_INTEGER = 6;
-	
-	public Gear(){
+
+	public ArmorSet(){
 		map = new EnumMap<Slot, Item>(Slot.class);
 		db  = new ItemDatabase();
 	}
-	
+
 	public int getArmorStat(ArmorStats as){
 		if(as.equals(ArmorStats.ASPEED)){
 			if(this.isUnarmed())
@@ -38,45 +38,45 @@ public class Gear {
 				//System.out.println("Ammo is "+iAmmo);
 				amm = iAmmo.get(ArmorStats.RSTR);
 			}
-			
+
 			if(wep > 0) return wep;
 			else        return amm;
 		} else {
 			int val = 0;
-			
+
 			for(Item i : map.values()){
 				if(i != null){
 					val += i.get(as);
 				}
 			}
-			
+
 			return val;
 		}
 	}
-	
+
 	public void equipArray(String[] items){
 		for(String i : items){
 			this.equip(i);
 		}
 	}
-	
+
 	public Item equip(String item){
 		Item i = db.get(item);
 		System.out.printf("%s: Slot %s%n", i, i.getSlot());
 		return map.put(i.getSlot(), i);
 	}
-	
+
 	public void clear(Slot slot){
 		map.put(slot, null);
 	}
-	
+
 	public boolean isUnarmed(){
 		return map.get(Slot.WEAPON) == null;
 	}
 	public boolean isFilled(Slot slot){
 		return map.get(slot) != null;
 	}
-	
+
 	public boolean contains(String item){
 		for(Item i : map.values()){
 			if(i.toString().equals(item))
