@@ -10,6 +10,8 @@ public class Player extends Fightable {
 
 	private ArmorSet armor;
 
+	public static final int DEFAULT_PLAYER_SPEED = 6;
+
 	public static class Builder<T extends Player> extends Fightable.Builder<T> {
 		private List<String> itemsToEquip = new ArrayList<String>();
 
@@ -54,7 +56,7 @@ public class Player extends Fightable {
 
 	protected void updateStats() {
 		for(ArmorStats stat : ArmorStats.values() ){
-			Integer value = armor.getArmorStat(stat);
+			Integer value = armor.getStat(stat);
 			super.setStat(stat, value);
 		}
 	}

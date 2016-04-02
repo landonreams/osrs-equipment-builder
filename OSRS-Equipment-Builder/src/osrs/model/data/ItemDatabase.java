@@ -110,6 +110,8 @@ public class ItemDatabase {
 
 		Item result = null;
 		conn = null; stmt = null;
+
+
 		try{
 			Class.forName("org.sqlite.JDBC");
 			conn = DriverManager.getConnection(URL_PREFIX + DB_PATH);
@@ -128,7 +130,7 @@ public class ItemDatabase {
 				result.set2h(is2h);
 
 				for(ArmorStats as : ArmorStats.values()){
-					result.set(as, rs.getInt(as.toString()));
+					result.setStat(as, rs.getInt(as.toString()));
 				}
 			}
 		} catch(Exception e){
@@ -172,7 +174,7 @@ public class ItemDatabase {
 					result[i].set2h(is2h);
 
 					for(ArmorStats as : ArmorStats.values()){
-						result[i].set(as, rs.getInt(as.toString()));
+						result[i].setStat(as, rs.getInt(as.toString()));
 					}
 				}
 			}
@@ -229,7 +231,7 @@ public class ItemDatabase {
 				temp.set2h(is2h);
 
 				for(ArmorStats as : ArmorStats.values()){
-					temp.set(as, rs.getInt(as.toString()));
+					temp.setStat(as, rs.getInt(as.toString()));
 				}
 
 				results.add(temp);

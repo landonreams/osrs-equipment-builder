@@ -34,15 +34,6 @@ public class DamageCell extends ListCell<ArmorSet> {
 			e.printStackTrace();
 			pane = null;
 		}
-//		pane = new GridPane();
-//
-//		pane.add(name, 0, 0);
-//		pane.add(edit, 0, 1);
-//		pane.add(delete, 0, 2);
-//
-//		pane.add(maxhit, 1, 0);
-//		pane.add(accuracy, 1, 1);
-//		pane.add(dps, 1, 2);
 		setText(null);
 	}
 

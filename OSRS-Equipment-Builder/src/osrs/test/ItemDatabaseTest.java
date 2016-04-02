@@ -23,69 +23,69 @@ public class ItemDatabaseTest {
 		DRAGON_HALBERD.set2h(true);
 		DRAGON_HALBERD.setSlot(Slot.WEAPON);
 
-		DRAGON_HALBERD.set(ArmorStats.ASTAB,  70);
-		DRAGON_HALBERD.set(ArmorStats.ASLASH, 95);
-		DRAGON_HALBERD.set(ArmorStats.ACRUSH, 0);
-		DRAGON_HALBERD.set(ArmorStats.AMAGIC, -4);
-		DRAGON_HALBERD.set(ArmorStats.ARANGE, 0);
+		DRAGON_HALBERD.setStat(ArmorStats.ASTAB,  70);
+		DRAGON_HALBERD.setStat(ArmorStats.ASLASH, 95);
+		DRAGON_HALBERD.setStat(ArmorStats.ACRUSH, 0);
+		DRAGON_HALBERD.setStat(ArmorStats.AMAGIC, -4);
+		DRAGON_HALBERD.setStat(ArmorStats.ARANGE, 0);
 
-		DRAGON_HALBERD.set(ArmorStats.DSTAB, -1);
-		DRAGON_HALBERD.set(ArmorStats.DSLASH, 4);
-		DRAGON_HALBERD.set(ArmorStats.DCRUSH, 5);
-		DRAGON_HALBERD.set(ArmorStats.DMAGIC, 0);
-		DRAGON_HALBERD.set(ArmorStats.DRANGE, 0);
+		DRAGON_HALBERD.setStat(ArmorStats.DSTAB, -1);
+		DRAGON_HALBERD.setStat(ArmorStats.DSLASH, 4);
+		DRAGON_HALBERD.setStat(ArmorStats.DCRUSH, 5);
+		DRAGON_HALBERD.setStat(ArmorStats.DMAGIC, 0);
+		DRAGON_HALBERD.setStat(ArmorStats.DRANGE, 0);
 
-		DRAGON_HALBERD.set(ArmorStats.STR, 89);
-		DRAGON_HALBERD.set(ArmorStats.RSTR, 0);
-		DRAGON_HALBERD.set(ArmorStats.MDMG, 0);
-		DRAGON_HALBERD.set(ArmorStats.PRAYER, 0);
-		DRAGON_HALBERD.set(ArmorStats.ASPEED, 3);
+		DRAGON_HALBERD.setStat(ArmorStats.STR, 89);
+		DRAGON_HALBERD.setStat(ArmorStats.RSTR, 0);
+		DRAGON_HALBERD.setStat(ArmorStats.MDMG, 0);
+		DRAGON_HALBERD.setStat(ArmorStats.PRAYER, 0);
+		DRAGON_HALBERD.setStat(ArmorStats.ASPEED, 3);
 
 		RUNE_PLATEBODY = new Item();
 		RUNE_PLATEBODY.setName("Rune platebody");
 		RUNE_PLATEBODY.set2h(false);
 		RUNE_PLATEBODY.setSlot(Slot.BODY);
 
-		RUNE_PLATEBODY.set(ArmorStats.ASTAB,  0);
-		RUNE_PLATEBODY.set(ArmorStats.ASLASH, 0);
-		RUNE_PLATEBODY.set(ArmorStats.ACRUSH, 0);
-		RUNE_PLATEBODY.set(ArmorStats.AMAGIC, -30);
-		RUNE_PLATEBODY.set(ArmorStats.ARANGE, -10);
+		RUNE_PLATEBODY.setStat(ArmorStats.ASTAB,  0);
+		RUNE_PLATEBODY.setStat(ArmorStats.ASLASH, 0);
+		RUNE_PLATEBODY.setStat(ArmorStats.ACRUSH, 0);
+		RUNE_PLATEBODY.setStat(ArmorStats.AMAGIC, -30);
+		RUNE_PLATEBODY.setStat(ArmorStats.ARANGE, -10);
 
-		RUNE_PLATEBODY.set(ArmorStats.DSTAB,  82);
-		RUNE_PLATEBODY.set(ArmorStats.DSLASH, 80);
-		RUNE_PLATEBODY.set(ArmorStats.DCRUSH, 72);
-		RUNE_PLATEBODY.set(ArmorStats.DMAGIC, -6);
-		RUNE_PLATEBODY.set(ArmorStats.DRANGE, 80);
+		RUNE_PLATEBODY.setStat(ArmorStats.DSTAB,  82);
+		RUNE_PLATEBODY.setStat(ArmorStats.DSLASH, 80);
+		RUNE_PLATEBODY.setStat(ArmorStats.DCRUSH, 72);
+		RUNE_PLATEBODY.setStat(ArmorStats.DMAGIC, -6);
+		RUNE_PLATEBODY.setStat(ArmorStats.DRANGE, 80);
 
-		RUNE_PLATEBODY.set(ArmorStats.STR, 0);
-		RUNE_PLATEBODY.set(ArmorStats.RSTR, 0);
-		RUNE_PLATEBODY.set(ArmorStats.MDMG, 0);
-		RUNE_PLATEBODY.set(ArmorStats.PRAYER, 0);
-		RUNE_PLATEBODY.set(ArmorStats.ASPEED, -1);
+		RUNE_PLATEBODY.setStat(ArmorStats.STR, 0);
+		RUNE_PLATEBODY.setStat(ArmorStats.RSTR, 0);
+		RUNE_PLATEBODY.setStat(ArmorStats.MDMG, 0);
+		RUNE_PLATEBODY.setStat(ArmorStats.PRAYER, 0);
+		RUNE_PLATEBODY.setStat(ArmorStats.ASPEED, -1);
 
 		ABYSSAL_WHIP = new Item();
 		ABYSSAL_WHIP.setName("Abyssal whip");
 		ABYSSAL_WHIP.set2h(false);
 		ABYSSAL_WHIP.setSlot(Slot.WEAPON);
 
-		ABYSSAL_WHIP.set(ArmorStats.ASTAB,  0);
-		ABYSSAL_WHIP.set(ArmorStats.ASLASH, 82);
-		ABYSSAL_WHIP.set(ArmorStats.ACRUSH, 0);
-		ABYSSAL_WHIP.set(ArmorStats.AMAGIC, 0);
-		ABYSSAL_WHIP.set(ArmorStats.ARANGE, 0);
+		ABYSSAL_WHIP.setStat(ArmorStats.ASTAB,  0);
+		ABYSSAL_WHIP.setStat(ArmorStats.ASLASH, 82);
+		ABYSSAL_WHIP.setStat(ArmorStats.ACRUSH, 0);
+		ABYSSAL_WHIP.setStat(ArmorStats.AMAGIC, 0);
+		ABYSSAL_WHIP.setStat(ArmorStats.ARANGE, 0);
 
-		ABYSSAL_WHIP.set(ArmorStats.DSTAB, 0);
-		ABYSSAL_WHIP.set(ArmorStats.DSLASH, 0);
-		ABYSSAL_WHIP.set(ArmorStats.DCRUSH, 0);
-		ABYSSAL_WHIP.set(ArmorStats.DMAGIC, 0);
-		ABYSSAL_WHIP.set(ArmorStats.DRANGE, 0);
+		ABYSSAL_WHIP.setStat(ArmorStats.DSTAB, 0);
+		ABYSSAL_WHIP.setStat(ArmorStats.DSLASH, 0);
+		ABYSSAL_WHIP.setStat(ArmorStats.DCRUSH, 0);
+		ABYSSAL_WHIP.setStat(ArmorStats.DMAGIC, 0);
+		ABYSSAL_WHIP.setStat(ArmorStats.DRANGE, 0);
 
-		ABYSSAL_WHIP.set(ArmorStats.STR, 82);
-		ABYSSAL_WHIP.set(ArmorStats.RSTR, 0);
-		ABYSSAL_WHIP.set(ArmorStats.MDMG, 0);
-		ABYSSAL_WHIP.set(ArmorStats.PRAYER, 0);
-		ABYSSAL_WHIP.set(ArmorStats.ASPEED, 6);
+		ABYSSAL_WHIP.setStat(ArmorStats.STR, 82);
+		ABYSSAL_WHIP.setStat(ArmorStats.RSTR, 0);
+		ABYSSAL_WHIP.setStat(ArmorStats.MDMG, 0);
+		ABYSSAL_WHIP.setStat(ArmorStats.PRAYER, 0);
+		ABYSSAL_WHIP.setStat(ArmorStats.ASPEED, 6);
 	}
 
 	@Test

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="osrs.view.ItemSelectorController">
+   <children>
+      <ScrollPane AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <TableView fx:id="itemList">
+              <columns>
+                <TableColumn prefWidth="75.0" text="Item Name" />
+                <TableColumn prefWidth="37.0" text="Slot" />
+                  <TableColumn prefWidth="50.0" text="Stab Acc." />
+                  <TableColumn prefWidth="50.0" text="Slash Acc." />
+                  <TableColumn prefWidth="50.0" text="Crush Acc." />
+                  <TableColumn prefWidth="50.0" text="Ranged Acc." />
+                  <TableColumn prefWidth="50.0" text="Magic Acc." />
+                  <TableColumn prefWidth="50.0" text="Stab Def." />
+                  <TableColumn prefWidth="50.0" text="Slash Def." />
+                  <TableColumn prefWidth="50.0" text="Crush Def." />
+                  <TableColumn prefWidth="50.0" text="Ranged Def." />
+                  <TableColumn prefWidth="51.0" text="Magic Def." />
+                  <TableColumn prefWidth="75.0" text="Melee Str." />
+                  <TableColumn prefWidth="75.0" text="Ranged Str." />
+                  <TableColumn prefWidth="75.0" text="Magic Dmg." />
+                  <TableColumn prefWidth="75.0" text="Prayer" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
