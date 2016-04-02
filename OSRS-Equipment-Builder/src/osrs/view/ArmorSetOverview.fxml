@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="450.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="450.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="osrs.view.ArmorSetOverviewController">
    <children>
       <ButtonBar layoutX="286.0" layoutY="346.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
         <buttons>
@@ -45,29 +45,29 @@
                     </rowConstraints>
                      <children>
                         <Label text="Set Name" />
-                        <TextField GridPane.columnIndex="1" />
-                        <Button mnemonicParsing="false" text="Head" GridPane.rowIndex="2" />
-                        <Button mnemonicParsing="false" text="Body" GridPane.rowIndex="3" />
-                        <Button mnemonicParsing="false" text="Legs" GridPane.rowIndex="4" />
-                        <Button mnemonicParsing="false" text="Boots" GridPane.rowIndex="5" />
-                        <Button mnemonicParsing="false" text="Gloves" GridPane.rowIndex="6" />
-                        <Button mnemonicParsing="false" text="Cape" GridPane.rowIndex="7" />
-                        <Button mnemonicParsing="false" text="Neck" GridPane.rowIndex="8" />
-                        <Button mnemonicParsing="false" text="Ring" GridPane.rowIndex="9" />
-                        <Button mnemonicParsing="false" text="Ammo" GridPane.rowIndex="10" />
-                        <Button mnemonicParsing="false" text="Weapon" GridPane.rowIndex="11" />
-                        <Button mnemonicParsing="false" text="Shield" GridPane.rowIndex="12" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                        <TextField fx:id="nameField" GridPane.columnIndex="1" />
+                        <Button mnemonicParsing="false" onAction="#handleHead" text="Head" GridPane.rowIndex="2" />
+                        <Button mnemonicParsing="false" onAction="#handleBody" text="Body" GridPane.rowIndex="3" />
+                        <Button mnemonicParsing="false" onAction="#handleLegs" text="Legs" GridPane.rowIndex="4" />
+                        <Button mnemonicParsing="false" onAction="#handleBoots" text="Boots" GridPane.rowIndex="5" />
+                        <Button mnemonicParsing="false" onAction="#handleHands" text="Gloves" GridPane.rowIndex="6" />
+                        <Button mnemonicParsing="false" onAction="#handleCape" text="Cape" GridPane.rowIndex="7" />
+                        <Button mnemonicParsing="false" onAction="#handleNeck" text="Neck" GridPane.rowIndex="8" />
+                        <Button mnemonicParsing="false" onAction="#handleRing" text="Ring" GridPane.rowIndex="9" />
+                        <Button mnemonicParsing="false" onAction="#handleAmmo" text="Ammo" GridPane.rowIndex="10" />
+                        <Button mnemonicParsing="false" onAction="#handleWeapon" text="Weapon" GridPane.rowIndex="11" />
+                        <Button mnemonicParsing="false" onAction="#handleShield" text="Shield" GridPane.rowIndex="12" />
+                        <Label fx:id="lblHead" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lblBody" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="lblLegs" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="lblBoots" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label fx:id="lblGloves" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label fx:id="lblCape" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Label fx:id="lblNeck" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <Label fx:id="lblRing" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <Label fx:id="lblAmmo" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <Label fx:id="lblWeapon" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                        <Label fx:id="lblShield" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="12" />
                         <Label text="Player" GridPane.rowIndex="1" />
                         <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
@@ -95,11 +95,11 @@
                         <Label text="Crush" GridPane.rowIndex="2" />
                         <Label text="Ranged" GridPane.rowIndex="3" />
                         <Label text="Magic" GridPane.rowIndex="4" />
-                        <Label text="Label" GridPane.columnIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="lblAStab" text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="lblASlash" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="lblACrush" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lblARanged" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="lblAMagic" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                   <GridPane layoutX="14.0" layoutY="168.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="145.0">
@@ -120,11 +120,11 @@
                         <Label text="Crush" GridPane.rowIndex="2" />
                         <Label text="Ranged" GridPane.rowIndex="3" />
                         <Label text="Magic" GridPane.rowIndex="4" />
-                        <Label text="Label" GridPane.columnIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="lblDStab" text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="lblDSlash" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="lblDCrush" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lblDRanged" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="lblDMagic" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                   <Label layoutX="5.0" layoutY="152.0" text="Defence bonus" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="130.0" />
@@ -145,10 +145,10 @@
                         <Label text="Ranged str." GridPane.rowIndex="1" />
                         <Label text="Magic dmg." GridPane.rowIndex="2" />
                         <Label text="Prayer" GridPane.rowIndex="3" />
-                        <Label text="Label" GridPane.columnIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="lblStr" text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="lblRStr" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="lblMDmg" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lblPrayer" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                </children>

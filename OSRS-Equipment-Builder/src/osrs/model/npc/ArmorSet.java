@@ -45,7 +45,12 @@ public class ArmorSet {
 	public String getName() { return name.get(); }
 	public StringProperty nameProperty() { return name; }
 
-	public void setItem(Item item) { items.get(item.getSlot()).set(item); }
+	public void setItem(Item item) {
+		items.get(item.getSlot()).set(item);
+		if(item.is2h())
+			items.get(Slot.SHIELD).set(null);
+
+	}
 	public Item getItem(Slot slot) { return items.get(slot).get(); }
 	public ObjectProperty<Item> itemProperty(Slot slot) { return items.get(slot); }
 
@@ -90,7 +95,11 @@ public class ArmorSet {
 
 	public void equip(String item) {
 		Item i = db.get(item);
-		setItem(i);
+		equip(i);
+	}
+
+	public void equip(Item item) {
+		setItem(item);
 	}
 
 	public void equipArray(String[] items) {
@@ -104,8 +113,7 @@ public class ArmorSet {
 	public void print() {
 		for(Slot s : Slot.values()){
 			Item item = items.get(s).get();
-			if(item != null)
-				System.out.print(item.getName() + ", ");
+			System.out.printf("%s: %s%n", s, item == null ? "None" : item.getName());
 		}
 		System.out.println();
 		for(ArmorStats s : ArmorStats.values()) {

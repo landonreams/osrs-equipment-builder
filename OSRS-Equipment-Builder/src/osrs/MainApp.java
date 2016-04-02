@@ -11,9 +11,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import osrs.model.data.ItemDatabase;
+import osrs.model.npc.ArmorSet;
+import osrs.model.npc.Item;
 import osrs.model.npc.NPC;
 import osrs.model.npc.Player;
+import osrs.view.ArmorSetOverviewController;
 import osrs.view.DPSOverviewController;
+import osrs.view.ItemSelectorController;
 import osrs.view.PlayerEditDialogController;
 import osrs.view.PlayerOverviewController;
 import osrs.view.RootLayoutController;
@@ -51,6 +56,8 @@ public class MainApp extends Application {
 		initRootLayout();
 
 		showDPSOverview();
+
+	//	editArmorSet(new ArmorSet());
 	}
 
 	/**
@@ -85,8 +92,7 @@ public class MainApp extends Application {
 			loader.setLocation(MainApp.class.getResource("view/DPSOverview.fxml"));
 			AnchorPane dpsOverview = (AnchorPane) loader.load();
 
-			//DPSOverviewController controller = loader.getController();
-			//controller.setMainApp(this);
+			DPSOverviewController controller = loader.getController();
 
 			rootLayout.setCenter(dpsOverview);
 		} catch (Exception e) {
@@ -123,6 +129,36 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public Item getItemFromSearch(ItemDatabase.Search search) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/ItemSelector.fxml"));
+			AnchorPane itemSelector = (AnchorPane) loader.load();
+
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Item Selector");
+			dialogStage.initModality(Modality.APPLICATION_MODAL);
+			dialogStage.initOwner(primaryStage);
+
+			ItemSelectorController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setSearch(search);
+
+			dialogStage.setScene(new Scene(itemSelector));
+
+			dialogStage.showAndWait();
+
+			return controller.getSelection();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public void editArmorSet(ArmorSet armorSet) {
+
 	}
 
 

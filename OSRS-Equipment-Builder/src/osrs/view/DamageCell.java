@@ -1,12 +1,9 @@
 package osrs.view;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import osrs.MainApp;
 import osrs.model.npc.ArmorSet;
 
@@ -42,6 +39,8 @@ public class DamageCell extends ListCell<ArmorSet> {
 		super.updateItem(item, empty);
 		setEditable(false);
 		if(item != null) {
+			if(controller != null)
+				controller.setArmorSet(item);
 			setGraphic(pane);
 		} else {
 			setGraphic(null);

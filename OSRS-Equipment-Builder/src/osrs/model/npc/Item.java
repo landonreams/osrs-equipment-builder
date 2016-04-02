@@ -1,10 +1,14 @@
 package osrs.model.npc;
 
 import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Map;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -13,16 +17,16 @@ import osrs.model.data.Slot;
 
 public class Item {
 	private final StringProperty name;
-	private final ObjectProperty<EnumMap<ArmorStats, Integer>> stats;
+	private final Map<ArmorStats, IntegerProperty> stats;
 	private final ObjectProperty<Slot> slot;
 	private final BooleanProperty is2h;
 
 	public Item() {
 		name = new SimpleStringProperty();
-		stats = new SimpleObjectProperty<>(new EnumMap<>(ArmorStats.class));
+		stats = new HashMap<>();
 
 		for(ArmorStats value : ArmorStats.values()) {
-			stats.get().put(value, 0);
+			stats.put(value, new SimpleIntegerProperty(0));
 		}
 
 		slot = new SimpleObjectProperty<Slot>(null);
@@ -39,9 +43,9 @@ public class Item {
 	public String getName() { return name.get(); }
 	public StringProperty nameProperty() { return name; }
 
-	public void setStat(ArmorStats stat, Integer value) { this.stats.get().put(stat, value); }
-	public Integer getStat(ArmorStats stat) { return stats.get().get(stat); }
-	public ObjectProperty<EnumMap<ArmorStats, Integer>> statsProperty() { return stats; }
+	public void setStat(ArmorStats stat, Integer value) { this.stats.get(stat).set(value); }
+	public Integer getStat(ArmorStats stat) { return stats.get(stat).get(); }
+	public IntegerProperty statsProperty(ArmorStats stat) { return stats.get(stat); }
 
 	public boolean is2h() { return is2h.get(); }
 	public void set2h(boolean value) { is2h.set(value); }

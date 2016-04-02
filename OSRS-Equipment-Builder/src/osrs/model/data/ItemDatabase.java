@@ -255,9 +255,7 @@ public class ItemDatabase {
 	public static void main(String[] args){
 		ItemDatabase db = new ItemDatabase();
 
-		Search s = new Search();
-
-		s.stat(ArmorStats.PRAYER, Comparison.LESS, 0);
+		Search s = new Search().slot(Slot.AMMO);
 
 		Item[] list = db.executeSearch(s);
 

@@ -20,12 +20,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Set:" />
-            <Button mnemonicParsing="false" text="Edit" GridPane.rowIndex="1" />
+            <Label fx:id="lblSetName" text="Set:" />
+            <Button mnemonicParsing="false" onAction="#handleEdit" text="Edit" GridPane.rowIndex="1" />
             <Button mnemonicParsing="false" onAction="#handleDelete" text="Delete" GridPane.rowIndex="2" />
-            <Label text="Max Hit:" GridPane.columnIndex="1" />
-            <Label text="Hit Chance:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="DPS:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="lblMaxHit" text="Max Hit:" GridPane.columnIndex="1" />
+            <Label fx:id="lblHitChance" text="Hit Chance:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="lblDPS" text="DPS:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>
