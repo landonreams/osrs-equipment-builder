@@ -6,6 +6,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import osrs.MainApp;
 import osrs.model.npc.ArmorSet;
+import osrs.model.npc.NPC;
 
 public class DamageCell extends ListCell<ArmorSet> {
 
@@ -14,11 +15,10 @@ public class DamageCell extends ListCell<ArmorSet> {
 	private SetCompactViewController controller;
 	private ListView<ArmorSet> listView;
 	private MainApp mainApp;
+	private NPC target;
 
-	public DamageCell( ListView<ArmorSet> listView, MainApp mainApp ) {
+	public DamageCell( ListView<ArmorSet> listView ) {
 		super();
-
-		this.mainApp = mainApp;
 
 		this.listView = listView;
 
@@ -31,17 +31,21 @@ public class DamageCell extends ListCell<ArmorSet> {
 			controller.setCell(this);
 			controller.setList(listView);
 
-			if(mainApp == null) {
-				System.out.println("ERROR: Could not load main app in DamageCell!");
-			} else {
-				controller.setMainApp(mainApp);
-			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			pane = null;
 		}
 		setText(null);
+	}
+
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
+		controller.setMainApp(mainApp);
+	}
+
+	public void setTarget(NPC target){
+		this.target = target;
+		controller.setTarget(target);
 	}
 
 	@Override
@@ -56,6 +60,7 @@ public class DamageCell extends ListCell<ArmorSet> {
 			setGraphic(null);
 		}
 	}
+
 
 //	private void editItem() {
 //		try {

@@ -3,8 +3,10 @@ package osrs.view;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import osrs.MainApp;
 import osrs.model.data.ArmorStats;
 import osrs.model.data.Levels;
@@ -40,12 +42,13 @@ public class DPSOverviewController {
 	@FXML
 	private void initialize() {
 
-		armorList.add(new ArmorSet());
-		armorList.add(new ArmorSet());
-		armorList.add(new ArmorSet());
-
-		listView.setCellFactory(param -> new DamageCell(listView, mainApp));
-		listView.setStyle("-fx-background-insets: 0 ;");
+		listView.setCellFactory(param -> {
+			DamageCell dc = new DamageCell(listView);
+			dc.setMainApp(mainApp);
+			dc.setTarget(target);
+			return dc;
+		});
+		//listView.setStyle("-fx-background-insets: 0 ;");
 		listView.setItems(armorList);
 
 		txtMagic.textProperty().addListener((ovservable, oldVal, newVal) -> {
@@ -116,8 +119,10 @@ public class DPSOverviewController {
 				val = null;
 			}
 
-			if(val != null)
+			if(val != null) {
 				target.setStat(ArmorStats.DRANGE, val);
+
+			}
 		});
 
 		txtDMagic.textProperty().addListener((ovservable, oldVal, newVal) -> {
@@ -148,4 +153,19 @@ public class DPSOverviewController {
 	}
 
 	public ObservableList<ArmorSet> getArmorList() { return armorList; }
+
+	@FXML
+	private void handleNew() {
+		if(mainApp.playerListIsEmpty()) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Warning");
+			alert.setHeaderText("Player list is empty");
+			alert.setContentText("Armor sets need a player to wear them!\nPlease create a player in the Player Manager.");
+
+			alert.showAndWait();
+			return;
+		}
+		System.out.println("ADDING NEW!!!");
+		armorList.add(new ArmorSet());
+	}
 }

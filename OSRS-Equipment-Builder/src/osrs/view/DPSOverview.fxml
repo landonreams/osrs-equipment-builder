@@ -57,7 +57,7 @@
                <children>
                   <ButtonBar layoutX="182.0" layoutY="444.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
                     <buttons>
-                      <Button mnemonicParsing="false" text="New..." />
+                      <Button mnemonicParsing="false" onAction="#handleNew" text="New..." />
                     </buttons>
                   </ButtonBar>
                   <ListView fx:id="listView" layoutY="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />

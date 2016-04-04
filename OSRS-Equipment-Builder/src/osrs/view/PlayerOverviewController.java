@@ -107,6 +107,11 @@ public class PlayerOverviewController {
 
 			alert.showAndWait();
 		}
+
+		if(playerTable.getItems().size() == 0) {
+			Player p = new Player.Builder<>().name("Default").hitpoints(10).build();
+			playerTable.getItems().add(p);
+		}
 	}
 
 	@FXML

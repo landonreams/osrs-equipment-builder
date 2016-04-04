@@ -72,6 +72,9 @@ public abstract class Fightable {
 		setLevel(Levels.PRAYER, builder.prayer);
 	}
 
+	public abstract int applyPotion(Levels level, int value);
+	public abstract int applyPrayer(Levels level, int value);
+
 	protected Fightable() {
 		name   = new SimpleStringProperty("");
 		levels = new HashMap<>();

@@ -15,6 +15,8 @@ import osrs.model.data.CombatStyle;
 import osrs.model.data.Levels;
 import osrs.model.data.Potion;
 import osrs.model.data.Prayer;
+import osrs.model.data.Spell;
+import osrs.model.data.WeaponType;
 
 public class Player extends Fightable {
 	private ArmorSet armor;
@@ -33,6 +35,9 @@ public class Player extends Fightable {
 	private ObjectProperty<AttackStyle.Melee>  meleeStyleProperty;
 	private ObjectProperty<AttackStyle.Ranged> rangedStyleProperty;
 	private ObjectProperty<AttackStyle.Magic>  magicStyleProperty;
+
+	private ObjectProperty<Spell>      spellProperty;
+	private ObjectProperty<WeaponType> weaponTypeProperty;
 
 	public static final int DEFAULT_PLAYER_SPEED = 6;
 
@@ -94,6 +99,9 @@ public class Player extends Fightable {
 		meleeStyleProperty = new SimpleObjectProperty<>(AttackStyle.Melee.CONTROLLED);
 		rangedStyleProperty = new SimpleObjectProperty<>(AttackStyle.Ranged.RAPID);
 		magicStyleProperty = new SimpleObjectProperty<>(AttackStyle.Magic.ACCURATE);
+
+		weaponTypeProperty = new SimpleObjectProperty<>(WeaponType.CRUSH);
+		spellProperty = new SimpleObjectProperty<>(Spell.NONE);
 	}
 
 	@Override
@@ -175,6 +183,10 @@ public class Player extends Fightable {
 	public void setMagicStyle(AttackStyle.Magic style) { magicStyleProperty.set(style); }
 	public ObjectProperty<AttackStyle.Magic> magicStyleProperty() { return magicStyleProperty; }
 
+	public void setWeaponType(WeaponType weaponType) { this.weaponTypeProperty.set(weaponType); }
+	public WeaponType getWeaponType() { return weaponTypeProperty.get(); }
+	public ObjectProperty<WeaponType> weaponTypeProperty() { return weaponTypeProperty; }
+
 	public static Player fromHiscores(String name) {
 		try {
 			System.out.println("URL IS: "+String.format(HISCORES_LOOKUP, name));
@@ -246,4 +258,194 @@ public class Player extends Fightable {
 		System.out.println("- Hit: " + levels.get(Levels.HITPOINTS).get());
 	}
 
+	public int getMaxHit() {
+		int armorStr, lvlStr, effectiveStr, baseMax;
+
+		switch(weaponTypeProperty.get()) {
+		case STAB:
+		case SLASH:
+		case CRUSH:
+			armorStr = stats.get(ArmorStats.STR).get();
+			lvlStr   = levels.get(Levels.STRENGTH).get();
+
+			effectiveStr = strengthPotionProperty.get().apply(lvlStr);
+			effectiveStr = strengthPrayerProperty.get().apply(effectiveStr);
+
+			//TODO: APPLY ARMOR SET BONUS
+
+			switch(meleeStyleProperty.get()) {
+			case AGGRESSIVE: effectiveStr += 3; break;
+			case CONTROLLED: effectiveStr += 1; break;
+			default: break;
+			}
+
+			baseMax = (int)( 1.3 +
+								 effectiveStr / 10.0 +
+								 armorStr / 80.0 +
+								 (effectiveStr * armorStr) / 640.0);
+			return baseMax;
+		case RANGED:
+			armorStr = stats.get(ArmorStats.RSTR).get();
+			lvlStr   = levels.get(Levels.RANGED).get();
+
+			effectiveStr = rangedPotionProperty.get().apply(lvlStr);
+			effectiveStr = rangedPrayerProperty.get().apply(effectiveStr);
+
+			//APPLY VOID BONUS
+
+			switch(rangedStyleProperty.get()) {
+			case ACCURATE: effectiveStr += 3; break;
+			default: break;
+			}
+
+			baseMax = (int)( 1.3 +
+							 effectiveStr / 10.0 +
+							 armorStr / 80.0 +
+							 (effectiveStr * armorStr) / 640.0);
+			return baseMax;
+		case MAGIC:
+			armorStr = stats.get(ArmorStats.MDMG).get();
+			lvlStr = levels.get(Levels.MAGIC).get();
+
+			effectiveStr = magicPotionProperty.get().apply(lvlStr);
+			// Magic Prayers do not affect max hit
+
+			baseMax = spellProperty.get().maxHit(effectiveStr);
+
+			double percentageBuff = 1.0 + armorStr / 100.0;
+
+			baseMax = (int)(percentageBuff * baseMax);
+
+			return baseMax;
+		}
+
+		return -1;
+	}
+
+	public double getHitChance(Fightable target) {
+		double hitChance = 0.0;
+
+		int baseLevel, defenderLevel;
+
+		switch(weaponTypeProperty.get()) {
+		case STAB:
+		case SLASH:
+		case CRUSH:
+			baseLevel = levels.get(Levels.ATTACK).get();
+			baseLevel = attackPotionProperty.get().apply(baseLevel);
+			baseLevel = attackPrayerProperty.get().apply(baseLevel);
+			//TODO: Armor set bonus!
+
+			switch(meleeStyleProperty.get()) {
+			case ACCURATE:   baseLevel += 3; break;
+			case CONTROLLED: baseLevel += 1; break;
+			default: break;
+			}
+
+			break;
+		case RANGED:
+			baseLevel = levels.get(Levels.RANGED).get();
+			baseLevel = rangedPotionProperty.get().apply(baseLevel);
+			baseLevel = rangedPrayerProperty.get().apply(baseLevel);
+
+			if(rangedStyleProperty.get() == AttackStyle.Ranged.ACCURATE)
+				baseLevel += 3;
+			break;
+		case MAGIC:
+			baseLevel = levels.get(Levels.MAGIC).get();
+			baseLevel = magicPotionProperty.get().apply(baseLevel);
+			baseLevel = magicPrayerProperty.get().apply(baseLevel);
+			break;
+		default: baseLevel = 0;
+		}
+
+		baseLevel += 8;
+
+		defenderLevel = target.getLevel(Levels.DEFENCE);
+		defenderLevel = target.applyPotion(Levels.DEFENCE, defenderLevel);
+		//TODO: Slight approximation since I'm assuming the target is using Controlled.
+		defenderLevel += 9;
+
+		if(weaponTypeProperty.get() == WeaponType.MAGIC) {
+			//TODO: Another approximation. I don't plan on adding PvP dps yet...
+			int magicLevel = target.getLevel(Levels.MAGIC);
+			magicLevel = target.applyPotion(Levels.MAGIC, magicLevel);
+			magicLevel = target.applyPrayer(Levels.MAGIC, magicLevel);
+			magicLevel += 8;
+
+			defenderLevel = (int)(0.7 * magicLevel + 0.3 * defenderLevel);
+		}
+
+		int offensiveBonus, defensiveBonus;
+
+		switch(weaponTypeProperty.get()) {
+		case CRUSH:
+			offensiveBonus = stats.get(ArmorStats.ACRUSH).get();
+			defensiveBonus = target.getStat(ArmorStats.DCRUSH);
+			break;
+		case MAGIC:
+			offensiveBonus = stats.get(ArmorStats.AMAGIC).get();
+			defensiveBonus = target.getStat(ArmorStats.DMAGIC);
+			break;
+		case RANGED:
+			offensiveBonus = stats.get(ArmorStats.ARANGE).get();
+			defensiveBonus = target.getStat(ArmorStats.DRANGE);
+			break;
+		case SLASH:
+			offensiveBonus = stats.get(ArmorStats.ASLASH).get();
+			defensiveBonus = target.getStat(ArmorStats.DSLASH);
+			break;
+		case STAB:
+			offensiveBonus = stats.get(ArmorStats.ASTAB).get();
+			defensiveBonus = target.getStat(ArmorStats.DSTAB);
+			break;
+		default: offensiveBonus = 0; defensiveBonus = 0;
+		}
+
+		double maxAttRoll = Math.floor(((1.0 + offensiveBonus)/64.0 ) * baseLevel);
+		double maxDefRoll = Math.floor(((1.0 + defensiveBonus)/64.0 ) * defenderLevel);
+
+		if(maxAttRoll > maxDefRoll) {
+			hitChance = 1.0 - ( maxDefRoll + 1.0 ) / ( 2.0 * maxAttRoll );
+		} else {
+			hitChance = (maxAttRoll - 1.0) / (2 * maxDefRoll);
+		}
+
+		//System.out.println(hitChance);
+
+		hitChance = Math.min(1.0, hitChance);
+		hitChance = Math.max(0.0, hitChance);
+
+		return hitChance;
+	}
+
+	public double attackSpeedInSeconds() {
+		int aspeed = this.getStat(ArmorStats.ASPEED);
+
+		return ( (10.0 - aspeed) * 0.6 );
+	}
+
+
+
+
+	public int applyPotion(Levels level, int value) {
+		switch(level) {
+		case ATTACK:  return attackPotionProperty.get().apply(value);
+		case DEFENCE: return value;
+		case MAGIC:   return magicPotionProperty.get().apply(value);
+		case RANGED:  return rangedPotionProperty.get().apply(value);
+		case STRENGTH:return strengthPotionProperty.get().apply(value);
+		default: return value;
+		}
+	}
+	public int applyPrayer(Levels level, int value) {
+		switch(level) {
+		case ATTACK:  return attackPrayerProperty.get().apply(value);
+		case DEFENCE: return value;
+		case MAGIC:   return magicPrayerProperty.get().apply(value);
+		case RANGED:  return rangedPrayerProperty.get().apply(value);
+		case STRENGTH:return strengthPrayerProperty.get().apply(value);
+		default: return value;
+		}
+	}
 }

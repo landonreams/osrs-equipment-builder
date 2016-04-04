@@ -1,8 +1,9 @@
 package osrs.view;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
-import javafx.collections.ObservableList;
+import javafx.beans.property.Property;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,7 +16,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import osrs.MainApp;
+import osrs.model.data.ArmorStats;
+import osrs.model.data.Levels;
 import osrs.model.npc.ArmorSet;
+import osrs.model.npc.NPC;
 import osrs.model.npc.Player;
 
 public class SetCompactViewController {
@@ -35,6 +39,7 @@ public class SetCompactViewController {
 	private DamageCell cell;
 	private ListView<ArmorSet> list;
 	private MainApp mainApp;
+	private NPC target;
 
 	public void setCell(DamageCell cell){
 		this.cell = cell;
@@ -132,6 +137,52 @@ public class SetCompactViewController {
 	}
 
 	public void updateFields() {
-		lblSetName.setText(String.format("Set: %s", armorSet == null ? "No Name" : armorSet.getName()));
+
+		if(build == null) {
+			lblSetName.setText(String.format("Set: %s", armorSet == null ? "Unnamed" : armorSet.getName()));
+			lblDPS.setText("DPS: --");
+			lblHitChance.setText("Hit chance: --");
+			lblMaxHit.setText("Max hit: --");
+			return;
+		}
+
+		try{
+			double accuracy = build.getHitChance(mainApp.getTarget());
+			int maxHit      = build.getMaxHit();
+			double averageHit = (0.5 * maxHit) * accuracy;
+
+			double dps = averageHit / build.attackSpeedInSeconds();
+
+			lblSetName.setText(String.format("Set: %s", armorSet == null ? "Unnamed" : armorSet.getName()));
+			lblDPS.setText(String.format("DPS: %.2f", dps));
+			lblHitChance.setText(String.format("Hit chance: %.0f%%", 100 * accuracy));
+			lblMaxHit.setText(String.format("Max hit: %d", maxHit));
+		} catch (Exception e) {
+			lblSetName.setText(String.format("Set: %s", armorSet == null ? "Unnamed" : armorSet.getName()));
+			lblDPS.setText("DPS: --");
+			lblHitChance.setText("Hit chance: --");
+			lblMaxHit.setText("Max hit: --");
+		}
+	}
+
+	public void setTarget(NPC target) {
+		this.target = target;
+		ArrayList<Property<?>> properties = new ArrayList<Property<?>>();
+
+		properties.add(target.nameProperty());
+
+		for(Levels level : Levels.values()){
+			properties.add(target.levelProperty(level));
+		}
+
+		for(ArmorStats stat: ArmorStats.values()) {
+			properties.add(target.statProperty(stat));
+		}
+
+		for(Property<?> p : properties) {
+			p.addListener((observable, oldVal, newVal) -> {
+				updateFields();
+			});
+		}
 	}
 }

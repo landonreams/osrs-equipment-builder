@@ -14,6 +14,7 @@ import javafx.beans.property.StringProperty;
 import osrs.model.data.ArmorStats;
 import osrs.model.data.ItemDatabase;
 import osrs.model.data.Slot;
+import osrs.model.data.WeaponType;
 
 public class ArmorSet {
 	private final StringProperty name;
@@ -42,7 +43,7 @@ public class ArmorSet {
 	private final ItemDatabase db = ItemDatabase.getInstance();
 
 	public void setName(String name) { this.name.set(name); }
-	public String getName() { return name.get(); }
+	public String getName() { return name.get().equals("") ? "Unnamed" : name.get(); }
 	public StringProperty nameProperty() { return name; }
 
 	public void setItem(Item item) {
