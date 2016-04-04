@@ -78,6 +78,46 @@ public class PlayerEditDialogController {
 		magicSpinner.getValueFactory().setValue(player.getLevel(Levels.MAGIC));
 	}
 
+	@FXML
+	private void handleLookup() {
+		String name = nameField.getText();
+
+		if(name == null) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Warning");
+			alert.setHeaderText("Name field empty");
+			alert.setContentText("Please enter a name to lookup in the name field.");
+
+			alert.showAndWait();
+			return;
+		}
+
+		Player lookup = Player.fromHiscores(name);
+		if(lookup == null) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Player not found");
+			alert.setContentText("The name you entered was not found!\nPlease double-check your spelling.");
+
+			alert.showAndWait();
+		} else {
+			player.setName(lookup.getName());
+
+			for(Levels level : Levels.values()) {
+				player.setLevel(level, lookup.getLevel(level));
+			}
+
+			nameField.setText(player.getName());
+			attackSpinner.getValueFactory().setValue(player.getLevel(Levels.ATTACK));
+			strengthSpinner.getValueFactory().setValue(player.getLevel(Levels.STRENGTH));
+			defenceSpinner.getValueFactory().setValue(player.getLevel(Levels.DEFENCE));
+			rangedSpinner.getValueFactory().setValue(player.getLevel(Levels.RANGED));
+			hitpointsSpinner.getValueFactory().setValue(player.getLevel(Levels.HITPOINTS));
+			prayerSpinner.getValueFactory().setValue(player.getLevel(Levels.PRAYER));
+			magicSpinner.getValueFactory().setValue(player.getLevel(Levels.MAGIC));
+		}
+	}
+
 	public boolean isOkClicked() {
 		return okClicked;
 	}

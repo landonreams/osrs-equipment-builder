@@ -58,6 +58,7 @@ public class ItemSelectorController {
 	private TableColumn<Item, Integer> prayColumn;
 
 	private boolean okPressed = false;
+	private boolean clear = false;
 	private Stage dialogStage;
 
 	private ObservableList<Item> itemList = FXCollections.observableArrayList();
@@ -126,15 +127,32 @@ public class ItemSelectorController {
 
 	}
 
+	public boolean clearPressed() {
+		return clear;
+	}
+
+	public boolean okPressed() {
+		return okPressed;
+	}
+
 	@FXML
 	private void handleOk(){
 		okPressed = true;
+		clear = false;
 		dialogStage.close();
 	}
 
 	@FXML
 	private void handleCancel(){
 		okPressed = false;
+		clear = false;
+		dialogStage.close();
+	}
+
+	@FXML
+	private void handleClear() {
+		okPressed = true;
+		clear = true;
 		dialogStage.close();
 	}
 
@@ -144,7 +162,10 @@ public class ItemSelectorController {
 
 	public Item getSelection() {
 		if(okPressed) {
-			return itemTable.getSelectionModel().getSelectedItem();
+			if(clear)
+				return null;
+			else
+				return itemTable.getSelectionModel().getSelectedItem();
 		} else {
 			return null;
 		}

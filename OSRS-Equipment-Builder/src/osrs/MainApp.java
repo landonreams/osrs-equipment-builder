@@ -11,14 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import osrs.model.data.ItemDatabase;
-import osrs.model.npc.ArmorSet;
-import osrs.model.npc.Item;
 import osrs.model.npc.NPC;
 import osrs.model.npc.Player;
-import osrs.view.ArmorSetOverviewController;
 import osrs.view.DPSOverviewController;
-import osrs.view.ItemSelectorController;
 import osrs.view.PlayerEditDialogController;
 import osrs.view.PlayerOverviewController;
 import osrs.view.RootLayoutController;
@@ -29,13 +24,49 @@ public class MainApp extends Application {
 	private BorderPane rootLayout;
 	private NPC target;
 
-	private ObservableList<Player> builds = FXCollections.observableArrayList();
+	private ObservableList<Player>             builds = FXCollections.observableArrayList();
 	private ObservableObjectValue<NPC> targetProperty = new SimpleObjectProperty<>(target);
 
 	public MainApp() {
+		target = new NPC();
 
+		builds.add(new Player.Builder<>()
+				.name("Maxed")
+				.attack(99).strength(99).defence(99)
+				.ranged(99).magic(99).hitpoints(99).prayer(99).build());
 
+		builds.add(new Player.Builder<>()
+				.name("High Level")
+				.attack(90)
+				.strength(90)
+				.defence(90)
+				.ranged(90)
+				.magic(90)
+				.hitpoints(95)
+				.prayer(70)
+				.build());
 
+		builds.add(new Player.Builder<>()
+				.name("Mid Level")
+				.attack(70)
+				.strength(70)
+				.defence(70)
+				.ranged(70)
+				.magic(70)
+				.hitpoints(75)
+				.prayer(52)
+				.build());
+
+		builds.add(new Player.Builder<>()
+				.name("Low Level")
+				.attack(50)
+				.strength(50)
+				.defence(50)
+				.ranged(50)
+				.magic(55)
+				.hitpoints(55)
+				.prayer(43)
+				.build());
 
 	}
 
@@ -45,6 +76,10 @@ public class MainApp extends Application {
 
 	public ObservableList<Player> getPlayerData() {
 		return builds;
+	}
+
+	public boolean playerListIsEmpty() {
+		return builds.isEmpty();
 	}
 
 
@@ -93,6 +128,8 @@ public class MainApp extends Application {
 			AnchorPane dpsOverview = (AnchorPane) loader.load();
 
 			DPSOverviewController controller = loader.getController();
+			controller.setTarget(target);
+			controller.setMainApp(this);
 
 			rootLayout.setCenter(dpsOverview);
 		} catch (Exception e) {
@@ -131,36 +168,9 @@ public class MainApp extends Application {
 		return null;
 	}
 
-	public Item getItemFromSearch(ItemDatabase.Search search) {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/ItemSelector.fxml"));
-			AnchorPane itemSelector = (AnchorPane) loader.load();
-
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Item Selector");
-			dialogStage.initModality(Modality.APPLICATION_MODAL);
-			dialogStage.initOwner(primaryStage);
-
-			ItemSelectorController controller = loader.getController();
-			controller.setDialogStage(dialogStage);
-			controller.setSearch(search);
-
-			dialogStage.setScene(new Scene(itemSelector));
-
-			dialogStage.showAndWait();
-
-			return controller.getSelection();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	public NPC getTarget() {
+		return target;
 	}
-
-	public void editArmorSet(ArmorSet armorSet) {
-
-	}
-
 
 	public static void main(String[] args) {
 		launch(args);

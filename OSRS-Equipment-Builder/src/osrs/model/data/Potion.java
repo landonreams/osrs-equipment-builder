@@ -1,65 +1,109 @@
 package osrs.model.data;
 
-public enum Potion implements Boost {
-	REG_ATT("Attack potion",   3, 1.1,  FLAG_ATTACK),
-	REG_STR("Strength potion", 3, 1.1,  FLAG_STRENGTH),
-	REG_DEF("Defence potion",  3, 1.1,  FLAG_DEFENCE),
-	REG_RNG("Ranging potion",  4, 1.1,  FLAG_RANGED),
-	REG_MAG("Magic potion",    4, 1.0,  FLAG_MAGIC),
-	REG_CMB("Combat potion",   3, 1.1,  FLAG_ATTACK | FLAG_STRENGTH),
-	SUP_ATT("Super attack",    5, 1.15, FLAG_ATTACK);
+public class Potion {
+	public enum Attack {
+		NONE("None", 0, 1.0),
+		REG("Attack potion", 3, 1.1),
+		CMB("Combat potion", 3, 1.1),
+		SUP("Super attack", 5, 1.15),
+		OVL("Overload", 5, 1.15),
+		BRW("Zamorak brew", 2, 1.2);
 
-	private int affected, constant;
-	private double percent;
-	private String name;
-	private Potion(String name, int constant, double percent, int affected){
-		this.name = name;
-		this.constant = constant;
-		this.percent = percent;
-		this.affected = affected;
-	}
+		private final int constant;
+		private final double percentage;
+		private final String name;
 
-	public int[] apply(int[] levels){
-		int[] result = levels.clone();
-
-		return result;
-	}
-
-	public int affected(){ return affected; }
-
-	public int apply(int level, Levels levelType){
-		int flag = (int) Math.pow(2, levelType.index());
-		double result = level;
-
-		System.out.printf("Flag: %s%n", Integer.toBinaryString(flag));
-
-		if( (this.affected & flag) == flag){
-			result *= percent;
-			result += constant;
+		private Attack(String name, int constant, double percentage) {
+			this.constant = constant;
+			this.name = name;
+			this.percentage = percentage;
 		}
 
-		return (int) Math.floor(result);
-	}
-
-	public boolean conflicts(Boost other) {
-		if(other instanceof Potion){
-			return ( ( this.affected & other.affected() ) == 0);
-		} else {
-			return false;
+		public int apply(int level) {
+			double result = level;
+			result = level * percentage + constant;
+			return (int) result;
 		}
+
+		@Override
+		public String toString() { return name; }
 	}
 
-	@Override
-	public String toString(){
-		return name;
+	public enum Strength {
+		NONE("None", 0, 1.0),
+		REG("Strength potion", 3, 1.1),
+		CMB("Combat potion", 3, 1.1),
+		SUP("Super attack", 5, 1.15),
+		OVL("Overload", 5, 1.15),
+		BRW("Zamorak brew", 2, 1.12);
+
+		private final int constant;
+		private final double percentage;
+		private final String name;
+
+		private Strength(String name, int constant, double percentage) {
+			this.constant = constant;
+			this.name = name;
+			this.percentage = percentage;
+		}
+
+		public int apply(int level) {
+			double result = level;
+			result = level * percentage + constant;
+			return (int) result;
+		}
+
+		@Override
+		public String toString() { return name; }
 	}
 
-	public static void main(String[] args){
-		int level = 50;
-		Levels levelType = Levels.STRENGTH;
-		Potion pot = Potion.REG_STR;
+	public enum Ranged {
+		NONE("None", 0, 1.0),
+		REG("Ranging potion", 4, 1.1),
+		OVL("Overload", 5, 1.15);
 
-		System.out.println(pot.apply(level, levelType));
+		private final int constant;
+		private final double percentage;
+		private final String name;
+
+		private Ranged(String name, int constant, double percentage) {
+			this.constant = constant;
+			this.name = name;
+			this.percentage = percentage;
+		}
+
+		public int apply(int level) {
+			double result = level;
+			result = level * percentage + constant;
+			return (int) result;
+		}
+
+		@Override
+		public String toString() { return name; }
 	}
 
+	public enum Magic {
+		NONE("None", 0, 1.0),
+		REG("Magic potion", 4, 1.0),
+		OVL("Overload", 5, 1.15);
+
+		private final int constant;
+		private final double percentage;
+		private final String name;
+
+		private Magic(String name, int constant, double percentage) {
+			this.constant = constant;
+			this.name = name;
+			this.percentage = percentage;
+		}
+
+		public int apply(int level) {
+			double result = level;
+			result = level * percentage + constant;
+			return (int) result;
+		}
+
+		@Override
+		public String toString() { return name; }
+	}
 }

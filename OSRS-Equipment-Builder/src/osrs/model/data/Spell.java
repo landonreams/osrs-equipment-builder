@@ -44,19 +44,18 @@ public enum Spell {
 	BARRAGE_ICE("Ice barrage", 30, 94),
 	TRIDENT_SEAS("Trident of the seas", -1, 75),
 	TRIDENT_SWAMP("Trident of the swamp", -1, 75),
-	NPC("NPC Spell - Max Hit Varies", -1, -1),
-	NONE("No spell", -1, -1);
-	
+	NONE("No spell", 0, -1);
+
 	private final int maxHit;
-	public final int level;
-	public final String name;
-	
+	private final int level;
+	private final String name;
+
 	private Spell(String name, int maxHit, int level){
 		this.maxHit = maxHit;
 		this.name   = name;
 		this.level  = level;
 	}
-	
+
 	public int maxHit(int magicLevel){
 		switch(this){
 		case MAGIC_DART: return magicLevel / 10 + 10;
@@ -65,7 +64,9 @@ public enum Spell {
 		default: return maxHit;
 		}
 	}
-	
+
+	public int requirement() { return level; }
+
 	@Override
 	public String toString(){
 		return name;

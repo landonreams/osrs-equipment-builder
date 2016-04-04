@@ -13,9 +13,12 @@ public class DamageCell extends ListCell<ArmorSet> {
 	private AnchorPane pane;
 	private SetCompactViewController controller;
 	private ListView<ArmorSet> listView;
+	private MainApp mainApp;
 
-	public DamageCell( ListView<ArmorSet> listView ) {
+	public DamageCell( ListView<ArmorSet> listView, MainApp mainApp ) {
 		super();
+
+		this.mainApp = mainApp;
 
 		this.listView = listView;
 
@@ -27,6 +30,13 @@ public class DamageCell extends ListCell<ArmorSet> {
 			controller = loader.getController();
 			controller.setCell(this);
 			controller.setList(listView);
+
+			if(mainApp == null) {
+				System.out.println("ERROR: Could not load main app in DamageCell!");
+			} else {
+				controller.setMainApp(mainApp);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			pane = null;
@@ -47,11 +57,11 @@ public class DamageCell extends ListCell<ArmorSet> {
 		}
 	}
 
-	private void editItem() {
-		try {
-
-		} catch (Exception e) {
-
-		}
-	}
+//	private void editItem() {
+//		try {
+//
+//		} catch (Exception e) {
+//
+//		}
+//	}
 }

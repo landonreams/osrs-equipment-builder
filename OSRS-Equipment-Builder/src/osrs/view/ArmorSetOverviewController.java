@@ -1,12 +1,22 @@
 package osrs.view;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import osrs.MainApp;
 import osrs.model.data.ArmorStats;
+import osrs.model.data.CombatStyle;
 import osrs.model.data.ItemDatabase;
 import osrs.model.data.Slot;
 import osrs.model.npc.ArmorSet;
@@ -15,8 +25,7 @@ import osrs.model.npc.Player;
 
 public class ArmorSetOverviewController {
 
-	@FXML
-	private ObservableList<Player>   buildList;
+	private ObservableList<Player>   buildList = FXCollections.observableArrayList();
 
 	@FXML
 	private TextField nameField;
@@ -73,28 +82,135 @@ public class ArmorSetOverviewController {
 	@FXML
 	private Label lblPrayer;
 
+	@FXML
+	private StackPane stylePaneHolder;
+
+	@FXML
+	private ComboBox<Player> playerBox;
+
+	@FXML
+	private ChoiceBox<CombatStyle> styleBox;
+
+	private Player currentPlayer;
+
 	private ArmorSet armorSet;
 	private MainApp  mainApp;
 
-	private Label[] labels = new Label[] {
-			lblAStab, lblASlash, lblACrush, lblARanged, lblAMagic,
-			lblDStab, lblDSlash, lblDCrush, lblDRanged, lblDMagic,
-			lblStr, lblRStr, lblMDmg, lblPrayer
-	};
-
 	private Stage dialogStage;
+
+	private AnchorPane meleePane, rangedPane, magicPane;
+
+	private MeleeOptionsPaneController meleePaneController;
+	private RangedOptionsPaneController rangedPaneController;
+	private MagicOptionsPaneController magicPaneController;
 
 	@FXML
 	private void initialize() {
 		nameField.textProperty().addListener((observable, oldValue, newValue) -> {
 			armorSet.setName(newValue);
 		});
+
+		playerBox.setItems(buildList);
+
+		playerBox.setConverter(new StringConverter<Player>() {
+			@Override
+			public String toString(Player player) {
+				if(player == null) {
+					return "";
+				} else {
+					return player.getName();
+				}
+			}
+
+			@Override
+			public Player fromString(String str) {
+				for(Player p : buildList) {
+					if(p.getName().equals(str))
+						return p;
+				}
+				return null;
+			}
+		});
+
+		styleBox.setItems(FXCollections.observableArrayList(CombatStyle.values()));
+		styleBox.getSelectionModel().select(CombatStyle.MELEE);
+
+		styleBox.setConverter(new StringConverter<CombatStyle>() {
+
+			@Override
+			public String toString(CombatStyle object) {
+				if(object != null)
+					return object.toString();
+				else
+					return null;
+			}
+
+			@Override
+			public CombatStyle fromString(String string) {
+				for(CombatStyle s : CombatStyle.values()) {
+					if(s.toString().equals(string))
+						return s;
+				}
+				return null;
+			}
+		});
+
+		styleBox.valueProperty().addListener((observable, oldVal, newVal) -> {
+			displayStylePane(newVal);
+		});
+
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/MeleeOptionsPane.fxml"));
+			meleePane = (AnchorPane) loader.load();
+			meleePaneController = loader.getController();
+		} catch (Exception e) {
+			System.out.println("Unable to create Melee Options Pane!");
+			e.printStackTrace();
+		}
+
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/RangedOptionsPane.fxml"));
+			rangedPane = (AnchorPane) loader.load();
+			rangedPaneController = loader.getController();
+		} catch (Exception e) {
+			System.out.println("Unable to create Ranged Options Pane!");
+			e.printStackTrace();
+		}
+
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/MagicOptionsPane.fxml"));
+			magicPane = (AnchorPane) loader.load();
+			magicPaneController = loader.getController();
+		} catch (Exception e) {
+			System.out.println("Unable to create Magic Options Pane!");
+			e.printStackTrace();
+		}
+
+		displayStylePane(CombatStyle.MELEE);
 	}
 
-	public ArmorSetOverviewController() {
+	private void displayStylePane(CombatStyle style) {
+		stylePaneHolder.getChildren().clear();
+
+		AnchorPane selected = null;
+
+		switch(style) {
+		case MELEE: selected = meleePane; break;
+		case RANGED: selected = rangedPane; break;
+		case MAGIC: selected = magicPane; break;
+		}
+
+		stylePaneHolder.getChildren().add(selected);
 	}
 
-	public void setMainApp(MainApp mainApp) { this.mainApp = mainApp; }
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
+		buildList.clear();
+		buildList.setAll(mainApp.getPlayerData());
+	}
 
 	public void setArmorSet(ArmorSet armorSet) {
 		this.armorSet = armorSet;
@@ -102,6 +218,17 @@ public class ArmorSetOverviewController {
 		updateOthers();
 	}
 
+	public Player getBuild() {
+		return playerBox.getSelectionModel().getSelectedItem();
+	}
+
+	public void setPlayer(Player p) {
+		try {
+			playerBox.getSelectionModel().select(p);
+		} catch (Exception e) {
+
+		}
+	}
 
 	@FXML
 	private void handleAmmo() {
@@ -178,11 +305,45 @@ public class ArmorSetOverviewController {
 	private Item handleGenericButton(Slot slot) {
 		ItemDatabase.Search search = new ItemDatabase.Search().slot(slot);
 
-		Item i = mainApp.getItemFromSearch(search);
-		armorSet.equip(i);
+		Item i = getItemFromSearch(search, slot);
+		if(i == null)
+			armorSet.clear(slot);
+		else
+			armorSet.equip(i);
 
 		updateStats();
 		return i;
+	}
+
+	private Item getItemFromSearch(ItemDatabase.Search search, Slot slot) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/ItemSelector.fxml"));
+			AnchorPane itemSelector = (AnchorPane) loader.load();
+
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Item Selector");
+			dialogStage.initModality(Modality.APPLICATION_MODAL);
+
+			ItemSelectorController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setSearch(search);
+
+			dialogStage.setScene(new Scene(itemSelector));
+
+			dialogStage.showAndWait();
+
+			if(controller.clearPressed())
+				armorSet.clear(slot);
+
+			if(controller.okPressed())
+				return controller.getSelection();
+			else
+				return armorSet.getItem(slot);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	private void updateOthers() {
@@ -243,6 +404,15 @@ public class ArmorSetOverviewController {
 
 		Integer[] stats = new Integer[] { astab, aslash, acrush, arange, amagic, dstab, dslash, dcrush, drange, dmagic, str, rstr, mdmg, prayer };
 
+		Label[] labels = new Label[] {
+				lblAStab, lblASlash, lblACrush, lblARanged, lblAMagic,
+				lblDStab, lblDSlash, lblDCrush, lblDRanged, lblDMagic,
+				lblStr, lblRStr, lblMDmg, lblPrayer
+		};
+
+		if(lblAStab == null)
+			System.out.println("ERROR: LABELS ARE NULL!");
+
 		for(int i = 0; i < labels.length; i++) {
 			if(stats[i] == null)
 				stats[i] = 0;
@@ -255,5 +425,10 @@ public class ArmorSetOverviewController {
 
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
+	}
+
+	@FXML
+	private void handleOk() {
+		dialogStage.close();
 	}
 }

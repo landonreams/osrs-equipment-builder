@@ -42,13 +42,13 @@
                         <Label text="Crush Defence" GridPane.rowIndex="6" />
                         <Label text="Ranged Defence" GridPane.rowIndex="7" />
                         <Label text="Magic Defence" GridPane.rowIndex="8" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <TextField fx:id="txtMagic" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtDefence" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="txtDStab" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="txtDSlash" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="txtDCrush" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="txtDRange" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TextField fx:id="txtDMagic" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                      </children>
                   </GridPane>
                </children>

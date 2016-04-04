@@ -1,22 +1,20 @@
 package osrs.model.npc;
 
-import java.util.EnumMap;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import osrs.model.data.ArmorStats;
 import osrs.model.data.Levels;
-import osrs.util.ArmorStatsEnumMapAdapter;
-import osrs.util.LevelsEnumMapAdapter;
 
 public abstract class Fightable {
 	protected final StringProperty  name;
-	protected final ObjectProperty<EnumMap<Levels, Integer>> levels;
-	protected final ObjectProperty<EnumMap<ArmorStats, Integer>> stats;
+	protected final Map<Levels, IntegerProperty> levels;
+	protected final Map<ArmorStats, IntegerProperty> stats;
 
 	public static abstract class Builder<T extends Fightable> {
 		private String name;
@@ -59,7 +57,6 @@ public abstract class Fightable {
 			throw new IllegalStateException();
 		}
 
-		@SuppressWarnings("unchecked")
 		protected abstract T getInstance();
 	}
 
@@ -77,21 +74,28 @@ public abstract class Fightable {
 
 	protected Fightable() {
 		name   = new SimpleStringProperty("");
-		levels = new SimpleObjectProperty<>(new EnumMap<Levels, Integer>(Levels.class));
-		stats  = new SimpleObjectProperty<>(new EnumMap<ArmorStats, Integer>(ArmorStats.class));
+		levels = new HashMap<>();
+		stats  = new HashMap<>();
+
+		Arrays.asList(Levels.values())
+		.forEach(lvl ->
+			levels.put(lvl, new SimpleIntegerProperty(0)));
+
+		Arrays.asList(ArmorStats.values())
+		.forEach(as ->
+			stats.put(as, new SimpleIntegerProperty(0)));
 	}
 
 	public String getName() { return name.get(); }
 	public void setName(String name) { this.name.set(name); }
 	public StringProperty nameProperty() { return name; }
 
+	public Integer getLevel(Levels level) { return levels.get(level).get(); }
+	public void setLevel(Levels level, Integer value) { levels.get(level).set(value); }
+	public IntegerProperty levelProperty(Levels level) { return levels.get(level); }
 
-	public Integer getLevel(Levels level) { return levels.get().get(level); }
-	public void setLevel(Levels level, Integer value) { levels.get().put(level, value); }
-	public ObjectProperty<EnumMap<Levels, Integer>> levelProperty() { return levels; }
-
-	public Integer getStat(ArmorStats stat) { return stats.get().get(stat); }
-	public void setStat(ArmorStats stat, Integer value) { stats.get().put(stat, value); }
-	public ObjectProperty<EnumMap<ArmorStats, Integer>> statProperty() { return stats; }
+	public Integer getStat(ArmorStats stat) { return stats.get(stat).get(); }
+	public void setStat(ArmorStats stat, Integer value) { stats.get(stat).set(value); }
+	public IntegerProperty statProperty(ArmorStats stat) { return stats.get(stat); }
 
 }
